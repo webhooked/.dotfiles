@@ -1,0 +1,20 @@
+font-family = "Berkeley Mono Variable"
+font-style = "Book SemiCondensed"
+font-size = 15
+
+adjust-cell-height = 25%
+adjust-cursor-height = 25%
+adjust-underline-position = 40%
+adjust-underline-thickness = -60%
+
+keybind = ctrl+|=new_split:right
+
+cursor-style = bar
+macos-titlebar-style = hidden
+confirm-close-surface = always
+clipboard-paste-protection = false
+unfocused-split-opacity = 1.0
+
+theme = dark:kanso-ink,light:kanso-pearl
+background-opacity = 0.98
+background-blur-radius = 200

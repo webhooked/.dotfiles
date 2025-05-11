@@ -1,0 +1,28 @@
+# Oscura theme for Ghostty
+# Based on the VSCode Oscura theme
+
+# Basic colors
+background = "#131419"
+foreground = "#E6E6E6"
+cursor-color = "#E6E7A3"
+cursor-text = "#131419"
+selection-background = "#5A5B63"
+selection-foreground = "#E6E6E6"
+
+# ANSI Colors (0-15)
+palette = 0=#131419
+palette = 1=#FF5C5C
+palette = 2=#54C0A3
+palette = 3=#E6E7A3
+palette = 4=#479FFA
+palette = 5=#9592A4
+palette = 6=#54C0A3
+palette = 7=#C1C1C1
+palette = 8=#32333B
+palette = 9=#D84F68
+palette = 10=#4EBE96
+palette = 11=#F9B98C
+palette = 12=#60AEFF
+palette = 13=#D84F68
+palette = 14=#E6E7A3
+palette = 15=#E6E6E6

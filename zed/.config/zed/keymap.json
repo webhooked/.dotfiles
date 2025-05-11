@@ -1,0 +1,136 @@
+[
+  {
+    "use_key_equivalents": true,
+    "bindings": {
+      "ctrl-j": "menu::SelectNext",
+      "ctrl-k": "menu::SelectPrevious"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-1": ["pane::ActivateItem", 0],
+      "cmd-2": ["pane::ActivateItem", 1],
+      "cmd-3": ["pane::ActivateItem", 2],
+      "cmd-4": ["pane::ActivateItem", 3],
+      "cmd-5": ["pane::ActivateItem", 4],
+      "cmd-6": ["pane::ActivateItem", 5],
+      "cmd-7": ["pane::ActivateItem", 6],
+      "cmd-8": ["pane::ActivateItem", 7],
+      "cmd-9": ["pane::ActivateItem", 8],
+      "cmd-0": "pane::ActivateLastItem",
+      "cmd-k k": "pane::SplitUp",
+      "cmd-k j": "pane::SplitDown",
+      "cmd-k h": "pane::SplitLeft",
+      "cmd-k l": "pane::SplitRight",
+      "cmd-shift-up": "pane::TogglePinTab",
+      "cmd-shift-down": "pane::TogglePinTab"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-shift-f": "editor::Format",
+      "cmd-b": "editor::GoToDefinition",
+      "cmd-r": "search::ToggleReplace",
+      "cmd-t": "workspace::NewFile",
+      "ctrl-i": "assistant::InlineAssist",
+      "cmd-shift-up": "pane::TogglePinTab",
+      "cmd-shift-down": "pane::TogglePinTab"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "ctrl-j": "vim::ScrollDown",
+      "ctrl-k": "vim::ScrollUp",
+      "space l": "workspace::ToggleRightDock",
+      "space h": "workspace::ToggleLeftDock",
+      "space t": "terminal_panel::ToggleFocus",
+      "space z": "workspace::ToggleCenteredLayout",
+      "space space": "file_finder::Toggle",
+      "cmd-ctrl-h": "workspace::ActivatePaneLeft",
+      "cmd-ctrl-l": "workspace::ActivatePaneRight",
+      "cmd-ctrl-k": "workspace::ActivatePaneUp",
+      "cmd-ctrl-j": "workspace::ActivatePaneDown",
+      "cmd-shift-h": "workspace::ToggleLeftDock",
+      "cmd-shift-l": "workspace::ToggleRightDock",
+      "cmd-shift-j": "workspace::ToggleBottomDock",
+      "cmd-ctrl-c": "terminal_panel::ToggleFocus",
+      "cmd-ctrl-i": "agent::ToggleFocus",
+      "cmd-shift-i": "agent::ToggleFocus",
+      "cmd-t": "workspace::NewTerminal",
+      "ctrl-z": "workspace::ToggleCenteredLayout"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-m": "pane::TogglePinTab",
+      "ctrl-o": "tab_switcher::Toggle",
+      "ctrl-q": "tab_switcher::CloseSelectedItem"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == visual || vim_mode == normal)",
+    "bindings": {
+      "ctrl-j": "vim::ScrollDown",
+      "ctrl-k": "vim::ScrollUp"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
+    "bindings": {
+      "shift-s": ["vim::PushAddSurrounds", {}]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-ctrl-h": "workspace::ActivatePaneLeft",
+      "cmd-ctrl-l": "workspace::ActivatePaneRight",
+      "cmd-ctrl-k": "workspace::ActivatePaneUp",
+      "cmd-ctrl-j": "workspace::ActivatePaneDown",
+      "cmd-shift-h": "workspace::ToggleLeftDock",
+      "cmd-shift-l": "workspace::ToggleRightDock",
+      "cmd-shift-j": "workspace::ToggleBottomDock",
+      "cmd-ctrl-c": "terminal_panel::ToggleFocus",
+      "cmd-ctrl-i": "agent::ToggleFocus",
+      "cmd-shift-i": "agent::ToggleFocus",
+      "ctrl-o": "tab_switcher::Toggle",
+      "ctrl-q": "tab_switcher::CloseSelectedItem",
+      "cmd-t": "workspace::NewTerminal",
+      "ctrl-z": "workspace::ToggleCenteredLayout"
+    }
+  },
+  {
+    "context": "ProjectSearchBar",
+    "bindings": {
+      "cmd-r": "search::ToggleReplace"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "cmd-ctrl-h": "workspace::ActivatePaneLeft",
+      "cmd-ctrl-l": "workspace::ActivatePaneRight",
+      "cmd-ctrl-k": "workspace::ActivatePaneUp",
+      "cmd-ctrl-j": "workspace::ActivatePaneDown",
+      "cmd-shift-h": "workspace::ToggleLeftDock",
+      "cmd-shift-l": "workspace::ToggleRightDock",
+      "cmd-shift-j": "workspace::ToggleBottomDock",
+      "cmd-ctrl-c": "terminal_panel::ToggleFocus",
+      "cmd-ctrl-i": "agent::ToggleFocus",
+      "cmd-shift-i": "agent::ToggleFocus",
+      "cmd-t": "workspace::NewTerminal",
+      "ctrl-z": "workspace::ToggleCenteredLayout"
+    }
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "j": ["vim::Down", { "display_lines": true }],
+      "k": ["vim::Up", { "display_lines": true }]
+    }
+  }
+]

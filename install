@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+pushd $DOTFILES
+for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
+do
+    echo "stow $folder"
+    stow -D --target=$HOME --verbose $folder
+    stow --target=$HOME --verbose $folder
+done
+popd

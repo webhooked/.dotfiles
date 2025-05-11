@@ -1,0 +1,194 @@
+{
+  "editor.tabCompletion": "on",
+  "javascript.validate.enable": false,
+  "files.autoSave": "onFocusChange",
+  "editor.detectIndentation": false,
+  "editor.showFoldingControls": "always",
+  "editor.fontFamily": "BerkeleyMonoVariable-Regular_Retina-SemiCondensed",
+  "editor.fontSize": 15,
+  "terminal.integrated.fontSize": 13,
+  "editor.lineHeight": 1.6,
+  "editor.tabSize": 2,
+  "editor.formatOnPaste": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.snippetSuggestions": "top",
+  "eslint.enable": true,
+  "eslint.run": "onType",
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.fontLigatures": true,
+  "editor.linkedEditing": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "terminal.external.osxExec": "ghostty.app",
+  "editor.fontVariations": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "redhat.telemetry.enabled": false,
+  "better-comments.multilineComments": true,
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "?",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    }
+  ],
+  "editor.inlineSuggest.enabled": true,
+  "svelte.enable-ts-plugin": true,
+  "editor.wordWrap": "on",
+  "git.openRepositoryInParentFolders": "never",
+  "go.toolsManagement.autoUpdate": true,
+  "workbench.tree.indent": 16,
+  "workbench.editor.labelFormat": "short",
+  "window.confirmBeforeClose": "keyboardOnly",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "editor.lineNumbers": "relative",
+  "files.associations": {
+    ".env*": "properties"
+  },
+  "window.autoDetectColorScheme": true,
+  "window.commandCenter": false,
+  "workbench.statusBar.visible": false,
+  "explorer.sortOrder": "filesFirst",
+  "explorer.compactFolders": false,
+  "material-icon-theme.folders.color": "#8AFF80",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "workbench.tree.enableStickyScroll": true,
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "git.enableSmartCommit": true,
+  "zenMode.hideLineNumbers": false,
+  "zenMode.showTabs": "none",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.biome": "explicit"
+    }
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.biome": "explicit"
+    }
+  },
+  "[javascript.jsx]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.biome": "explicit"
+    }
+  },
+  "[typescript.tsx]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.biome": "explicit"
+    }
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.biome": "explicit"
+    }
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.biome": "explicit"
+    }
+  },
+  "[svelte]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.biome": "explicit"
+    }
+  },
+  "vim.useSystemClipboard": true,
+  "editor.bracketPairColorization.enabled": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.minimap.enabled": false,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.folding": false,
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "extensions.ignoreRecommendations": true,
+  "workbench.editor.editorActionsLocation": "titleBar",
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.value": 5,
+  "git.confirmSync": false,
+  "editor.renderWhitespace": "none",
+  "editor.minimap.renderCharacters": false,
+  "workbench.sideBar.location": "right",
+  "workbench.preferredDarkColorTheme": "Kanso Ink",
+  "workbench.preferredLightColorTheme": "Kanso Pearl",
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "breadcrumbs.enabled": false,
+  "editor.stickyScroll.enabled": true,
+  "editor.cursorSurroundingLines": 5,
+  "vim.leader": " ",
+  "vim.visualModeKeyBindings": [
+    {
+      "before": ["c-j"],
+      "after": ["c-d"]
+    },
+    {
+      "before": ["c-k"],
+      "after": ["c-u"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["c-j"],
+      "after": ["c-d"]
+    },
+    {
+      "before": ["c-k"],
+      "after": ["c-u"]
+    }
+  ],
+  "editor.cursorBlinking": "solid",
+  "zenMode.fullScreen": true
+}

@@ -1,0 +1,37 @@
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "go",
+        "gomod",
+        "gowork",
+        "gosum",
+        "bash",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "query",
+        "regex",
+        "tsx",
+        "typescript",
+        "vim",
+        "yaml",
+        "svelte",
+        "gitignore",
+        "graphql",
+        "http",
+        "php",
+        "sql",
+      },
+      autotag = {
+        enable = true,
+        enable_close_on_slash = false,
+      },
+    },
+  },
+}
