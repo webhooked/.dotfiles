@@ -63,7 +63,9 @@ return {
         file = { filename_first = true },
       },
       layout = {
+        border = "none",
         layout = {
+          border = "none",
           box = "horizontal",
           width = 0.8,
           height = 0.9,

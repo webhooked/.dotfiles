@@ -59,6 +59,7 @@
       "cmd-ctrl-c": "terminal_panel::ToggleFocus",
       "cmd-ctrl-i": "agent::ToggleFocus",
       "cmd-shift-i": "agent::ToggleFocus",
+      "cmd-shift-g": "git_panel::ToggleFocus",
       "cmd-t": "workspace::NewTerminal",
       "ctrl-z": "workspace::ToggleCenteredLayout"
     }
@@ -97,6 +98,7 @@
       "cmd-ctrl-c": "terminal_panel::ToggleFocus",
       "cmd-ctrl-i": "agent::ToggleFocus",
       "cmd-shift-i": "agent::ToggleFocus",
+      "cmd-shift-g": "git_panel::ToggleFocus",
       "ctrl-o": "tab_switcher::Toggle",
       "ctrl-q": "tab_switcher::CloseSelectedItem",
       "cmd-t": "workspace::NewTerminal",
@@ -122,6 +124,7 @@
       "cmd-ctrl-c": "terminal_panel::ToggleFocus",
       "cmd-ctrl-i": "agent::ToggleFocus",
       "cmd-shift-i": "agent::ToggleFocus",
+      "cmd-shift-g": "git_panel::ToggleFocus",
       "cmd-t": "workspace::NewTerminal",
       "ctrl-z": "workspace::ToggleCenteredLayout"
     }

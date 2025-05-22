@@ -61,7 +61,6 @@ alias vi="nvim"
 # ENVIRONMENT VARIABLES & PATH CONFIGURATION
 #-------------------------------------------------------------
 # NPM paths
-export PATH="$HOME/.npm-packages/bin:$PATH"
 export PATH=~/.npm-global/bin:$PATH
 
 # Homebrew
@@ -75,11 +74,6 @@ export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOPATH
 export PATH=$PATH:$GOROOT/bin
 export PATH=$PATH:$HOME/go/bin
-
-# NVM (Node Version Manager)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Docker
 export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
