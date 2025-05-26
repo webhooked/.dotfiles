@@ -1,0 +1,4 @@
+gui:
+  theme:
+    selectedLineBgColor:
+      - default # bolds the selected line font
