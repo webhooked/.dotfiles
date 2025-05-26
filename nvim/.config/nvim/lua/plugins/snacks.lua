@@ -1,6 +1,10 @@
 return {
   "folke/snacks.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  keys = {
+    { "<leader><leader>", function() require("snacks").picker.buffers() end, desc = "Buffers" },
+    { "<leader>ff", function() require("snacks").picker.files() end, desc = "Find Files" },
+  },
   opts = {
     dashboard = {
       width = 60,
@@ -60,10 +64,11 @@ return {
         explorer = { hidden = true, ignored = true },
       },
       formatters = {
-        file = { filename_first = true },
+        file = { filename_first = false },
       },
       layout = {
         border = "none",
+        backdrop = false,
         layout = {
           border = "none",
           box = "horizontal",

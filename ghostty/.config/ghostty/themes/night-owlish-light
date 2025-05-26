@@ -1,0 +1,40 @@
+# NIGHT OWLISH LIGHT
+cursor-color = 403f53
+background = fbfbfb
+foreground = 403f53
+
+# black
+palette = 0=#403f53
+palette = 8=#989fb1
+
+# red
+palette = 1=#de3d3b
+palette = 9=#de3d3b
+
+# green
+palette = 2=#08916a
+palette = 10=#08916a
+
+# yellow
+palette = 3=#e0af02
+palette = 11=#daaa01
+
+# blue
+palette = 4=#288ed7
+palette = 12=#288ed7
+
+# purple/magenta
+palette = 5=#d6438a
+palette = 13=#d6438a
+
+# cyan
+palette = 6=#2aa298
+palette = 14=#2aa298
+
+# white
+palette = 7=#f0f0f0
+palette = 15=#f0f0f0
+
+# selection colors
+selection-background = e0e0e0
+selection-foreground = 403f53

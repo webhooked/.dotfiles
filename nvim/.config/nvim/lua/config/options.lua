@@ -11,6 +11,7 @@ local opt = vim.opt
 
 opt.clipboard = "unnamed"
 opt.autowrite = true -- Enable auto write
+opt.autoread = true -- Enable auto read
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 3 -- Hide * markup for bold and italic
 opt.confirm = true -- Confirm to save changes before exiting modified buffer

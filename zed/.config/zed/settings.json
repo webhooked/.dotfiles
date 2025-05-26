@@ -88,8 +88,8 @@
   "vertical_scroll_margin": 10,
   "theme": {
     "mode": "system",
-    "light": "Tokyo Night Storm",
-    "dark": "Tokyo Night Noir"
+    "light": "Kanso Pearl (No italics)",
+    "dark": "Kanso Ink (No italics)"
   },
   "toolbar": {
     "breadcrumbs": true,
