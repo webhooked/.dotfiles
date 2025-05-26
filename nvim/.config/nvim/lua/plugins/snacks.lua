@@ -2,8 +2,20 @@ return {
   "folke/snacks.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
-    { "<leader><leader>", function() require("snacks").picker.buffers() end, desc = "Buffers" },
-    { "<leader>ff", function() require("snacks").picker.files() end, desc = "Find Files" },
+    {
+      "<leader>fb",
+      function()
+        require("snacks").picker.buffers()
+      end,
+      desc = "Find Buffers",
+    },
+    {
+      "<leader><leader>",
+      function()
+        require("snacks").picker.files()
+      end,
+      desc = "Find Files",
+    },
   },
   opts = {
     dashboard = {
