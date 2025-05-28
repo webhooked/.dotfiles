@@ -57,6 +57,10 @@ alias tks='tmux kill-session -t'
 alias vim="nvim"
 alias vi="nvim"
 
+# Yazi aliases
+alias y="yazi"
+alias yz="yazi"
+
 #-------------------------------------------------------------
 # ENVIRONMENT VARIABLES & PATH CONFIGURATION
 #-------------------------------------------------------------

@@ -64,7 +64,7 @@
     "default_profile": "write",
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-thinking-latest"
+      "model": "claude-sonnet-4-thinking-latest"
     },
     "dock": "left",
     "version": "2"

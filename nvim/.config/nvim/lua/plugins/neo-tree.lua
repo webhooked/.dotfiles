@@ -1,12 +1,13 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  enabled = false,
   cmd = "Neotree",
   deactivate = function()
     vim.cmd([[Neotree close]])
   end,
-  -- keys = {
-  --   { "<leader>e", false },
-  -- },
+  keys = {
+    { "<leader>e", false },
+  },
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
     if vim.fn.argc() == 1 then

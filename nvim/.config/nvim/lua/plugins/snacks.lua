@@ -1,22 +1,6 @@
 return {
   "folke/snacks.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  keys = {
-    {
-      "<leader>fb",
-      function()
-        require("snacks").picker.buffers()
-      end,
-      desc = "Find Buffers",
-    },
-    {
-      "<leader><leader>",
-      function()
-        require("snacks").picker.files()
-      end,
-      desc = "Find Files",
-    },
-  },
   opts = {
     dashboard = {
       width = 60,
@@ -56,38 +40,32 @@ return {
         { section = "startup" },
       },
     },
-    opts = {
-      win = {
-        backdrop = {
-          bg = "#e5e9f0",
-          blend = 70,
-        },
-      },
-    },
-    picker = {
-      exclude = { -- add folder names here to exclude
-        ".git",
-        "node_modules",
-        ".next",
-      },
-      sources = {
-        files = { hidden = true, ignored = true },
-        grep = { hidden = true, ignored = true },
-        explorer = { hidden = true, ignored = true },
-      },
-      formatters = {
-        file = { filename_first = false },
-      },
-      layout = {
-        border = "none",
-        backdrop = false,
-        layout = {
-          border = "none",
-          box = "horizontal",
-          width = 0.8,
-          height = 0.9,
-        },
-      },
-    },
+    -- picker = {
+    --   exclude = { -- add folder names here to exclude
+    --     ".git",
+    --     "node_modules",
+    --     ".next",
+    --     "target",
+    --     ".idea",
+    --   },
+    --   sources = {
+    --     files = { hidden = true, ignored = true },
+    --     grep = { hidden = true, ignored = true },
+    --     explorer = { hidden = true, ignored = true },
+    --   },
+    --   formatters = {
+    --     file = { filename_first = false },
+    --   },
+    --   layout = {
+    --     border = "none",
+    --     backdrop = false,
+    --     layout = {
+    --       border = "none",
+    --       box = "horizontal",
+    --       width = 0.8,
+    --       height = 0.9,
+    --     },
+    --   },
+    -- },
   },
 }

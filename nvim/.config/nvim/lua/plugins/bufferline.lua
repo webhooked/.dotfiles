@@ -41,10 +41,10 @@ return {
         separator_style = { " ", " " },
         offsets = {
           {
-            filetype = "neo-tree",
-            text = "Neo-tree",
+            -- filetype = "neo-tree",
+            -- text = "Neo-tree",
             -- highlight = "BufferLineBackground",
-            highlight = "NeoTreeNormal",
+            -- highlight = "NeoTreeNormal",
             text_align = "center",
           },
           {

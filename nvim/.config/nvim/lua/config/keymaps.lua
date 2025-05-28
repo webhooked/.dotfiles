@@ -19,6 +19,26 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 
+-- basic telescope configuration
+local conf = require("telescope.config").values
+local function toggle_telescope(harpoon_files)
+  local file_paths = {}
+  for _, item in ipairs(harpoon_files.items) do
+    table.insert(file_paths, item.value)
+  end
+
+  require("telescope.pickers")
+    .new({}, {
+      prompt_title = "Harpoon",
+      finder = require("telescope.finders").new_table({
+        results = file_paths,
+      }),
+      previewer = conf.file_previewer({}),
+      sorter = conf.generic_sorter({}),
+    })
+    :find()
+end
+
 -- change word on enter
 map("n", "<cr>", "ciw")
 
@@ -158,10 +178,6 @@ map("n", "<C-e>", function()
   harpoon:list():next()
 end, { desc = "Harpoon Next Buffer" })
 
-map("n", "<leader>h", function()
-  harpoon.ui:toggle_quick_menu(harpoon:list())
-end, { desc = "Open harpoon window" })
-
 -- quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 
@@ -181,3 +197,7 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = true })
 map("n", "<leader>sW", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { desc = "Sub word under cursor" })
 
 map("n", "<leader>fh", "<cmd>DiffviewFileHistory %<CR>", { desc = "File history" })
+map("n", "<leader>fb", ":Telescope file_browser<CR>", { noremap = true })
+map("n", "<leader>h", function()
+  toggle_telescope(harpoon:list())
+end, { desc = "Open harpoon window" })
