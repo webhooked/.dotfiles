@@ -106,17 +106,40 @@ return {
         grep = { hidden = true, ignored = true },
         explorer = { hidden = true, ignored = true },
       },
+      win = {
+        input = {
+          keys = {
+            ["<C-p>"] = { "focus_preview", mode = { "i", "n" } },
+          },
+        },
+        list = {
+          keys = {
+            ["<C-p>"] = { "focus_preview", mode = { "n" } },
+          },
+        },
+        preview = {
+          keys = {
+            ["<C-p>"] = { "focus_input", mode = { "n" } },
+          },
+        },
+      },
       formatters = {
         file = { filename_first = false },
       },
       layout = {
-        border = "none",
-        backdrop = false,
         layout = {
-          border = "none",
           box = "horizontal",
           width = 0.8,
-          height = 0.9,
+          min_width = 120,
+          height = 0.8,
+          {
+            box = "vertical",
+            border = "rounded",
+            title = "{title} {live} {flags}",
+            { win = "input", height = 1, border = "bottom" },
+            { win = "list", border = "none" },
+          },
+          { win = "preview", title = "{preview}", border = "rounded", width = 0.5 },
         },
       },
     },
