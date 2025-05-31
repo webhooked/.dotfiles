@@ -19,7 +19,6 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 
-
 -- change word on enter
 map("n", "<cr>", "ciw")
 
@@ -90,6 +89,11 @@ map("n", "<leader>z", "<cmd>NoNeckPain<cr>", { desc = "No Neck Pain" })
 
 -- toggle options
 map("n", "<leader>uf", require("lazyvim.util").format.toggle, { desc = "Toggle format on Save" })
+
+-- copy everything between { and } including the brackets
+-- p puts text after the cursor,
+-- P puts text before the cursor.
+map("n", "YY", "va{Vy", { noremap = true, silent = true, desc = "Yank around curly braces" })
 
 -- buffers
 if Util.has("bufferline.nvim") then

@@ -1,10 +1,9 @@
-#theme = "dark: night-owl, light: night-owl-light"
 theme = "dark: kanso-ink, light: kanso-pearl"
-background-opacity = 0.98
+background-opacity = 0.92
 background-blur-radius = 200
 
 font-family = "Berkeley Mono Variable"
-font-style = "Book SemiCondensed"
+font-style = "Retina SemiCondensed"
 font-size = 15
 
 adjust-cell-height = 20%

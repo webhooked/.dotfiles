@@ -60,6 +60,7 @@
       "cmd-ctrl-i": "agent::ToggleFocus",
       "cmd-shift-i": "agent::ToggleFocus",
       "cmd-shift-g": "git_panel::ToggleFocus",
+      "space g g": "git_panel::ToggleFocus",
       "cmd-t": "workspace::NewTerminal",
       "ctrl-z": "workspace::ToggleCenteredLayout"
     }
@@ -99,6 +100,7 @@
       "cmd-ctrl-i": "agent::ToggleFocus",
       "cmd-shift-i": "agent::ToggleFocus",
       "cmd-shift-g": "git_panel::ToggleFocus",
+      "space g g": "git_panel::ToggleFocus",
       "ctrl-o": "tab_switcher::Toggle",
       "ctrl-q": "tab_switcher::CloseSelectedItem",
       "cmd-t": "workspace::NewTerminal",
@@ -125,6 +127,7 @@
       "cmd-ctrl-i": "agent::ToggleFocus",
       "cmd-shift-i": "agent::ToggleFocus",
       "cmd-shift-g": "git_panel::ToggleFocus",
+      "space g g": "git_panel::ToggleFocus",
       "cmd-t": "workspace::NewTerminal",
       "ctrl-z": "workspace::ToggleCenteredLayout"
     }
@@ -134,6 +137,13 @@
     "bindings": {
       "j": ["vim::Down", { "display_lines": true }],
       "k": ["vim::Up", { "display_lines": true }]
+    }
+  },
+  {
+    "context": "GitPanel > Editor",
+    "use_key_equivalents": true,
+    "bindings": {
+      "cmd-ctrl-c": "git::GenerateCommitMessage"
     }
   }
 ]

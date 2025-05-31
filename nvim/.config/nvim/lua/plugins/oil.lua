@@ -5,7 +5,7 @@ return {
   -- Optional dependencies
   dependencies = { { "echasnovski/mini.icons" } },
   keys = {
-    { "<leader>o", "<cmd>Oil --float<cr>", desc = "Oil Float - Parent Dir" },
+    { "<leader>e", "<cmd>Oil --float<cr>", desc = "Oil Float - Parent Dir" },
     { "-", "<cmd>Oil --float<cr>", desc = "Oil Float - Parent Dir" },
   },
   opts = {
