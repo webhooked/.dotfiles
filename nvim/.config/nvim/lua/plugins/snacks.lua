@@ -2,49 +2,6 @@ return {
   "folke/snacks.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
-    {
-      "<leader>fb",
-      function()
-        require("snacks").picker.buffers()
-      end,
-      desc = "Find Buffers",
-    },
-    {
-      "<leader><leader>",
-      function()
-        require("snacks").picker.files()
-      end,
-      desc = "Find Files",
-    },
-    {
-      "<leader>lg",
-      function()
-        require("snacks").lazygit()
-      end,
-      desc = "Lazygit",
-    },
-    {
-      "<leader>gl",
-      function()
-        require("snacks").lazygit.log()
-      end,
-      desc = "Lazygit Logs",
-    },
-    {
-      "<leader>rN",
-      function()
-        require("snacks").rename.rename_file()
-      end,
-      desc = "Fast Rename Current File",
-    },
-    {
-      "<leader>dB",
-      function()
-        require("snacks").bufdelete()
-      end,
-      desc = "Delete or Close Buffer  (Confirm)",
-    },
-
     -- Snacks Picker
     {
       "<leader>sc",
