@@ -181,7 +181,6 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = true })
 -- Global substitute (quick raw :%s)
 map("n", "<leader>sW", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { desc = "Sub word under cursor" })
 
-map("n", "<leader>fh", "<cmd>DiffviewFileHistory %<CR>", { desc = "File history" })
 map("n", "<leader>h", function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { desc = "Open harpoon window" })
