@@ -4,7 +4,7 @@ return {
   priority = 1000,
   opts = {
     background = {
-      light = "pearl",
+      light = "mist",
       dark = "ink",
     },
     bold = false,
@@ -22,8 +22,8 @@ return {
 --   dev = true,
 --   opts = {
 --     background = {
---       light = "pearl",
---       dark = "ink",
+--       light = "mist",
+--       dark = "zen",
 --     },
 --     bold = false,
 --     italics = false,
