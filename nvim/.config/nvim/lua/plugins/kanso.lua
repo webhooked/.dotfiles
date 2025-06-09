@@ -5,7 +5,7 @@ return {
   opts = {
     background = {
       light = "mist",
-      dark = "ink",
+      dark = "zen",
     },
     bold = false,
     italics = false,

@@ -7,7 +7,7 @@ dark = "kanso-ink"
 [manager]
 cwd = { fg = "#C5C9C7" }
 
-hovered = { fg = "#C5C9C7", bg = "#393B42" }
+hovered = { fg = "#C5C9C7", bg = "#393B44" }
 preview_hovered = { underline = true }
 
 find_keyword = { fg = "#C4B28A", italic = true }

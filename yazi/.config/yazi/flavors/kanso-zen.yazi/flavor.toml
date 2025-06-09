@@ -7,7 +7,7 @@ dark = "kanso-zen"
 [manager]
 cwd = { fg = "#C5C9C7" }
 
-hovered = { fg = "#C5C9C7", bg = "#24262D" }
+hovered = { fg = "#C5C9C7", bg = "#22262D" }
 preview_hovered = { underline = true }
 
 find_keyword = { fg = "#C4B28A", italic = true }

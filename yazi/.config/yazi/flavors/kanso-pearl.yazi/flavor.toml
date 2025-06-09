@@ -2,9 +2,9 @@
 # A light theme with warm, muted tones
 
 [manager]
-cwd = { fg = "#24262D" }
+cwd = { fg = "#22262D" }
 
-hovered = { fg = "#24262D", bg = "#deddda" }
+hovered = { fg = "#22262D", bg = "#deddda" }
 preview_hovered = { underline = true }
 
 find_keyword = { fg = "#77713f", italic = true }
@@ -40,7 +40,7 @@ perm_read  = { fg = "#77713f" }
 perm_write = { fg = "#c84053" }
 perm_exec  = { fg = "#6f894e" }
 
-progress_label  = { fg = "#24262D", bold = true }
+progress_label  = { fg = "#22262D", bold = true }
 progress_normal = { fg = "#4d699b", bg = "#deddda" }
 progress_error  = { fg = "#c84053", bg = "#deddda" }
 
@@ -75,7 +75,7 @@ separator_style = { fg = "#b5b4b0" }
 on      = { fg = "#b35b79" }
 run     = { fg = "#597b75" }
 hovered = { reversed = true, bold = true }
-footer  = { fg = "#e6e5e2", bg = "#24262D" }
+footer  = { fg = "#e6e5e2", bg = "#22262D" }
 
 [notify]
 title_info  = { fg = "#6f894e" }
@@ -108,7 +108,7 @@ rules = [
   { mime = "application/doc", fg = "#4d699b" },
 
   # Fallback
-  { name = "*", fg = "#24262D" },  # Files
+  { name = "*", fg = "#22262D" },  # Files
   { name = "*/", fg = "#4d699b" }  # Directories
 ]
 
@@ -144,8 +144,8 @@ prepend_rules = [
   { name = "*.xml", text = "󰗀", fg = "#8a8980" },
 
   # Documentation
-  { name = "*.md", text = "", fg = "#24262D" },
-  { name = "*.txt", text = "", fg = "#24262D" },
+  { name = "*.md", text = "", fg = "#22262D" },
+  { name = "*.txt", text = "", fg = "#22262D" },
   { name = "README*", text = "", fg = "#77713f" },
 
   # Shell
@@ -165,5 +165,5 @@ prepend_rules = [
 
   # Default
   { name = "*/", text = "", fg = "#4d699b" },       # Directory
-  { name = "*", text = "#24262D", fg = "#24262D" }, # File
+  { name = "*", text = "#22262D", fg = "#22262D" }, # File
 ]
