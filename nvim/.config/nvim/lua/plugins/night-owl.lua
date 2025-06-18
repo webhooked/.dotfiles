@@ -8,6 +8,6 @@ return {}
 --   opts = {
 --     bold = false,
 --     italics = false,
---     -- transparent_background = true,
+--     transparent_background = true,
 --   },
 -- }

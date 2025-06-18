@@ -2,8 +2,9 @@ return {
   "sindrets/diffview.nvim",
   keys = {
     { "<leader>da", mode = { "n", "v" }, "<cmd>DiffviewOpen<cr>", desc = "Open diffview" },
-    { "<leader>dfh", mode = { "n", "v" }, "<cmd>DiffviewFileHistory %<CR>", desc = "File history" },
+    { "<leader>dfh", mode = { "n", "v" }, "<cmd>DiffviewFileHistory --base=LOCAL %<CR>", desc = "File history (with uncommitted)" },
     { "<leader>dbh", mode = { "n", "v" }, "<cmd>DiffviewFileHistory<CR>", desc = "Current branch history" },
+    { "<leader>ds", mode = { "n", "v" }, "<cmd>DiffviewOpen --cached<CR>", desc = "View staged changes" },
     { "<leader>dq", mode = { "n", "v" }, "<cmd>DiffviewClose<cr>", desc = "Close diffview" },
   },
   opts = {

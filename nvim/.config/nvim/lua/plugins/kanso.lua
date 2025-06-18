@@ -5,7 +5,7 @@ return {
   opts = {
     background = {
       light = "mist",
-      dark = "zen",
+      dark = "ink",
     },
     bold = false,
     italics = false,
@@ -23,7 +23,7 @@ return {
 --   opts = {
 --     background = {
 --       light = "mist",
---       dark = "zen",
+--       dark = "ink",
 --     },
 --     bold = false,
 --     italics = false,

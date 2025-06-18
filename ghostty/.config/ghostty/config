@@ -1,6 +1,6 @@
 theme = "dark: kanso-ink, light: kanso-mist"
-#background-opacity = 0.98
-#background-blur-radius = 200
+background-opacity = 0.96
+background-blur-radius = 200
 
 font-family = "Berkeley Mono Variable"
 font-style = "Book SemiCondensed"
@@ -24,3 +24,4 @@ clipboard-paste-protection = false
 unfocused-split-opacity = 1
 
 keybind = ctrl+|=new_split:right
+keybind = global:cmd+grave_accent=toggle_quick_terminal
