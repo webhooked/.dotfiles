@@ -108,23 +108,12 @@ else
   map("n", "<leader>m", "<cmd>bnext<cr>", { desc = "Next buffer" })
 end
 
-map("n", "<leader>us", function()
-  Snacks.toggle("spell")
-end, { desc = "Toggle Spelling" })
-map("n", "<leader>uw", function()
-  Snacks.toggle("wrap")
-end, { desc = "Toggle Word Wrap" })
-map("n", "<leader>ul", function()
-  Snacks.toggle("relativenumber", true)
-  Snacks.toggle("number")
-end, { desc = "Toggle Line Numbers" })
-map("n", "<leader>ud", function()
-  Snacks.toggle("diagnostics")
-end, { desc = "Toggle Diagnostics" })
+Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+Snacks.toggle.option("wrap", { name = "Word Wrap" }):map("<leader>uw")
+Snacks.toggle.line_number():map("<leader>ul")
+Snacks.toggle.diagnostics():map("<leader>ud")
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-map("n", "<leader>uc", function()
-  Snacks.toggle("conceallevel", false, { 0, conceallevel })
-end, { desc = "Toggle Conceal" })
+Snacks.toggle.option("conceallevel", { name = "Conceal", values = { 0, conceallevel } }):map("<leader>uc")
 
 -- lazygit
 map("n", "<leader>gg", function()
