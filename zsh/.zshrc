@@ -61,6 +61,9 @@ alias vi="nvim"
 alias y="yazi"
 alias yz="yazi"
 
+# AI Assistant aliases
+alias ai="claude"
+
 #-------------------------------------------------------------
 # ENVIRONMENT VARIABLES & PATH CONFIGURATION
 #-------------------------------------------------------------
