@@ -10,6 +10,13 @@ return {
       end,
       desc = "Find Config File",
     },
+    {
+      "<leader>f",
+      function()
+        require("snacks").picker.buffers()
+      end,
+      desc = "Find Buffer",
+    },
   },
   opts = {
     dashboard = {
@@ -62,6 +69,36 @@ return {
         files = { hidden = true, ignored = true },
         grep = { hidden = true, ignored = true },
         explorer = { hidden = true, ignored = true },
+        buffers = {
+          win = {
+            list = {
+              keys = {
+                ["d"] = {
+                  function(picker, item)
+                    local buf = item and item.buf
+                    if buf and vim.api.nvim_buf_is_valid(buf) then
+                      vim.api.nvim_buf_delete(buf, { force = false })
+                      picker:refresh()
+                    end
+                  end,
+                  desc = "Delete buffer",
+                  mode = { "n" },
+                },
+                ["D"] = {
+                  function(picker, item)
+                    local buf = item and item.buf
+                    if buf and vim.api.nvim_buf_is_valid(buf) then
+                      vim.api.nvim_buf_delete(buf, { force = true })
+                      picker:refresh()
+                    end
+                  end,
+                  desc = "Force delete buffer",
+                  mode = { "n" },
+                },
+              },
+            },
+          },
+        },
       },
       win = {
         input = {
