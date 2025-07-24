@@ -1,10 +1,10 @@
-# NIGHT OWLISH
-cursor-color = #80a4c2
-background = #10121e
+# NIGHT OWL
+cursor-color = #d6deeb
+background = #011627
 foreground = #d6deeb
 
 # black
-palette = 0=#121319
+palette = 0=#011627
 palette = 8=#575656
 
 # red

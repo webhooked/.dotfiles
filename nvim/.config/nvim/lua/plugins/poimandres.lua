@@ -1,12 +1,11 @@
 return {
-  dir = "/Users/webhooked/repos/private/themes/neovim/night-owl.nvim",
+  dir = "/Users/webhooked/repos/private/themes/neovim/poimandres.nvim",
+  name = "poimandres",
   enabled = false,
-  name = "night-owl",
   lazy = false,
   priority = 1000,
   dev = true,
   opts = {
-    background = "auto",
     bold = false,
     italics = false,
     transparent = true,
