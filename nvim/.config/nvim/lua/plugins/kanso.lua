@@ -4,29 +4,15 @@ return {
   priority = 1000,
   opts = {
     background = {
-      light = "mist",
+      light = "pearl",
       dark = "ink",
+    },
+    foreground = {
+      light = "contrast",
+      dark = "contrast",
     },
     bold = false,
     italics = false,
     transparent = true,
   },
 }
---
---
--- return {
---   dir = "/Users/webhooked/repos/private/themes/neovim/kanso.nvim",
---   name = "kanso",
---   lazy = false,
---   priority = 1000,
---   dev = true,
---   opts = {
---     background = {
---       light = "mist",
---       dark = "ink",
---     },
---     bold = false,
---     italics = false,
---     transparent = true,
---   },
--- }
