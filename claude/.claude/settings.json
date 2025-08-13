@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(make lint)",
+      "Bash(rg:*)",
+      "Bash(git log:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(go fmt:*)",
+      "Bash(make:*)",
+      "Bash(true)",
+      "Bash(rm:*)",
+      "Bash(mv:*)",
+      "Bash(sqlc:*)",
+      "Bash(ls:*)",
+      "Bash(psql:*)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)",
+      "mcp__linear__list_comments",
+      "mcp__linear__get_issue",
+      "WebFetch(domain:supabase.com)",
+      "mcp__supabase__search_docs",
+      "Bash(for:*)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(basename:*)",
+      "Bash(done)",
+      "Bash(chmod:*)",
+      "Bash(/Users/webhooked/repos/orestocks/sync-engine/move_migrations.sh)",
+      "Bash(cat:*)",
+      "Bash(go list:*)",
+      "Bash(/Users/webhooked/repos/orestocks/sync-engine/update_handlers.sh)",
+      "WebFetch(domain:atlasgo.io)",
+      "Bash(atlas:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:pressly.github.io)",
+      "Bash(cp:*)",
+      "Bash(python3:*)",
+      "Bash(awk:*)",
+      "Bash(make lint)",
+      "Bash(rg:*)",
+      "Bash(git log:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(go fmt:*)",
+      "Bash(make:*)",
+      "Bash(true)",
+      "Bash(rm:*)",
+      "Bash(mv:*)",
+      "Bash(sqlc:*)",
+      "Bash(ls:*)",
+      "Bash(psql:*)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)",
+      "mcp__linear__list_comments",
+      "mcp__linear__get_issue",
+      "WebFetch(domain:supabase.com)",
+      "mcp__supabase__search_docs",
+      "Bash(for:*)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(basename:*)",
+      "Bash(done)",
+      "Bash(chmod:*)",
+      "Bash(/Users/webhooked/repos/orestocks/sync-engine/move_migrations.sh)",
+      "Bash(cat:*)",
+      "Bash(go list:*)",
+      "Bash(/Users/webhooked/repos/orestocks/sync-engine/update_handlers.sh)",
+      "WebFetch(domain:atlasgo.io)",
+      "Bash(atlas:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:pressly.github.io)",
+      "Bash(cp:*)",
+      "Bash(python3:*)",
+      "Bash(awk:*)"
+    ],
+    "deny": []
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); clock=$(date '+%H:%M:%S'); hostname=$(hostname -s); model=$(echo \"$input\" | jq -r '.model.display_name'); current_dir=$(echo \"$input\" | jq -r '.workspace.current_dir'); folder=$(basename \"$current_dir\"); if git -C \"$current_dir\" rev-parse --git-dir > /dev/null 2>&1; then branch=$(git -C \"$current_dir\" branch --show-current 2>/dev/null || echo 'detached'); git_info=\" 🌳 $branch\"; else git_info=''; fi; printf \"🕒 %s 💻 %s 🤖 %s 📁 %s%s 📍 %s\" \"$clock\" \"$hostname\" \"$model\" \"$folder\" \"$git_info\" \"$current_dir\""
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": ["supabase"],
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run ~/.claude/hooks/pre_tool_use.py"
+          }
+        ]
+      }
+    ]
+  }
+}

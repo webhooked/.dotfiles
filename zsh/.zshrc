@@ -63,6 +63,7 @@ alias yz="yazi"
 
 # AI Assistant aliases
 alias ai="claude"
+alias dai="claude --dangerously-skip-permissions"
 
 #-------------------------------------------------------------
 # ENVIRONMENT VARIABLES & PATH CONFIGURATION
@@ -109,3 +110,11 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-clou
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 eval "$(zoxide init zsh)"
+
+
+# Herd injected PHP 8.4 configuration.
+export HERD_PHP_84_INI_SCAN_DIR="/Users/webhooked/Library/Application Support/Herd/config/php/84/"
+
+
+# Herd injected PHP binary.
+export PATH="/Users/webhooked/Library/Application Support/Herd/bin/":$PATH
