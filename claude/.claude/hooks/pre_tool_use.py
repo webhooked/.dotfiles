@@ -82,6 +82,62 @@ def is_env_file_access(tool_name, tool_input):
     
     return False
 
+def is_blocked_git_command(command):
+    """
+    Check if the command is a blocked git operation (restore or reset).
+    """
+    normalized = ' '.join(command.lower().split())
+    
+    # Block git restore and git reset commands
+    git_patterns = [
+        r'\bgit\s+restore\b',  # git restore
+        r'\bgit\s+reset\b',     # git reset
+    ]
+    
+    for pattern in git_patterns:
+        if re.search(pattern, normalized):
+            return True
+    
+    return False
+
+def is_blocked_package_manager_command(command):
+    """
+    Check if the command is a blocked package manager operation.
+    Blocks bun, npm, yarn, pnpm, npx except for 'bun run typecheck'.
+    """
+    normalized = ' '.join(command.lower().split())
+    
+    # Whitelist: Allow 'bun run typecheck'
+    if re.search(r'\bbun\s+run\s+typecheck\b', normalized):
+        return False
+    
+    # Block all other package manager commands
+    package_manager_patterns = [
+        r'\bbun\b',   # bun
+        r'\bnpm\b',   # npm
+        r'\byarn\b',  # yarn
+        r'\bpnpm\b',  # pnpm
+        r'\bnpx\b',   # npx
+    ]
+    
+    for pattern in package_manager_patterns:
+        if re.search(pattern, normalized):
+            return True
+    
+    return False
+
+def is_chmod_command(command):
+    """
+    Check if the command is a chmod operation.
+    """
+    normalized = ' '.join(command.lower().split())
+    
+    # Block chmod commands
+    if re.search(r'\bchmod\b', normalized):
+        return True
+    
+    return False
+
 def main():
     try:
         # Read JSON input from stdin
@@ -103,6 +159,22 @@ def main():
             # Block rm -rf commands with comprehensive pattern matching
             if is_dangerous_rm_command(command):
                 print("BLOCKED: Dangerous rm command detected and prevented", file=sys.stderr)
+                sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
+            
+            # Block git restore and git reset commands
+            if is_blocked_git_command(command):
+                print("BLOCKED: git restore and git reset commands are not allowed", file=sys.stderr)
+                sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
+            
+            # Block package manager commands (except 'bun run typecheck')
+            if is_blocked_package_manager_command(command):
+                print("BLOCKED: Package manager commands (bun, npm, yarn, pnpm, npx) are not allowed", file=sys.stderr)
+                print("Exception: 'bun run typecheck' is whitelisted", file=sys.stderr)
+                sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
+            
+            # Block chmod commands
+            if is_chmod_command(command):
+                print("BLOCKED: chmod commands are not allowed", file=sys.stderr)
                 sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
         
         # Ensure log directory exists
