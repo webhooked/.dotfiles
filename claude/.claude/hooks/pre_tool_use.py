@@ -138,6 +138,25 @@ def is_chmod_command(command):
     
     return False
 
+def is_blocked_goose_command(command):
+    """
+    Check if the command is a blocked goose migration operation.
+    Blocks 'goose up' and 'goose down' but allows 'goose create'.
+    """
+    normalized = ' '.join(command.lower().split())
+    
+    # Block goose up and goose down commands (anywhere in the command)
+    goose_patterns = [
+        r'\bgoose\b.*\bup\b',    # goose ... up
+        r'\bgoose\b.*\bdown\b',  # goose ... down
+    ]
+    
+    for pattern in goose_patterns:
+        if re.search(pattern, normalized):
+            return True
+    
+    return False
+
 def main():
     try:
         # Read JSON input from stdin
@@ -175,6 +194,12 @@ def main():
             # Block chmod commands
             if is_chmod_command(command):
                 print("BLOCKED: chmod commands are not allowed", file=sys.stderr)
+                sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
+            
+            # Block goose up and goose down commands (but allow goose create)
+            if is_blocked_goose_command(command):
+                print("BLOCKED: goose up and goose down commands are not allowed", file=sys.stderr)
+                print("Use 'goose create' to create new migrations", file=sys.stderr)
                 sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
         
         # Ensure log directory exists

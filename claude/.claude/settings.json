@@ -84,7 +84,6 @@
     "command": "input=$(cat); clock=$(date '+%H:%M:%S'); hostname=$(hostname -s); model=$(echo \"$input\" | jq -r '.model.display_name'); current_dir=$(echo \"$input\" | jq -r '.workspace.current_dir'); folder=$(basename \"$current_dir\"); if git -C \"$current_dir\" rev-parse --git-dir > /dev/null 2>&1; then branch=$(git -C \"$current_dir\" branch --show-current 2>/dev/null || echo 'detached'); git_info=\" 🌳 $branch\"; else git_info=''; fi; printf \"🕒 %s 💻 %s 🤖 %s 📁 %s%s 📍 %s\" \"$clock\" \"$hostname\" \"$model\" \"$folder\" \"$git_info\" \"$current_dir\""
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["supabase"],
   "hooks": {
     "PreToolUse": [
       {
@@ -93,6 +92,17 @@
           {
             "type": "command",
             "command": "uv run ~/.claude/hooks/pre_tool_use.py"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run ~/.claude/hooks/user_prompts_submit.py"
           }
         ]
       }

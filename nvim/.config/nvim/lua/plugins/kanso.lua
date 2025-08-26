@@ -4,12 +4,12 @@ return {
   priority = 1000,
   opts = {
     background = {
-      light = "pearl",
+      light = "mist",
       dark = "ink",
     },
     foreground = {
-      light = "contrast",
-      dark = "contrast",
+      light = "saturated",
+      dark = "default",
     },
     bold = false,
     italics = false,
