@@ -1,5 +1,7 @@
 return {
   "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
   dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
     -- Snacks Picker
@@ -19,6 +21,12 @@ return {
     },
   },
   opts = {
+    -- Core features that LazyVim expects
+    bigfile = { enabled = true },
+    notifier = { enabled = true },
+    quickfile = { enabled = true },
+    statuscolumn = { enabled = true },
+    words = { enabled = true },
     dashboard = {
       width = 60,
       row = nil,

@@ -52,6 +52,9 @@ opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = true -- Disable line wrap
 
+-- Temporary fix for LazyVim statuscolumn folds error
+opt.statuscolumn = ""
+
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 vim.g.snacks_animate = false

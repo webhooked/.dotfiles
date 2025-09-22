@@ -12,7 +12,7 @@ return {
       dark = "default",
     },
     bold = false,
-    italics = false,
+    italics = true,
     transparent = true,
   },
 }

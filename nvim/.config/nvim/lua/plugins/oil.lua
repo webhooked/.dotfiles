@@ -3,7 +3,7 @@ return {
   ---@module 'oil'
   ---@type oil.SetupOpts
   -- Optional dependencies
-  dependencies = { { "echasnovski/mini.icons" } },
+  dependencies = { { "nvim-mini/mini.icons" } },
   keys = {
     { "<leader>e", "<cmd>Oil --float<cr>", desc = "Oil Float - Parent Dir" },
     { "-", "<cmd>Oil --float<cr>", desc = "Oil Float - Parent Dir" },

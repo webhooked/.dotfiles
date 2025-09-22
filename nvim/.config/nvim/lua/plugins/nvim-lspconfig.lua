@@ -3,6 +3,9 @@ return {
   dependencies = { "jose-elias-alvarez/typescript.nvim" },
   opts = function()
     return {
+      folds = {
+        enable = false,
+      },
       inlay_hints = { enabled = false },
       codelens = { enabled = true },
       diagnostics = {

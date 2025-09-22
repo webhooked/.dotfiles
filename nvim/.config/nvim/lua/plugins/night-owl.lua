@@ -6,7 +6,7 @@ return {
   priority = 1000,
   dev = true,
   opts = {
-    background = "auto",
+    background = "dark",
     bold = false,
     italics = false,
     transparent = true,
