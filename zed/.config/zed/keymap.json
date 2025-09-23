@@ -36,7 +36,8 @@
       "cmd-t": "workspace::NewFile",
       "ctrl-i": "assistant::InlineAssist",
       "cmd-shift-up": "pane::TogglePinTab",
-      "cmd-shift-down": "pane::TogglePinTab"
+      "cmd-shift-down": "pane::TogglePinTab",
+      "ctrl-s": "workspace::Save"
     }
   },
   {
@@ -44,11 +45,28 @@
     "bindings": {
       "ctrl-j": "vim::ScrollDown",
       "ctrl-k": "vim::ScrollUp",
+      "shift-l": "pane::ActivateNextItem",
+      "tab": "pane::ActivateNextItem",
+      "ctrl-l": "pane::ActivateNextItem",
+      "ctrl-e": "pane::ActivateNextItem",
       "space l": "workspace::ToggleRightDock",
       "space h": "workspace::ToggleLeftDock",
       "space t": "terminal_panel::ToggleFocus",
       "space z": "workspace::ToggleCenteredLayout",
+      "space Z": "workspace::ToggleCenteredLayout",
       "space space": "file_finder::Toggle",
+      "space g g": "git_panel::ToggleFocus",
+      "space w d": "pane::CloseActiveItem",
+      "space w -": "pane::SplitDown",
+      "space w |": "pane::SplitRight",
+      "space -": "pane::SplitDown",
+      "space |": "pane::SplitRight",
+      "space q q": "zed::Quit",
+      "space w w": "workspace::Save",
+      "space 1": ["pane::ActivateItem", 0],
+      "space 2": ["pane::ActivateItem", 1],
+      "space 3": ["pane::ActivateItem", 2],
+      "space 4": ["pane::ActivateItem", 3],
       "cmd-ctrl-h": "workspace::ActivatePaneLeft",
       "cmd-ctrl-l": "workspace::ActivatePaneRight",
       "cmd-ctrl-k": "workspace::ActivatePaneUp",
@@ -64,7 +82,6 @@
       "cmd-ctrl-i": "agent::ToggleFocus",
       "cmd-shift-i": "agent::ToggleFocus",
       "cmd-shift-g": "git_panel::ToggleFocus",
-      "space g g": "git_panel::ToggleFocus",
       "cmd-t": "workspace::NewTerminal",
       "ctrl-z": "workspace::ToggleCenteredLayout"
     }
@@ -73,8 +90,7 @@
     "context": "Editor",
     "bindings": {
       "ctrl-m": "pane::TogglePinTab",
-      "ctrl-o": "tab_switcher::Toggle",
-      "ctrl-q": "tab_switcher::CloseSelectedItem"
+      "ctrl-o": "tab_switcher::Toggle"
     }
   },
   {
@@ -87,7 +103,15 @@
   {
     "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
     "bindings": {
-      "shift-s": ["vim::PushAddSurrounds", {}]
+      "shift-s": "vim::PushAddSurrounds",
+      "<": "editor::Outdent",
+      ">": "editor::Indent"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j j": "vim::NormalBefore"
     }
   },
   {
@@ -110,9 +134,9 @@
       "cmd-shift-g": "git_panel::ToggleFocus",
       "space g g": "git_panel::ToggleFocus",
       "ctrl-o": "tab_switcher::Toggle",
-      "ctrl-q": "tab_switcher::CloseSelectedItem",
       "cmd-t": "workspace::NewTerminal",
-      "ctrl-z": "workspace::ToggleCenteredLayout"
+      "ctrl-z": "workspace::ToggleCenteredLayout",
+      "ctrl-space a": "agent::ToggleFocus"
     }
   },
   {
@@ -148,7 +172,8 @@
     "context": "Editor && VimControl && !VimWaiting && !menu",
     "bindings": {
       "j": ["vim::Down", { "display_lines": true }],
-      "k": ["vim::Up", { "display_lines": true }]
+      "k": ["vim::Up", { "display_lines": true }],
+      "shift-y shift-y": "vim::YankLine"
     }
   },
   {
