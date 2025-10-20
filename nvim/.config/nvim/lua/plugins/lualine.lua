@@ -5,6 +5,7 @@ return {
   config = function()
     require("lualine").setup({
       options = {
+        theme = "polar",
         component_separators = "",
         section_separators = "",
       },

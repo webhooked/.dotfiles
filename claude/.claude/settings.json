@@ -16,7 +16,6 @@
       "Bash(mv:*)",
       "Bash(sqlc:*)",
       "Bash(ls:*)",
-      "Bash(psql:*)",
       "Bash(git commit:*)",
       "Bash(git add:*)",
       "mcp__linear__list_comments",
@@ -53,7 +52,6 @@
       "Bash(mv:*)",
       "Bash(sqlc:*)",
       "Bash(ls:*)",
-      "Bash(psql:*)",
       "Bash(git commit:*)",
       "Bash(git add:*)",
       "mcp__linear__list_comments",
@@ -77,11 +75,10 @@
       "Bash(python3:*)",
       "Bash(awk:*)"
     ],
-    "deny": []
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "input=$(cat); clock=$(date '+%H:%M:%S'); hostname=$(hostname -s); model=$(echo \"$input\" | jq -r '.model.display_name'); current_dir=$(echo \"$input\" | jq -r '.workspace.current_dir'); folder=$(basename \"$current_dir\"); if git -C \"$current_dir\" rev-parse --git-dir > /dev/null 2>&1; then branch=$(git -C \"$current_dir\" branch --show-current 2>/dev/null || echo 'detached'); git_info=\" 🌳 $branch\"; else git_info=''; fi; printf \"🕒 %s 💻 %s 🤖 %s 📁 %s%s 📍 %s\" \"$clock\" \"$hostname\" \"$model\" \"$folder\" \"$git_info\" \"$current_dir\""
+    "deny": [
+      "Bash(psql:*)",
+      "Bash(mysql:*)"
+    ]
   },
   "enableAllProjectMcpServers": true,
   "hooks": {
@@ -107,5 +104,9 @@
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); clock=$(date '+%H:%M:%S'); hostname=$(hostname -s); model=$(echo \"$input\" | jq -r '.model.display_name'); current_dir=$(echo \"$input\" | jq -r '.workspace.current_dir'); folder=$(basename \"$current_dir\"); if git -C \"$current_dir\" rev-parse --git-dir > /dev/null 2>&1; then branch=$(git -C \"$current_dir\" branch --show-current 2>/dev/null || echo 'detached'); git_info=\" 🌳 $branch\"; else git_info=''; fi; printf \"🕒 %s 💻 %s 🤖 %s 📁 %s%s 📍 %s\" \"$clock\" \"$hostname\" \"$model\" \"$folder\" \"$git_info\" \"$current_dir\""
   }
 }

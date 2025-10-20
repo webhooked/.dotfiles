@@ -45,8 +45,8 @@
     "bindings": {
       "ctrl-j": "vim::ScrollDown",
       "ctrl-k": "vim::ScrollUp",
-      "shift-l": "pane::ActivateNextItem",
       "tab": "pane::ActivateNextItem",
+      "shift-l": "pane::ActivateNextItem",
       "ctrl-l": "pane::ActivateNextItem",
       "ctrl-e": "pane::ActivateNextItem",
       "space l": "workspace::ToggleRightDock",
@@ -111,12 +111,14 @@
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
-      "j j": "vim::NormalBefore"
+      "j j": "vim::NormalBefore",
+      "tab": "editor::ConfirmCompletion"
     }
   },
   {
     "context": "Workspace",
     "bindings": {
+      "ctrl-tab": "pane::ActivatePrevItem",
       "cmd-ctrl-h": "workspace::ActivatePaneLeft",
       "cmd-ctrl-l": "workspace::ActivatePaneRight",
       "cmd-ctrl-k": "workspace::ActivatePaneUp",

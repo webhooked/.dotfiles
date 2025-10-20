@@ -144,17 +144,36 @@ def is_blocked_goose_command(command):
     Blocks 'goose up' and 'goose down' but allows 'goose create'.
     """
     normalized = ' '.join(command.lower().split())
-    
+
     # Block goose up and goose down commands (anywhere in the command)
     goose_patterns = [
         r'\bgoose\b.*\bup\b',    # goose ... up
         r'\bgoose\b.*\bdown\b',  # goose ... down
     ]
-    
+
     for pattern in goose_patterns:
         if re.search(pattern, normalized):
             return True
-    
+
+    return False
+
+def is_blocked_database_command(command):
+    """
+    Check if the command is a blocked database operation.
+    Blocks psql and mysql commands.
+    """
+    normalized = ' '.join(command.lower().split())
+
+    # Block psql and mysql commands
+    database_patterns = [
+        r'\bpsql\b',   # psql
+        r'\bmysql\b',  # mysql
+    ]
+
+    for pattern in database_patterns:
+        if re.search(pattern, normalized):
+            return True
+
     return False
 
 def main():
@@ -200,6 +219,11 @@ def main():
             if is_blocked_goose_command(command):
                 print("BLOCKED: goose up and goose down commands are not allowed", file=sys.stderr)
                 print("Use 'goose create' to create new migrations", file=sys.stderr)
+                sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
+
+            # Block psql and mysql commands
+            if is_blocked_database_command(command):
+                print("BLOCKED: psql and mysql commands are not allowed", file=sys.stderr)
                 sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
         
         # Ensure log directory exists

@@ -4,6 +4,7 @@ return {
     local bufferline = require("bufferline")
 
     return {
+      highlights = require("polar.plugins.bufferline").akinsho(),
       options = {
         show_buffer_close_icons = false,
         show_buffer_icons = false, -- disable filetype icons for buffers

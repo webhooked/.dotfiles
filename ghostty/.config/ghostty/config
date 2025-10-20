@@ -1,13 +1,13 @@
-theme = "dark: kanso-ink, light: kanso-mist"
-background-opacity = 0.98
-background-blur-radius = 20
+theme = polar
+# background-opacity = 0.98
+# background-blur-radius = 100
 
 font-family = "Berkeley Mono Variable"
 font-style = "Retina SemiCondensed"
 font-size = 14
 
-adjust-cell-height = 15%
-adjust-cursor-height = 15%
+adjust-cell-height = 30%
+adjust-cursor-height = 30%
 adjust-underline-position = 40%
 adjust-underline-thickness = -60%
 
@@ -29,7 +29,4 @@ keybind = global:cmd+grave_accent=toggle_quick_terminal
 
 #custom-shader = shaders/cursor_blaze.glsl
 custom-shader = shaders/cursor_smear.glsl
-
-auto-update-channel = tip
-
 

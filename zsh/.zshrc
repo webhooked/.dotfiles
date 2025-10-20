@@ -113,8 +113,19 @@ eval "$(zoxide init zsh)"
 
 
 # Herd injected PHP 8.4 configuration.
-export HERD_PHP_84_INI_SCAN_DIR="/Users/webhooked/Library/Application Support/Herd/config/php/84/"
+export HERD_PHP_84_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/84/"
 
 
 # Herd injected PHP binary.
-export PATH="/Users/webhooked/Library/Application Support/Herd/bin/":$PATH
+export PATH="$HOME/Library/Application Support/Herd/bin/":$PATH
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
+
+
+# Atuin
+export ATUIN_NOBIND="true"
+eval "$(atuin init zsh)"
+# bindkey '^r' _atuin_search_widget
+bindkey '^r' atuin-up-search-viins

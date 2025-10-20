@@ -5,7 +5,6 @@
 -- This file is automatically loaded by plugins.config
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.api.nvim_set_hl(0, "ZenBg", { ctermbg = 0 })
 
 local opt = vim.opt
 
@@ -59,3 +58,4 @@ opt.statuscolumn = ""
 vim.g.markdown_recommended_style = 0
 vim.g.snacks_animate = false
 vim.g.root_spec = { "cwd" }
+-- vim.o.background = "dark"

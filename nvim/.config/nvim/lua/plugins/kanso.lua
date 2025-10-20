@@ -1,10 +1,11 @@
 return {
   "webhooked/kanso.nvim",
+  enabled = false,
   lazy = false,
   priority = 1000,
   opts = {
     background = {
-      light = "mist",
+      light = "pearl",
       dark = "ink",
     },
     foreground = {
