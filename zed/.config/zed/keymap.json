@@ -3,7 +3,29 @@
     "use_key_equivalents": true,
     "bindings": {
       "ctrl-j": "menu::SelectNext",
-      "ctrl-k": "menu::SelectPrevious"
+      "ctrl-k": "menu::SelectPrevious",
+      "cmd-h": "workspace::ActivatePaneLeft",
+      "cmd-l": "workspace::ActivatePaneRight",
+      "cmd-k": "workspace::ActivatePaneUp",
+      "cmd-j": "workspace::ActivatePaneDown",
+      "ctrl-space h": "workspace::ActivatePaneLeft",
+      "ctrl-space l": "workspace::ActivatePaneRight",
+      "ctrl-space k": "workspace::ActivatePaneUp",
+      "ctrl-space j": "workspace::ActivatePaneDown",
+      "cmd-shift-h": "workspace::ToggleLeftDock",
+      "cmd-shift-l": "workspace::ToggleRightDock",
+      "cmd-shift-j": "workspace::ToggleBottomDock",
+      "cmd-ctrl-i": "agent::ToggleFocus",
+      "cmd-shift-i": "agent::ToggleFocus",
+      "cmd-shift-g": "git_panel::ToggleFocus",
+      "ctrl-z": "workspace::ToggleCenteredLayout",
+      "cmd-ctrl-c": "git::GenerateCommitMessage",
+      "ctrl-space w": [
+        "projects::OpenRecent",
+        {
+          "create_new_window": true
+        }
+      ]
     }
   },
   {
@@ -46,6 +68,7 @@
       "ctrl-j": "vim::ScrollDown",
       "ctrl-k": "vim::ScrollUp",
       "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePreviousItem",
       "shift-l": "pane::ActivateNextItem",
       "ctrl-l": "pane::ActivateNextItem",
       "ctrl-e": "pane::ActivateNextItem",
@@ -62,28 +85,7 @@
       "space -": "pane::SplitDown",
       "space |": "pane::SplitRight",
       "space q q": "zed::Quit",
-      "space w w": "workspace::Save",
-      "space 1": ["pane::ActivateItem", 0],
-      "space 2": ["pane::ActivateItem", 1],
-      "space 3": ["pane::ActivateItem", 2],
-      "space 4": ["pane::ActivateItem", 3],
-      "cmd-ctrl-h": "workspace::ActivatePaneLeft",
-      "cmd-ctrl-l": "workspace::ActivatePaneRight",
-      "cmd-ctrl-k": "workspace::ActivatePaneUp",
-      "cmd-ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-space h": "workspace::ActivatePaneLeft",
-      "ctrl-space l": "workspace::ActivatePaneRight",
-      "ctrl-space k": "workspace::ActivatePaneUp",
-      "ctrl-space j": "workspace::ActivatePaneDown",
-      "cmd-shift-h": "workspace::ToggleLeftDock",
-      "cmd-shift-l": "workspace::ToggleRightDock",
-      "cmd-shift-j": "workspace::ToggleBottomDock",
-      "cmd-ctrl-c": "terminal_panel::ToggleFocus",
-      "cmd-ctrl-i": "agent::ToggleFocus",
-      "cmd-shift-i": "agent::ToggleFocus",
-      "cmd-shift-g": "git_panel::ToggleFocus",
-      "cmd-t": "workspace::NewTerminal",
-      "ctrl-z": "workspace::ToggleCenteredLayout"
+      "space w w": "workspace::Save"
     }
   },
   {
@@ -116,58 +118,9 @@
     }
   },
   {
-    "context": "Workspace",
-    "bindings": {
-      "ctrl-tab": "pane::ActivatePrevItem",
-      "cmd-ctrl-h": "workspace::ActivatePaneLeft",
-      "cmd-ctrl-l": "workspace::ActivatePaneRight",
-      "cmd-ctrl-k": "workspace::ActivatePaneUp",
-      "cmd-ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-space h": "workspace::ActivatePaneLeft",
-      "ctrl-space l": "workspace::ActivatePaneRight",
-      "ctrl-space k": "workspace::ActivatePaneUp",
-      "ctrl-space j": "workspace::ActivatePaneDown",
-      "cmd-shift-h": "workspace::ToggleLeftDock",
-      "cmd-shift-l": "workspace::ToggleRightDock",
-      "cmd-shift-j": "workspace::ToggleBottomDock",
-      "cmd-ctrl-c": "terminal_panel::ToggleFocus",
-      "cmd-ctrl-i": "agent::ToggleFocus",
-      "cmd-shift-i": "agent::ToggleFocus",
-      "cmd-shift-g": "git_panel::ToggleFocus",
-      "space g g": "git_panel::ToggleFocus",
-      "ctrl-o": "tab_switcher::Toggle",
-      "cmd-t": "workspace::NewTerminal",
-      "ctrl-z": "workspace::ToggleCenteredLayout",
-      "ctrl-space a": "agent::ToggleFocus"
-    }
-  },
-  {
     "context": "ProjectSearchBar",
     "bindings": {
       "cmd-r": "search::ToggleReplace"
-    }
-  },
-  {
-    "context": "Dock",
-    "bindings": {
-      "cmd-ctrl-h": "workspace::ActivatePaneLeft",
-      "cmd-ctrl-l": "workspace::ActivatePaneRight",
-      "cmd-ctrl-k": "workspace::ActivatePaneUp",
-      "cmd-ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl space h": "workspace::ActivatePaneLeft",
-      "ctrl space l": "workspace::ActivatePaneRight",
-      "ctrl space k": "workspace::ActivatePaneUp",
-      "ctrl space j": "workspace::ActivatePaneDown",
-      "cmd-shift-h": "workspace::ToggleLeftDock",
-      "cmd-shift-l": "workspace::ToggleRightDock",
-      "cmd-shift-j": "workspace::ToggleBottomDock",
-      "cmd-ctrl-c": "terminal_panel::ToggleFocus",
-      "cmd-ctrl-i": "agent::ToggleFocus",
-      "cmd-shift-i": "agent::ToggleFocus",
-      "cmd-shift-g": "git_panel::ToggleFocus",
-      "space g g": "git_panel::ToggleFocus",
-      "cmd-t": "workspace::NewTerminal",
-      "ctrl-z": "workspace::ToggleCenteredLayout"
     }
   },
   {
@@ -179,10 +132,17 @@
     }
   },
   {
-    "context": "GitPanel > Editor",
+    "context": "GitPanel",
     "use_key_equivalents": true,
     "bindings": {
       "cmd-ctrl-c": "git::GenerateCommitMessage"
+    }
+  },
+  {
+    "context": "(VimControl || (!Editor && !Terminal))",
+    "bindings": {
+      "ctrl-space -": "pane::SplitHorizontal",
+      "ctrl-space alt-7": "pane::SplitVertical"
     }
   }
 ]

@@ -12,7 +12,6 @@ return {
     dependencies = {
       { "L3MON4D3/LuaSnip", version = "v2.*" },
     },
-    version = "v0.*",
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     ---@diagnostic disable: missing-fields
@@ -30,7 +29,7 @@ return {
       },
       completion = {
         list = {
-          selection = { preselect = false, auto_insert = false }
+          selection = { preselect = false, auto_insert = false },
         },
         menu = {
           border = "rounded",
@@ -42,7 +41,7 @@ return {
       },
       signature = { enabled = true },
       snippets = { preset = "luasnip" },
-      appearance = { 
+      appearance = {
         nerd_font_variant = "mono",
         kind_icons = {
           Text = "󰉿",
@@ -82,7 +81,7 @@ return {
       },
     },
     opts_extend = {
-      "sources.default"
-    }
+      "sources.default",
+    },
   },
 }
