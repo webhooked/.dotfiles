@@ -1,13 +1,6 @@
 return {
   {
-    "saghen/blink.compat",
-    version = "*",
-    lazy = true,
-    opts = { impersonate_nvim_cmp = true },
-  },
-  {
     "saghen/blink.cmp",
-    cond = not vim.g.vscode,
     lazy = false, -- lazy loading handled internally
     dependencies = {
       { "L3MON4D3/LuaSnip", version = "v2.*" },
