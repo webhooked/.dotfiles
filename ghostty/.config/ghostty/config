@@ -1,32 +1,57 @@
-theme = polar
-# background-opacity = 0.98
-# background-blur-radius = 100
+# Theme
+theme = polar 
 
+# Font
 font-family = "Berkeley Mono Variable"
 font-style = "Retina SemiCondensed"
 font-size = 14
 
+# Cursor
+cursor-style = block
+cursor-style-blink = true
 adjust-cell-height = 30%
 adjust-cursor-height = 30%
 adjust-underline-position = 40%
 adjust-underline-thickness = -60%
 
-cursor-style = block
-cursor-style-blink = false
+# Shell
+shell-integration=zsh
 shell-integration-features = no-cursor
+window-save-state=always
 
-macos-titlebar-style = hidden
+# Window
+macos-titlebar-style = tabs
 macos-titlebar-proxy-icon = hidden
 macos-icon = glass
 
-confirm-close-surface = always
+# Clipboard settings
+clipboard-read = allow
+clipboard-write = allow
 copy-on-select = clipboard
-clipboard-paste-protection = false
-unfocused-split-opacity = 1
 
-keybind = ctrl+|=new_split:right
+# Keybinds
+keybind = cmd+|=new_split:right
+keybind = cmd+-=new_split:down
+keybind = cmd+h=goto_split:left
+keybind = cmd+j=goto_split:down
+keybind = cmd+k=goto_split:up
+keybind = cmd+l=goto_split:right
+keybind = cmd+z=toggle_split_zoom
+keybind = cmd+left=resize_split:left,20
+keybind = cmd+down=resize_split:down,20
+keybind = cmd+up=resize_split:up,20
+keybind = cmd+right=resize_split:right,20
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 
-#custom-shader = shaders/cursor_blaze.glsl
+# Shaders
 custom-shader = shaders/cursor_smear.glsl
+
+# Updates
+auto-update-channel=stable
+
+# Other
+unfocused-split-opacity = 1
+quit-after-last-window-closed = true
+mouse-scroll-multiplier = 0.4
+confirm-close-surface = always
 
