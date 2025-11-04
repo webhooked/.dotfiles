@@ -1,5 +1,5 @@
 # Theme
-theme = polar 
+theme = dark:kanso-ink,light:kanso-mist
 
 # Font
 font-family = "Berkeley Mono Variable"
