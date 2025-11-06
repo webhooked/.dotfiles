@@ -1,5 +1,5 @@
 # Theme
-theme = dark:kanso-ink,light:kanso-mist
+theme = "dark:kanso-ink,light:kanso-mist"
 
 # Font
 font-family = "Berkeley Mono Variable"
@@ -32,6 +32,10 @@ copy-on-select = clipboard
 # Keybinds
 keybind = cmd+|=new_split:right
 keybind = cmd+-=new_split:down
+keybind = cmd+shift+h=new_split:left
+keybind = cmd+shift+j=new_split:down
+keybind = cmd+shift+k=new_split:up
+keybind = cmd+shift+l=new_split:right
 keybind = cmd+h=goto_split:left
 keybind = cmd+j=goto_split:down
 keybind = cmd+k=goto_split:up
@@ -46,12 +50,11 @@ keybind = global:cmd+grave_accent=toggle_quick_terminal
 # Shaders
 custom-shader = shaders/cursor_smear.glsl
 
-# Updates
-auto-update-channel=stable
-
 # Other
 unfocused-split-opacity = 1
 quit-after-last-window-closed = true
 mouse-scroll-multiplier = 0.4
 confirm-close-surface = always
 
+# Updates
+auto-update-channel=stable
