@@ -24,7 +24,7 @@ return {
 
     -- Load friendly-snippets
     require("luasnip.loaders.from_vscode").lazy_load()
-    
+
     -- Load custom snippets
     require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath("config") .. "/snippets/" })
 
@@ -34,7 +34,6 @@ return {
         ls.change_choice(1)
       end
     end, { silent = true, desc = "Change choice in snippet" })
-
 
     -- Auto-reload snippets on save
     vim.api.nvim_create_autocmd("BufWritePost", {

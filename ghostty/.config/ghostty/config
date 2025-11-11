@@ -1,7 +1,7 @@
 # Theme
-theme = "dark:kanso-ink,light:kanso-mist"
+window-theme = system
+theme = dark:poimandres,light:poimandres-storm
 
-# Font
 font-family = "Berkeley Mono Variable"
 font-style = "Retina SemiCondensed"
 font-size = 14
@@ -9,8 +9,8 @@ font-size = 14
 # Cursor
 cursor-style = block
 cursor-style-blink = true
-adjust-cell-height = 30%
-adjust-cursor-height = 30%
+adjust-cell-height = 25%
+adjust-cursor-height = 25%
 adjust-underline-position = 40%
 adjust-underline-thickness = -60%
 
@@ -30,7 +30,7 @@ clipboard-write = allow
 copy-on-select = clipboard
 
 # Keybinds
-keybind = cmd+|=new_split:right
+keybind = cmd+shift+-=new_split:right
 keybind = cmd+-=new_split:down
 keybind = cmd+shift+h=new_split:left
 keybind = cmd+shift+j=new_split:down
@@ -57,4 +57,4 @@ mouse-scroll-multiplier = 0.4
 confirm-close-surface = always
 
 # Updates
-auto-update-channel=stable
+auto-update-channel=tip
