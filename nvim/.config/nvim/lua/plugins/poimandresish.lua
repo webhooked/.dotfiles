@@ -1,5 +1,5 @@
 return {
-  "webhooked/poimandres-ish.nvim",
+  "webhooked/poimandresish.nvim",
   name = "poimandresish",
   lazy = false,
   priority = 1000,

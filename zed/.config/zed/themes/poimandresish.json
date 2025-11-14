@@ -1,10 +1,10 @@
 {
   "$schema": "https://zed.dev/schema/themes/v0.1.0.json",
-  "name": "Poimandres-ish",
+  "name": "Poimandresish",
   "author": "Webhooked",
   "themes": [
     {
-      "name": "Poimandres-ish Storm",
+      "name": "Poimandresish Storm",
       "appearance": "dark",
       "style": {
         "border": "#818cc420",
@@ -248,7 +248,7 @@
       }
     },
     {
-      "name": "Poimandres-ish Noir",
+      "name": "Poimandresish Noir",
       "appearance": "dark",
       "style": {
         "border": "#818cc415",
@@ -492,7 +492,7 @@
       }
     },
     {
-      "name": "Poimandres-ish Storm - No italics",
+      "name": "Poimandresish Storm - No italics",
       "appearance": "dark",
       "style": {
         "border": "#818cc420",
@@ -732,7 +732,7 @@
       }
     },
     {
-      "name": "Poimandres-ish Noir - No italics",
+      "name": "Poimandresish Noir - No italics",
       "appearance": "dark",
       "style": {
         "border": "#818cc415",

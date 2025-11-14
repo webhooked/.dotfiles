@@ -1,6 +1,6 @@
 # Theme
 window-theme = system
-theme = dark:poimandres,light:poimandres-storm
+theme = dark:poimandresish,light:poimandresish-storm
 
 font-family = "Berkeley Mono Variable"
 font-style = "Retina SemiCondensed"
@@ -57,4 +57,4 @@ mouse-scroll-multiplier = 0.4
 confirm-close-surface = always
 
 # Updates
-auto-update-channel=tip
+auto-update-channel=stable
