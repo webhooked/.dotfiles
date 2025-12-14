@@ -19,6 +19,13 @@ return {
       end,
       desc = "Find Buffer",
     },
+    {
+      "<leader>sR",
+      function()
+        require("snacks").picker.resume()
+      end,
+      desc = "Resume Last Picker",
+    },
   },
   opts = {
     -- Core features that LazyVim expects
