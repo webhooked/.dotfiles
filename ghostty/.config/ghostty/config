@@ -1,6 +1,8 @@
 # Theme
 window-theme = system
 theme = dark:poimandresish,light:poimandresish-storm
+background-opacity = 0.96
+background-blur = 64
 
 font-family = "Berkeley Mono Variable"
 font-style = "Retina SemiCondensed"
@@ -20,7 +22,7 @@ shell-integration-features = no-cursor
 window-save-state=always
 
 # Window
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
 macos-titlebar-proxy-icon = hidden
 macos-icon = glass
 
