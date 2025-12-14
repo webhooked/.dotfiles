@@ -18,7 +18,6 @@ def is_dangerous_rm_command(command):
     
     # Pattern 1: Standard rm -rf variations
     patterns = [
-        r'\bmake\b',  # make ...
         r'\brm\s+.*-[a-z]*r[a-z]*f',  # rm -rf, rm -fr, rm -Rf, etc.
         r'\brm\s+.*-[a-z]*f[a-z]*r',  # rm -fr variations
         r'\brm\s+--recursive\s+--force',  # rm --recursive --force
@@ -84,46 +83,112 @@ def is_env_file_access(tool_name, tool_input):
 
 def is_blocked_git_command(command):
     """
-    Check if the command is a blocked git operation (restore or reset).
+    Check if the command is a blocked git operation.
+    Blocks destructive and state-changing git commands.
     """
     normalized = ' '.join(command.lower().split())
-    
-    # Block git restore and git reset commands
+
     git_patterns = [
-        r'\bgit\s+restore\b',  # git restore
-        r'\bgit\s+reset\b',     # git reset
+        # State-changing commands
+        r'\bgit\s+commit\b',
+        r'\bgit\s+push\b',
+        r'\bgit\s+pull\b',
+        r'\bgit\s+fetch\b',
+        r'\bgit\s+merge\b',
+        r'\bgit\s+rebase\b',
+        r'\bgit\s+cherry-pick\b',
+        # Destructive commands
+        r'\bgit\s+reset\b',
+        r'\bgit\s+restore\b',
+        r'\bgit\s+checkout\b',
+        r'\bgit\s+clean\b',
+        r'\bgit\s+stash\b',
+        r'\bgit\s+revert\b',
+        # Branch/tag operations
+        r'\bgit\s+branch\s+-[dD]\b',
+        r'\bgit\s+tag\s+-d\b',
+        # Repository operations
+        r'\bgit\s+remote\b',
+        r'\bgit\s+submodule\b',
+        r'\bgit\s+clone\b',
+        r'\bgit\s+init\b',
+        # Force operations
+        r'\bgit\s+.*--force\b',
+        r'\bgit\s+.*-f\b',
     ]
-    
+
     for pattern in git_patterns:
         if re.search(pattern, normalized):
             return True
-    
+
     return False
 
 def is_blocked_package_manager_command(command):
     """
     Check if the command is a blocked package manager operation.
-    Blocks bun, npm, yarn, pnpm, npx except for 'bun run typecheck'.
+    Blocks all package managers.
     """
     normalized = ' '.join(command.lower().split())
-    
+
     # Whitelist: Allow 'bun run typecheck'
     if re.search(r'\bbun\s+run\s+typecheck\b', normalized):
         return False
-    
-    # Block all other package manager commands
+
+    # Block all package manager commands
     package_manager_patterns = [
-        r'\bbun\b',   # bun
-        r'\bnpm\b',   # npm
-        r'\byarn\b',  # yarn
-        r'\bpnpm\b',  # pnpm
-        r'\bnpx\b',   # npx
+        # JavaScript/Node
+        r'\bbun\b',
+        r'\bnpm\b',
+        r'\byarn\b',
+        r'\bpnpm\b',
+        r'\bnpx\b',
+        # macOS
+        r'\bbrew\b',
+        r'\bport\b',          # MacPorts
+        # Linux
+        r'\bapt\b',
+        r'\bapt-get\b',
+        r'\bdpkg\b',
+        r'\byum\b',
+        r'\bdnf\b',
+        r'\bpacman\b',
+        r'\bapk\b',
+        r'\bzypper\b',
+        r'\bsnap\b',
+        r'\bflatpak\b',
+        # Language-specific
+        r'\bpip\b',
+        r'\bpip3\b',
+        r'\bpipx\b',
+        r'\bpoetry\b',
+        r'\bconda\b',
+        r'\bgem\b',
+        r'\bbundle\b',
+        r'\bbundler\b',
+        r'\bcargo\b',
+        r'\brustup\b',
+        r'\bgo\s+install\b',
+        r'\bgo\s+get\b',
+        r'\bcomposer\b',
+        r'\bnuget\b',
+        r'\bdotnet\s+add\b',
+        r'\bdotnet\s+tool\b',
+        r'\bcpan\b',
+        r'\bcpanm\b',
+        r'\bopam\b',
+        r'\bmix\b',           # Elixir
+        r'\bhex\b',           # Elixir
+        r'\bcabal\b',         # Haskell
+        r'\bstack\b',         # Haskell
+        r'\bluarocks\b',
+        r'\bnix-env\b',
+        r'\bnix\s+profile\b',
     ]
-    
+
     for pattern in package_manager_patterns:
         if re.search(pattern, normalized):
             return True
-    
+
     return False
 
 def is_chmod_command(command):
@@ -160,17 +225,100 @@ def is_blocked_goose_command(command):
 def is_blocked_database_command(command):
     """
     Check if the command is a blocked database operation.
-    Blocks psql and mysql commands.
+    Blocks all database CLI tools.
     """
     normalized = ' '.join(command.lower().split())
 
-    # Block psql and mysql commands
+    # Block all database CLI commands
     database_patterns = [
-        r'\bpsql\b',   # psql
-        r'\bmysql\b',  # mysql
+        # PostgreSQL
+        r'\bpsql\b',
+        r'\bpg_dump\b',
+        r'\bpg_restore\b',
+        r'\bpg_dumpall\b',
+        r'\bcreatedb\b',
+        r'\bdropdb\b',
+        r'\bcreateuser\b',
+        r'\bdropuser\b',
+        r'\bpgcli\b',
+        # MySQL/MariaDB
+        r'\bmysql\b',
+        r'\bmysqldump\b',
+        r'\bmysqlimport\b',
+        r'\bmysqladmin\b',
+        r'\bmariadb\b',
+        r'\bmariadb-dump\b',
+        r'\bmycli\b',
+        # SQLite
+        r'\bsqlite3\b',
+        r'\blitecli\b',
+        # MongoDB
+        r'\bmongo\b',
+        r'\bmongosh\b',
+        r'\bmongodump\b',
+        r'\bmongorestore\b',
+        # Redis
+        r'\bredis-cli\b',
+        # SQL Server
+        r'\bsqlcmd\b',
+        r'\bbcp\b',
+        # Other databases
+        r'\bcqlsh\b',        # Cassandra
+        r'\binflux\b',       # InfluxDB
+        r'\bcockroach\b',    # CockroachDB
+        r'\bclickhouse-client\b',  # ClickHouse
     ]
 
     for pattern in database_patterns:
+        if re.search(pattern, normalized):
+            return True
+
+    return False
+
+
+def is_blocked_shell_or_exec_command(command):
+    """
+    Check if the command is a blocked shell, exec, or dangerous command.
+    """
+    normalized = ' '.join(command.lower().split())
+
+    blocked_patterns = [
+        # Shells
+        r'^sh\b',           # sh at start
+        r'\bsh\s+-c\b',     # sh -c
+        r'^bash\b',         # bash at start
+        r'\bbash\s+-c\b',   # bash -c
+        r'^zsh\b',          # zsh at start
+        r'\bzsh\s+-c\b',    # zsh -c
+        # Execution
+        r'\bexec\b',
+        r'\beval\b',
+        r'^source\b',
+        r'^\.\s+',          # . (source shorthand)
+        # Privilege escalation
+        r'\bsudo\b',
+        r'\bsu\b',
+        # Network/download tools
+        r'\bcurl\b',
+        r'\bwget\b',
+        r'\bnc\b',
+        r'\bnetcat\b',
+        r'\bncat\b',
+        # Script interpreters (direct execution)
+        r'^perl\b',
+        r'\bperl\s+-e\b',
+        r'^ruby\b',
+        r'\bruby\s+-e\b',
+        r'^node\b',
+        r'\bnode\s+-e\b',
+        r'^php\b',
+        r'\bphp\s+-r\b',
+        # Build tools
+        r'^go\b',
+        r'^make\b',
+    ]
+
+    for pattern in blocked_patterns:
         if re.search(pattern, normalized):
             return True
 
@@ -199,9 +347,9 @@ def main():
                 print("BLOCKED: Dangerous rm command detected and prevented", file=sys.stderr)
                 sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
             
-            # Block git restore and git reset commands
+            # Block dangerous git commands
             if is_blocked_git_command(command):
-                print("BLOCKED: git restore and git reset commands are not allowed", file=sys.stderr)
+                print("BLOCKED: Dangerous git commands (commit, push, reset, restore, etc.) are not allowed", file=sys.stderr)
                 sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
             
             # Block package manager commands (except 'bun run typecheck')
@@ -221,9 +369,14 @@ def main():
                 print("Use 'goose create' to create new migrations", file=sys.stderr)
                 sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
 
-            # Block psql and mysql commands
+            # Block database commands
             if is_blocked_database_command(command):
-                print("BLOCKED: psql and mysql commands are not allowed", file=sys.stderr)
+                print("BLOCKED: Database CLI commands are not allowed", file=sys.stderr)
+                sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
+
+            # Block shell, exec, and other dangerous commands
+            if is_blocked_shell_or_exec_command(command):
+                print("BLOCKED: Shell, exec, and dangerous commands are not allowed", file=sys.stderr)
                 sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
         
         # Ensure log directory exists
