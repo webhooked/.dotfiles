@@ -1,6 +1,6 @@
 # Theme
 window-theme = system
-theme = dark:poimandresish,light:poimandresish-storm
+theme = dark:kanso-ink, light:kanso-mist
 background-opacity = 0.96
 background-blur = 64
 
