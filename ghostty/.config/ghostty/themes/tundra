@@ -1,0 +1,40 @@
+# TUNDRA
+cursor-color = #FFFFFF
+background = #111827
+foreground = #F9FAFB
+
+# black
+palette = 0=#111827
+palette = 8=#4B5563
+
+# red
+palette = 1=#FCA5A5
+palette = 9=#BF7471
+
+# green
+palette = 2=#B5E8B0
+palette = 10=#98BC99
+
+# yellow/orange
+palette = 3=#FBC19D
+palette = 11=#E8D4B0
+
+# blue/indigo
+palette = 4=#A5B4FC
+palette = 12=#424674
+
+# purple/magenta 
+palette = 5=#DDD6FE
+palette = 13=#28304D
+
+# cyan/opal
+palette = 6=#99BBBD
+palette = 14=#BAE6FD
+
+# white
+palette = 7=#F9FAFB
+palette = 15=#FFFFFF
+
+# selection colors
+selection-background = #374151
+selection-foreground = #F9FAFB

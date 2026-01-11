@@ -15,6 +15,12 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 #-------------------------------------------------------------
+# THEME CONFIGURATION
+#-------------------------------------------------------------
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#-------------------------------------------------------------
 # ALIASES
 #-------------------------------------------------------------
 # Git aliases
@@ -48,6 +54,7 @@ alias gc="git commit"
 alias gd="git diff"
 alias gk="gitk --all&"
 alias gx="gitx --all"
+alias gam="git commit --amend --no-edit"
 
 # TMUX aliases
 alias tas='tmux attach-session -t'
@@ -104,25 +111,13 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
-#-------------------------------------------------------------
-# THEME CONFIGURATION
-#-------------------------------------------------------------
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 eval "$(zoxide init zsh)"
-
 
 # Herd injected PHP 8.4 configuration.
 export HERD_PHP_84_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/84/"
 
-
 # Herd injected PHP binary.
 export PATH="$HOME/Library/Application Support/Herd/bin/":$PATH
-
-. "$HOME/.atuin/bin/env"
-
-eval "$(atuin init zsh)"
-
 
 # Atuin
 export ATUIN_NOBIND="true"

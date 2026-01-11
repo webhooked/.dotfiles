@@ -30,6 +30,9 @@ return {
   opts = {
     -- Core features that LazyVim expects
     bigfile = { enabled = true },
+    indent = {
+      hl = "SnacksIndent",
+    },
     notifier = { enabled = true },
     quickfile = { enabled = true },
     statuscolumn = { enabled = true },

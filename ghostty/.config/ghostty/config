@@ -1,6 +1,7 @@
 # Theme
 window-theme = system
-theme = dark:kanso-ink, light:kanso-mist
+# theme = dark:kanso-zen, light:kanso-ink
+theme = dark:poimandresish-noir, light:poimandresish-storm
 background-opacity = 0.96
 background-blur = 64
 
@@ -22,7 +23,7 @@ shell-integration-features = no-cursor
 window-save-state=always
 
 # Window
-macos-titlebar-style = hidden
+macos-titlebar-style = tabs
 macos-titlebar-proxy-icon = hidden
 macos-icon = glass
 
@@ -59,4 +60,4 @@ mouse-scroll-multiplier = 0.4
 confirm-close-surface = always
 
 # Updates
-auto-update-channel=stable
+auto-update-channel=tip
