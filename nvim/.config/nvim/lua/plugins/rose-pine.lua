@@ -5,9 +5,9 @@ return {
   lazy = false,
   priority = 1000,
   opts = {
-    variant = "auto",
-    -- light_variant = "dawn",
-    -- dark_variant = "moon",
+    variant = "dark",
+    light_variant = "moon",
+    dark_variant = "main",
     styles = {
       italic = false,
       transparency = true,

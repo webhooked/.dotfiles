@@ -88,9 +88,22 @@ def is_blocked_git_command(command):
     """
     normalized = ' '.join(command.lower().split())
 
+    # Allow: git add, git commit
+    # First check for allowed git commands before blocking
+    allowed_git_patterns = [
+        r'\bgit\s+add\b',
+        r'\bgit\s+commit\b',
+    ]
+
+    for pattern in allowed_git_patterns:
+        if re.search(pattern, normalized):
+            # Still block if combined with force flags
+            if re.search(r'--force\b|-f\b', normalized):
+                return True
+            return False
+
     git_patterns = [
         # State-changing commands
-        r'\bgit\s+commit\b',
         r'\bgit\s+push\b',
         r'\bgit\s+pull\b',
         r'\bgit\s+fetch\b',

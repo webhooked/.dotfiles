@@ -6,17 +6,24 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 #-------------------------------------------------------------
-# OH MY ZSH CONFIGURATION
+# ZSH CORE CONFIGURATION
 #-------------------------------------------------------------
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-plugins=(git)
-source $ZSH/oh-my-zsh.sh
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_ALL_DUPS
+setopt SHARE_HISTORY
+setopt APPEND_HISTORY
+
+# Completion system
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
 
 #-------------------------------------------------------------
-# THEME CONFIGURATION
+# POWERLEVEL10K
 #-------------------------------------------------------------
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -83,11 +90,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Go configuration
-export GOPATH=$HOME/go
-export GOROOT=/usr/local/go
-export GOBIN=$HOME/go/bin
-export PATH=$PATH:$GOPATH
-export PATH=$PATH:$GOROOT/bin
 export PATH=$PATH:$HOME/go/bin
 
 # Docker
@@ -118,6 +120,9 @@ export HERD_PHP_84_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/p
 
 # Herd injected PHP binary.
 export PATH="$HOME/Library/Application Support/Herd/bin/":$PATH
+
+# Opengrep
+export PATH="$HOME/.opengrep/cli/latest":$PATH
 
 # Atuin
 export ATUIN_NOBIND="true"

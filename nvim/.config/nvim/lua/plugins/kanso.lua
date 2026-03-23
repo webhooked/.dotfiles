@@ -9,11 +9,12 @@ return {
       dark = "ink",
     },
     foreground = {
-      light = "saturated",
+      light = "default",
       dark = "default",
     },
     bold = false,
     italics = true,
     transparent = true,
+    minimal = true,
   },
 }

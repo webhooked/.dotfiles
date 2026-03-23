@@ -12,6 +12,14 @@ return {
         numbers = { bold = false },
         operators = { bold = false },
       },
+      plugins = {
+        lsp = true,
+        semantic_tokens = true,
+        treesitter = true,
+        cmp = true,
+        context = true,
+        gitsigns = true,
+      },
       -- overwrite = {
       --   colors = {
       --     gray = {

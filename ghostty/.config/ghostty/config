@@ -1,8 +1,8 @@
 # Theme
 window-theme = system
-# theme = dark:kanso-zen, light:kanso-ink
+# theme = dark:kanso-ink, light:kanso-mist
 theme = dark:poimandresish-noir, light:poimandresish-storm
-background-opacity = 0.96
+background-opacity = 0.98
 background-blur = 64
 
 font-family = "Berkeley Mono Variable"

@@ -81,6 +81,12 @@ return {
         ".next",
         "target",
         ".idea",
+        ".pytest_cache",
+        ".ruff_cache",
+        ".venv",
+        "uv.lock",
+        "dist",
+        "logs",
       },
       sources = {
         files = { hidden = true, ignored = true },
