@@ -4,7 +4,7 @@ return {
   "webhooked/polar.nvim",
   lazy = false,
   priority = 1000,
-  enabled = false,
+  enabled = true,
   config = function()
     require("polar").setup({
       transparent = true,

@@ -7,6 +7,7 @@
     ],
     "deny": [
       "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
       "Bash(git reset --hard:*)",
       "Bash(rm -rf /*:*)",
       "Bash(rm -rf ~/*:*)",
@@ -86,7 +87,8 @@
       "Read(**/.env)",
       "Read(**/.env.*)"
     ],
-    "ask": []
+    "ask": [],
+    "defaultMode": "auto"
   },
   "enableAllProjectMcpServers": true,
   "hooks": {
@@ -129,6 +131,17 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Grep|Glob|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/webhooked/.claude/hooks/gitnexus/gitnexus-hook.cjs\"",
+            "timeout": 10,
+            "statusMessage": "Enriching with GitNexus graph context..."
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -138,6 +151,17 @@
           {
             "type": "command",
             "command": "if [ -f tsconfig.json ]; then bunx tsc --noEmit 2>&1 | head -20; fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/webhooked/.claude/hooks/gitnexus/gitnexus-hook.cjs\"",
+            "timeout": 10,
+            "statusMessage": "Checking GitNexus index freshness..."
           }
         ]
       }
@@ -159,8 +183,28 @@
     "command": "input=$(cat); clock=$(date '+%H:%M:%S'); hostname=$(hostname -s); model=$(echo \"$input\" | jq -r '.model.display_name'); current_dir=$(echo \"$input\" | jq -r '.workspace.current_dir'); folder=$(basename \"$current_dir\"); if git -C \"$current_dir\" rev-parse --git-dir > /dev/null 2>&1; then branch=$(git -C \"$current_dir\" branch --show-current 2>/dev/null || echo 'detached'); git_info=\" 🌳 $branch\"; else git_info=''; fi; printf \"🕒 %s 💻 %s 🤖 %s 📁 %s%s 📍 %s\" \"$clock\" \"$hostname\" \"$model\" \"$folder\" \"$git_info\" \"$current_dir\""
   },
   "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "obsidian@obsidian-skills": true,
+    "code-simplifier@claude-plugins-official": true
   },
+  "extraKnownMarketplaces": {
+    "obsidian-skills": {
+      "source": {
+        "source": "github",
+        "repo": "kepano/obsidian-skills"
+      }
+    },
+    "fallow-skills": {
+      "source": {
+        "source": "github",
+        "repo": "fallow-rs/fallow-skills"
+      }
+    }
+  },
+  "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "high"
+  "theme": "auto",
+  "preferredNotifChannel": "ghostty",
+  "remoteControlAtStartup": false,
+  "skipAutoPermissionPrompt": true
 }

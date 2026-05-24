@@ -54,6 +54,9 @@ bashToolPatterns:
   - pattern: '\bgit\s+push\s+(-[^\s]*)*-f\b'
     reason: git push -f (use --force-with-lease)
 
+  - pattern: '(?is)\bgit\s+commit\b.*co-?authored[\s-]?by'
+    reason: commit message contains "Co-authored-by" (disallowed attribution)
+
   - pattern: '\bgit\s+stash\s+clear\b'
     reason: git stash clear (deletes ALL stashes)
 

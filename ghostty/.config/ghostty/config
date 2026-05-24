@@ -1,7 +1,9 @@
 # Theme
 window-theme = system
+theme = polar
 # theme = dark:kanso-ink, light:kanso-mist
-theme = dark:poimandresish-noir, light:poimandresish-storm
+# theme = dark:poimandresish, light:poimandresish-storm
+# theme = vesper
 background-opacity = 0.98
 background-blur = 64
 

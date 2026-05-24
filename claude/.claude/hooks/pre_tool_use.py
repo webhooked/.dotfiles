@@ -97,7 +97,7 @@ def is_blocked_git_command(command):
 
     for pattern in allowed_git_patterns:
         if re.search(pattern, normalized):
-            # Still block if combined with force flags
+            # Still block if combined with force or amend flags
             if re.search(r'--force\b|-f\b', normalized):
                 return True
             return False

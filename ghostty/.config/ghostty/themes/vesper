@@ -1,18 +1,18 @@
 # Terminal Colors
-background = #101010
+background = #282828
 foreground = #ffffff
 
 # Cursor
 cursor-color = #ffffff
 
 # Selection
-selection-background = #2a2a2a
+selection-background = #505050
 selection-foreground = #ffffff
 
 # ANSI Colors (Standard)
 # Standard Colors
 # Black
-palette = 0=#101010
+palette = 0=#282828
 # Red (Error, Invalid)
 palette = 1=#ff8080
 # Aqua/Turquoise (Strings, Symbols)

@@ -58,6 +58,7 @@ alias gp="git push"
 alias gpl="git pull"
 alias gb="git branch"
 alias gc="git commit"
+alias gcp="git cherry-pick"
 alias gd="git diff"
 alias gk="gitk --all&"
 alias gx="gitx --all"
@@ -78,6 +79,10 @@ alias yz="yazi"
 # AI Assistant aliases
 alias ai="claude"
 alias dai="claude --dangerously-skip-permissions"
+
+# Bear CLI alias
+alias bear='/Applications/Bear.app/Contents/MacOS/bearcli'
+alias bearcli='/Applications/Bear.app/Contents/MacOS/bearcli'
 
 #-------------------------------------------------------------
 # ENVIRONMENT VARIABLES & PATH CONFIGURATION
@@ -129,3 +134,5 @@ export ATUIN_NOBIND="true"
 eval "$(atuin init zsh)"
 # bindkey '^r' _atuin_search_widget
 bindkey '^r' atuin-up-search-viins
+
+export PATH="$HOME/.local/bin:$PATH"
