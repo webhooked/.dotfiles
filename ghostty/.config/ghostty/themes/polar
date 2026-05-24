@@ -2,21 +2,21 @@ palette = 0=#20242F
 palette = 1=#bf616a
 palette = 2=#98c4a8
 palette = 3=#ebcb8b
-palette = 4=#e5e9f0
+palette = 4=#c2c7d1
 palette = 5=#98c4a8
 palette = 6=#88c0d0
-palette = 7=#e5e9f0
+palette = 7=#d8dee9
 palette = 8=#282828
 palette = 9=#bf616a
 palette = 10=#98c4a8
 palette = 11=#ebcb8b
-palette = 12=#e5e9f0
+palette = 12=#c2c7d1
 palette = 13=#98c4a8
 palette = 14=#8fbcbb
 palette = 15=#eceff4
 
 background = #20242F
-foreground = #d8dee9
+foreground = #eceff4
 cursor-color = #eceff4
 cursor-text = #282828
 selection-background = #eceff4
