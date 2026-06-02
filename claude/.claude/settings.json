@@ -3,7 +3,8 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(npx gitnexus:*)"
     ],
     "deny": [
       "Bash(git push --force:*)",
@@ -185,7 +186,8 @@
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "obsidian@obsidian-skills": true,
-    "code-simplifier@claude-plugins-official": true
+    "code-simplifier@claude-plugins-official": true,
+    "impeccable@impeccable": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
@@ -199,9 +201,15 @@
         "source": "github",
         "repo": "fallow-rs/fallow-skills"
       }
+    },
+    "impeccable": {
+      "source": {
+        "source": "github",
+        "repo": "pbakaus/impeccable"
+      }
     }
   },
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto",
   "preferredNotifChannel": "ghostty",

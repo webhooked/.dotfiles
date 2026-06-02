@@ -147,6 +147,12 @@ def is_blocked_package_manager_command(command):
     if re.search(r'\bbun\s+run\s+typecheck\b', normalized):
         return False
 
+    # Whitelist: Allow GitNexus CLI (e.g. 'npx gitnexus analyze').
+    # Anchored to the start so chained package-manager commands
+    # (e.g. 'npm i && npx gitnexus') are still blocked.
+    if re.search(r'^npx\s+gitnexus\b', normalized):
+        return False
+
     # Block all package manager commands
     package_manager_patterns = [
         # JavaScript/Node
