@@ -136,6 +136,28 @@ def is_blocked_git_command(command):
 
     return False
 
+def is_git_add_or_commit(command):
+    """
+    True for a standalone 'git add' or 'git commit' invocation.
+
+    These carry free-text (commit messages, file paths) that must not be
+    scanned for dangerous keywords -- a message like "fix npx handling" or
+    "document .env" is harmless. Forms that chain or substitute other
+    commands (&&, ||, ;, |, &, backticks, $(...), redirects, newlines) are
+    excluded so nothing dangerous can ride along behind the git command.
+    """
+    stripped = command.strip()
+
+    if not re.match(r'git\s+(add|commit)\b', stripped.lower()):
+        return False
+
+    # Reject command chaining / substitution / redirection so anything
+    # beyond the git command itself is still inspected by the other checks.
+    if re.search(r'[\n\r;&|<>`]', command) or '$(' in command:
+        return False
+
+    return True
+
 def is_blocked_package_manager_command(command):
     """
     Check if the command is a blocked package manager operation.
@@ -350,7 +372,14 @@ def main():
         
         tool_name = input_data.get('tool_name', '')
         tool_input = input_data.get('tool_input', {})
-        
+
+        # Trust standalone 'git add' / 'git commit': these carry free-text
+        # (commit messages, paths) that should not be scanned for dangerous
+        # keywords, and forms that chain or substitute other commands are
+        # excluded, so nothing else can ride along. Allow them outright.
+        if tool_name == 'Bash' and is_git_add_or_commit(tool_input.get('command', '')):
+            sys.exit(0)
+
         # Check for .env file access (blocks access to sensitive environment files)
         if is_env_file_access(tool_name, tool_input):
             print("BLOCKED: Access to .env files containing sensitive data is prohibited", file=sys.stderr)
