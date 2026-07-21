@@ -16,6 +16,7 @@ Personal configuration files for development environment setup.
 - **yazi** - File manager configuration
 - **vscode** - Cursor/Visual Studio Code settings
 - **git** - Shared git config + a `commit-msg` hook that blocks AI attribution trailers
+- **agents** - Tool-agnostic agent skills (`~/.agents/skills`), linked into Claude Code
 
 ## Installation
 
@@ -49,6 +50,7 @@ Each directory represents a package that can be independently stowed:
 
 ```
 .dotfiles/
+├── agents/           # Shared agent skills, source of truth for ~/.agents
 ├── ghostty/          # Terminal emulator
 ├── git/              # Shared config + attribution-blocking commit-msg hook
 ├── herdr/            # Agent-aware multiplexer (tmux replacement)
@@ -60,6 +62,18 @@ Each directory represents a package that can be independently stowed:
 ├── zed/              # Code editor
 └── zsh/              # Shell
 ```
+
+## Agent skills
+
+Skill content lives once in `agents/.agents/skills/` and is stowed to `~/.agents`,
+so any agent tool can read it. `claude/.claude/skills/<name>` are symlinks pointing
+at `../../../agents/.agents/skills/<name>`.
+
+That target is relative **to the repo**, not to `$HOME`: `~/.claude/skills` is itself
+a stow symlink into this repo, so a link inside it resolves from the repo directory.
+A `../../.agents/...` target therefore lands on `claude/.agents/...` and dangles.
+Keep new links in the `../../../agents/...` form — absolute `/Users/<you>/...` targets
+work but break on every other machine.
 
 ## Customization
 
