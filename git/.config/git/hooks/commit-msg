@@ -1,0 +1,41 @@
+#!/bin/sh
+# commit-msg — reject AI authorship / attribution trailers.
+#
+# Managed in dotfiles: git/.config/git/hooks/commit-msg
+# Activated via core.hooksPath = ~/.config/git/hooks (see git/.config/git/config).
+#
+# This enforces at the git layer (the assembled message file), so it catches
+# EVERY path a message reaches git: -m, -F <file>, the editor, templates,
+# --amend and squash merges. A PreToolUse Bash regex can only see inline
+# command text and is bypassed by -F/editor commits — this is not.
+#
+# Because core.hooksPath shadows each repo's default .git/hooks, this hook
+# re-invokes a repo-local .git/hooks/commit-msg when one exists, so project
+# hooks (pre-commit framework, etc.) keep working.
+
+msg_file="$1"
+
+# Match AI co-author trailers and "Generated with/by Claude" lines, while
+# leaving human co-authors (no claude/anthropic) untouched.
+pattern='(co-?authored[ -]?by:.*(claude|anthropic))|(generated (with|by).*claude)'
+
+if grep -qiE "$pattern" "$msg_file"; then
+	echo "commit-msg: BLOCKED — AI attribution trailer is not allowed." >&2
+	echo "  Remove the offending line(s) and re-run:" >&2
+	grep -niE "$pattern" "$msg_file" | sed 's/^/    /' >&2
+	exit 1
+fi
+
+# Delegate to a repo-local commit-msg hook, if one is present and executable.
+git_dir=$(git rev-parse --git-dir 2>/dev/null) || exit 0
+local_hook="$git_dir/hooks/commit-msg"
+self="$0"
+if command -v realpath >/dev/null 2>&1; then
+	self=$(realpath "$0")
+	[ -e "$local_hook" ] && local_hook=$(realpath "$local_hook")
+fi
+if [ -x "$local_hook" ] && [ "$local_hook" != "$self" ]; then
+	exec "$local_hook" "$@"
+fi
+
+exit 0

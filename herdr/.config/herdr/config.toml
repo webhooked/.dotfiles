@@ -1,0 +1,152 @@
+onboarding = false
+# ~/.config/herdr/config.toml
+# ─────────────────────────────────────────────────────────────────────────
+# Ported from ~/.tmux.conf. Each override notes its tmux origin.
+#
+# herdr terminology:   workspace = tmux session
+#                      tab       = tmux window
+#                      pane      = tmux pane
+#
+# Prefix is Ctrl+Space (same as tmux). Reload this file with:  prefix + r
+#
+# Only *overrides* are listed below — anything not set keeps herdr's default.
+# Several tmux binds already match herdr's defaults and need no override:
+#     focus panes   prefix + h/j/k/l        (tmux: select-pane)
+#     split stacked prefix + -              (tmux: bind -  split -v)
+#     zoom pane     prefix + z              (tmux: Up/Down maximize/restore)
+#     copy mode     prefix + [              (tmux: copy-mode)
+#     new tab       prefix + c              (tmux: bind W  new-window)
+#     cycle panes   prefix + Tab / S-Tab
+# ─────────────────────────────────────────────────────────────────────────
+
+[keys]
+# ── Prefix ───────────────────────────────────────────────────────────────
+# tmux: unbind C-b ; set -g prefix C-space
+prefix = "ctrl+space"
+
+# ── Management ───────────────────────────────────────────────────────────
+# Swap herdr's defaults so reload lives on `r` (tmux muscle memory) and the
+# modal resizer moves to Shift+R.
+reload_config = "prefix+r"        # tmux: bind r  source-file (reload)
+resize_mode   = "prefix+shift+r"  # enter resize mode, then h/j/k/l  (tmux: prefix H/J/K/L)
+
+# ── Workspaces (= tmux sessions) ─────────────────────────────────────────
+new_workspace = ["prefix+shift+n", "prefix+shift+s"]  # tmux: bind S  new-session
+# goto (prefix+g) is a herdr built-in. The built-in workspace_picker moves off
+# prefix+w to prefix+x, so prefix+w can drive the fzf popup defined at the
+# bottom of this section — the fuzzy picker is the one worth the easy key.
+workspace_picker = "prefix+x"
+
+# The session navigator is herdr's only searchable list — it holds spaces,
+# panes AND agents in one tree (j/k to move, / to filter, b/w/i/d/a to filter
+# by agent state).  There is no separate "agents list" action, so prefix+a is
+# a second key for the same overlay.
+goto = ["prefix+g", "prefix+a"]
+
+# Move up/down through the workspace list / sidebar with vim keys (arrows kept).
+# (Pane navigation already uses h/j/k/l by default.)
+navigate_workspace_up   = ["k", "up"]
+navigate_workspace_down = ["j", "down"]
+
+# ── Tabs (= tmux windows) ────────────────────────────────────────────────
+previous_tab = "prefix+n"   # tmux: bind n  select-window -t :-   (previous)
+next_tab     = "prefix+m"   # tmux: bind m  select-window -t :+   (next)
+# switch_tab stays prefix+1..9 (tmux: select-window -t N).
+# NOTE: this reclaims prefix+1..5, which in tmux were your preset-layout binds.
+
+# ── Panes ────────────────────────────────────────────────────────────────
+# Swap panes — tmux: bind C-h/C-j/C-k/C-l  swap-pane
+swap_pane_left  = "prefix+ctrl+h"
+swap_pane_down  = "prefix+ctrl+j"
+swap_pane_up    = "prefix+ctrl+k"
+swap_pane_right = "prefix+ctrl+l"
+
+# Split side-by-side — tmux: bind |  split -h.  '\' is the unshifted '|' key;
+# 'v' (herdr default) kept as an alternate. Stacked split stays prefix+- .
+split_vertical = ["prefix+backslash", "prefix+v"]
+
+# Close pane — tmux: bind C-q  killp.  prefix+x now holds workspace_picker,
+# so closing a pane is C-q only (matching tmux exactly).
+close_pane = "prefix+ctrl+q"
+
+# ── fzf popups (tmux: display-popup) ─────────────────────────────────────
+# herdr's built-in navigator (prefix+g / prefix+a) opens in *move* mode: you
+# must press `/` before you can type, and its matching is substring, not
+# fuzzy.  Auto-focusing that search is not possible — see discussions #1288
+# and #1483; PR #1418 added a ui.goto_search_autofocus flag but was closed
+# unmerged.  This popup is the workaround: cursor lands in the query field
+# immediately and fzf does the fuzzy matching.
+[[keys.command]]
+key     = "prefix+w"   # tmux: bind w  fzf session switcher
+type    = "popup"
+command = "sh /Users/webhooked/.config/herdr/scripts/space-picker.sh"
+width   = "60%"
+height  = "50%"
+
+# ── tmux binds with NO herdr equivalent (kept here for the record) ────────
+#   bind y   synchronize-panes      → herdr has no broadcast-input
+#   bind =   / 1-5  select-layout   → herdr has no preset layouts (tiled/even/main)
+#   bind N/M swap-window            → herdr cannot reorder tabs
+#   bind C-c/C-v pbcopy/pbpaste     → use the terminal's native copy + copy_mode
+#                                     (heads-up: ctrl+v in herdr = remote_image_paste)
+
+[terminal]
+# New panes open in the current pane's cwd.
+# tmux equivalent: split-window -c "#{pane_current_path}"
+new_cwd = "follow"
+
+[ui]
+# tmux: set -g mouse on
+mouse_capture = true
+
+[session]
+# Re-open supported AI-agent panes after a full server restart.
+resume_agents_on_restore = true
+# Scrollback-after-reboot ("pane history replay") is OFF by default because it
+# can expose secrets/tokens. Enable in Settings > Experiments if you want it.
+
+# ── Theme ────────────────────────────────────────────────────────────────
+# Built-in bases (the ONLY names that appear in herdr's theme selector):
+#   catppuccin, terminal, tokyo-night, dracula, nord, gruvbox,
+#   one-dark, solarized, kanagawa, rose-pine, vesper
+# "terminal" inherits the host terminal's palette — worth trying, since ghostty
+# already runs poimandresish.
+#
+# The block below is an OVERRIDE layer on top of that base — it is NOT a
+# registerable theme, so ported ghostty themes can never show up in the
+# selector. herdr has no user themes directory. Only one override is active at
+# a time; the ported palettes live in ~/.config/herdr/themes/ — switch with:
+#     python3 ~/.config/herdr/scripts/herdr-theme.py <name>        (--list to see them all)
+#
+# NOTE: auto_switch / light_name / dark_name only select *built-in* themes. With
+# a custom override active its colours win in both light and dark, so
+# auto-switching between two custom palettes is not possible.
+#
+# ACTIVE OVERRIDE: poimandresish-storm.
+# `name` picks the base that shows through wherever the override is silent —
+# but the block below sets all 16 tokens herdr has, so the base is inert and
+# only matters if a token is ever removed. "terminal" is the honest choice
+# here: it inherits ghostty's palette, which is already poimandresish.
+[theme]
+name = "terminal"
+
+[theme.custom]
+accent      = "#5DE4C7"
+panel_bg    = "#252B37"
+surface0    = "#343A45"
+surface1    = "#444953"
+surface_dim = "#181C24"
+overlay0    = "#506477"
+overlay1    = "#8D9AA7"
+text        = "#FFFFFF"
+subtext0    = "#B3B5B9"
+red         = "#D0679D"
+green       = "#5DE4C7"
+yellow      = "#FFFAC2"
+blue        = "#89DDFF"
+mauve       = "#FCC5E9"
+teal        = "#89DDFF"
+peach       = "#EAB8B1"
+
+[ui.toast]
+delivery = "off"

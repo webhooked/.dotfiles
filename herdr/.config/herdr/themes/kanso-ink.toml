@@ -1,0 +1,27 @@
+# kanso-ink — ported from ghostty (~/.config/ghostty/themes/kanso-ink)
+# dark theme
+#
+# Activate:  python3 ~/.config/herdr/scripts/herdr-theme.py kanso-ink
+# then reload herdr with:  prefix + r
+#
+# herdr has no themes directory — only ONE custom colour block is active at a
+# time, layered over the base set by theme.name. This file is a library entry;
+# the switcher copies it into ~/.config/herdr/config.toml.
+
+[theme.custom]
+accent      = "#7FB4CA"
+panel_bg    = "#14171D"
+surface0    = "#202329"
+surface1    = "#2D3035"
+surface_dim = "#0D0F13"
+overlay0    = "#5C6066"
+overlay1    = "#818588"
+text        = "#C5C9C7"
+subtext0    = "#878B8C"
+red         = "#C4746E"
+green       = "#8A9A7B"
+yellow      = "#C4B28A"
+blue        = "#8BA4B0"
+mauve       = "#A292A3"
+teal        = "#8EA4A2"
+peach       = "#C4967D"

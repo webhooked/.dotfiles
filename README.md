@@ -8,12 +8,14 @@ Personal configuration files for development environment setup.
 
 - **nvim** - Neovim configuration with plugins and themes
 - **tmux** - Terminal multiplexer settings
+- **herdr** - Agent-aware terminal multiplexer (tmux replacement)
 - **zsh** - Shell configuration
 - **ghostty** - Terminal emulator themes and config
 - **zed** - Code editor themes and settings
 - **lazygit** - Git TUI configuration
 - **yazi** - File manager configuration
 - **vscode** - Cursor/Visual Studio Code settings
+- **git** - Shared git config + a `commit-msg` hook that blocks AI attribution trailers
 
 ## Installation
 
@@ -48,6 +50,8 @@ Each directory represents a package that can be independently stowed:
 ```
 .dotfiles/
 ├── ghostty/          # Terminal emulator
+├── git/              # Shared config + attribution-blocking commit-msg hook
+├── herdr/            # Agent-aware multiplexer (tmux replacement)
 ├── lazygit/          # Git TUI
 ├── nvim/             # Neovim editor
 ├── tmux/             # Terminal multiplexer

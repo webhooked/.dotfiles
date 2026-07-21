@@ -2,7 +2,7 @@ return {
   -- dir = "/Users/webhooked/repos/private/themes/neovim/kanso.nvim",
   -- name = "kanso",
   "webhooked/kanso.nvim",
-  enabled = false,
+  enabled = true,
   lazy = false,
   priority = 1000,
   opts = {
@@ -11,11 +11,11 @@ return {
       dark = "ink",
     },
     foreground = {
-      light = "saturated",
+      light = "default",
       dark = "default",
     },
     bold = false,
-    italics = true,
+    italics = false,
     transparent = true,
     minimal = true,
   },

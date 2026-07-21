@@ -1,0 +1,27 @@
+# polar — ported from ghostty (~/.config/ghostty/themes/polar)
+# dark theme
+#
+# Activate:  python3 ~/.config/herdr/scripts/herdr-theme.py polar
+# then reload herdr with:  prefix + r
+#
+# herdr has no themes directory — only ONE custom colour block is active at a
+# time, layered over the base set by theme.name. This file is a library entry;
+# the switcher copies it into ~/.config/herdr/config.toml.
+
+[theme.custom]
+accent      = "#88C0D0"
+panel_bg    = "#20242F"
+surface0    = "#2E323D"
+surface1    = "#3D404B"
+surface_dim = "#15171F"
+overlay0    = "#282828"
+overlay1    = "#6D6E6F"
+text        = "#ECEFF4"
+subtext0    = "#A5A8AF"
+red         = "#BF616A"
+green       = "#98C4A8"
+yellow      = "#EBCB8B"
+blue        = "#C2C7D1"
+mauve       = "#98C4A8"
+teal        = "#88C0D0"
+peach       = "#D79B7C"

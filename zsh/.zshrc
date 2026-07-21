@@ -87,6 +87,12 @@ alias bearcli='/Applications/Bear.app/Contents/MacOS/bearcli'
 #-------------------------------------------------------------
 # ENVIRONMENT VARIABLES & PATH CONFIGURATION
 #-------------------------------------------------------------
+# Privacy / telemetry opt-out
+export DISABLE_ERROR_REPORTING=1
+export CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY=1
+export DISABLE_TELEMETRY=1
+export DO_NOT_TRACK=1
+
 # NPM paths
 export PATH=~/.npm-global/bin:$PATH
 

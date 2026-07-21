@@ -1,0 +1,27 @@
+# poimandresish-noir — ported from ghostty (~/.config/ghostty/themes/poimandresish-noir)
+# dark theme
+#
+# Activate:  python3 ~/.config/herdr/scripts/herdr-theme.py poimandresish-noir
+# then reload herdr with:  prefix + r
+#
+# herdr has no themes directory — only ONE custom colour block is active at a
+# time, layered over the base set by theme.name. This file is a library entry;
+# the switcher copies it into ~/.config/herdr/config.toml.
+
+[theme.custom]
+accent      = "#5DE4C7"
+panel_bg    = "#13151D"
+surface0    = "#24252D"
+surface1    = "#34363D"
+surface_dim = "#0C0E13"
+overlay0    = "#506477"
+overlay1    = "#8D9AA7"
+text        = "#FFFFFF"
+subtext0    = "#ACADB0"
+red         = "#D0679D"
+green       = "#5DE4C7"
+yellow      = "#FFFAC2"
+blue        = "#89DDFF"
+mauve       = "#FCC5E9"
+teal        = "#89DDFF"
+peach       = "#EAB8B1"

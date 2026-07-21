@@ -1,0 +1,7 @@
+# Managed by dotfiles (git stow package), read by git as $XDG_CONFIG_HOME/git/config.
+# Personal identity, signing and LFS settings stay in ~/.gitconfig; this file
+# only adds shared, machine-portable settings.
+[core]
+	# Route all repos through a shared hooks dir. The commit-msg hook there
+	# rejects AI attribution trailers and delegates to any repo-local hook.
+	hooksPath = ~/.config/git/hooks

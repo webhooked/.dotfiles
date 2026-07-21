@@ -1,0 +1,27 @@
+# kanso-pearl — ported from ghostty (~/.config/ghostty/themes/kanso-pearl)
+# light theme
+#
+# Activate:  python3 ~/.config/herdr/scripts/herdr-theme.py kanso-pearl
+# then reload herdr with:  prefix + r
+#
+# herdr has no themes directory — only ONE custom colour block is active at a
+# time, layered over the base set by theme.name. This file is a library entry;
+# the switcher copies it into ~/.config/herdr/config.toml.
+
+[theme.custom]
+accent      = "#4D699B"
+panel_bg    = "#F2F1EF"
+surface0    = "#E3E3E1"
+surface1    = "#D5D5D4"
+surface_dim = "#E3E3E1"
+overlay0    = "#5C6066"
+overlay1    = "#484C52"
+text        = "#22262D"
+subtext0    = "#6B6D71"
+red         = "#C84053"
+green       = "#6F894E"
+yellow      = "#77713F"
+blue        = "#4D699B"
+mauve       = "#B35B79"
+teal        = "#597B75"
+peach       = "#9B5B48"

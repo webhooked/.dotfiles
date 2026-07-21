@@ -1,11 +1,18 @@
 # Theme
 window-theme = system
-theme = polar
+# theme = polar
 # theme = dark:kanso-ink, light:kanso-mist
-# theme = dark:poimandresish, light:poimandresish-storm
-# theme = vesper
+theme = dark:poimandresish, light:poimandresish-storm
 background-opacity = 0.98
 background-blur = 64
+
+# herdr dims every unfocused pane while prefix mode is held, by stamping
+# Modifier::DIM (SGR 2, "faint") over those cells — src/ui/panes.rs:308-331.
+# It is hardcoded; herdr 0.7.4 has no config for it (discussions #1133, #1215,
+# #1650 all open and unanswered).  Rendering faint at full opacity here is the
+# only way to cancel it.  Trade-off: SGR 2 stops being visible in *every* app,
+# so genuinely de-emphasised text (git, ls, bat) loses its greying.
+faint-opacity = 1
 
 font-family = "Berkeley Mono Variable"
 font-style = "Retina SemiCondensed"

@@ -187,7 +187,8 @@
     "gopls-lsp@claude-plugins-official": true,
     "obsidian@obsidian-skills": true,
     "code-simplifier@claude-plugins-official": true,
-    "impeccable@impeccable": true
+    "impeccable@impeccable": true,
+    "i-have-adhd@i-have-adhd": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
@@ -206,6 +207,12 @@
       "source": {
         "source": "github",
         "repo": "pbakaus/impeccable"
+      }
+    },
+    "i-have-adhd": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/webhooked/repos/.dotfiles/claude/.claude/i-have-adhd"
       }
     }
   },

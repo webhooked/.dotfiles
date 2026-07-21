@@ -1,0 +1,27 @@
+# kanso-mist — ported from ghostty (~/.config/ghostty/themes/kanso-mist)
+# dark theme
+#
+# Activate:  python3 ~/.config/herdr/scripts/herdr-theme.py kanso-mist
+# then reload herdr with:  prefix + r
+#
+# herdr has no themes directory — only ONE custom colour block is active at a
+# time, layered over the base set by theme.name. This file is a library entry;
+# the switcher copies it into ~/.config/herdr/config.toml.
+
+[theme.custom]
+accent      = "#7FB4CA"
+panel_bg    = "#303036"
+surface0    = "#3A3B40"
+surface1    = "#45454A"
+surface_dim = "#1F1F23"
+overlay0    = "#5C6066"
+overlay1    = "#818588"
+text        = "#C5C9C7"
+subtext0    = "#919394"
+red         = "#C4746E"
+green       = "#8A9A7B"
+yellow      = "#C4B28A"
+blue        = "#8BA4B0"
+mauve       = "#A292A3"
+teal        = "#8EA4A2"
+peach       = "#C4967D"
