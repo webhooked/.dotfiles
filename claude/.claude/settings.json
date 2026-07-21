@@ -132,17 +132,6 @@
             "timeout": 5
           }
         ]
-      },
-      {
-        "matcher": "Grep|Glob|Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ~/.claude/hooks/gitnexus/gitnexus-hook.cjs",
-            "timeout": 10,
-            "statusMessage": "Enriching with GitNexus graph context..."
-          }
-        ]
       }
     ],
     "PostToolUse": [
@@ -152,17 +141,6 @@
           {
             "type": "command",
             "command": "if [ -f tsconfig.json ]; then bunx tsc --noEmit 2>&1 | head -20; fi"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ~/.claude/hooks/gitnexus/gitnexus-hook.cjs",
-            "timeout": 10,
-            "statusMessage": "Checking GitNexus index freshness..."
           }
         ]
       }
