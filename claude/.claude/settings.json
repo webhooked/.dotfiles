@@ -138,7 +138,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/webhooked/.claude/hooks/gitnexus/gitnexus-hook.cjs\"",
+            "command": "node ~/.claude/hooks/gitnexus/gitnexus-hook.cjs",
             "timeout": 10,
             "statusMessage": "Enriching with GitNexus graph context..."
           }
@@ -160,7 +160,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/webhooked/.claude/hooks/gitnexus/gitnexus-hook.cjs\"",
+            "command": "node ~/.claude/hooks/gitnexus/gitnexus-hook.cjs",
             "timeout": 10,
             "statusMessage": "Checking GitNexus index freshness..."
           }
@@ -211,8 +211,8 @@
     },
     "i-have-adhd": {
       "source": {
-        "source": "directory",
-        "path": "/Users/webhooked/repos/.dotfiles/claude/.claude/i-have-adhd"
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
       }
     }
   },
