@@ -84,6 +84,9 @@ alias dai="claude --dangerously-skip-permissions"
 alias bear='/Applications/Bear.app/Contents/MacOS/bearcli'
 alias bearcli='/Applications/Bear.app/Contents/MacOS/bearcli'
 
+# brew
+alias brupgrade="brew update && brew upgrade && brew cleanup && tmux kill-server && herdr server stop"
+
 #-------------------------------------------------------------
 # ENVIRONMENT VARIABLES & PATH CONFIGURATION
 #-------------------------------------------------------------

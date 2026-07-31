@@ -61,9 +61,24 @@ swap_pane_down  = "prefix+ctrl+j"
 swap_pane_up    = "prefix+ctrl+k"
 swap_pane_right = "prefix+ctrl+l"
 
-# Split side-by-side — tmux: bind |  split -h.  '\' is the unshifted '|' key;
-# 'v' (herdr default) kept as an alternate. Stacked split stays prefix+- .
-split_vertical = ["prefix+backslash", "prefix+v"]
+# Split side-by-side — tmux: bind |  split -h.
+#
+# On this machine `|` is ⌥7 (Swedish - Pro layout), and herdr's client runs the
+# kitty keyboard protocol in "report all keys as escape codes" mode — every key
+# arrives as a CSI-u sequence carrying the PHYSICAL key plus modifiers, never
+# the composed character. Pressing ⌥7 therefore delivers:
+#     CSI 55;3u  ->  code: Char('7'), modifiers: ALT
+# The character `|` is never generated, so "prefix+|" (and "prefix+backslash",
+# and "prefix+shift+backslash") can never match no matter how they are spelled.
+# Confirmed in herdr-client.log with HERDR_LOG=debug; plain `h` likewise arrives
+# as CSI 104u rather than 0x68.
+#
+# prefix+alt+7 is the binding that actually fires here. It does NOT collide with
+# switch_tab 7 (keys.indexed.tabs = prefix+1..9): bare 7 and alt+7 are distinct
+# events. The character-literal spellings are kept as harmless fallbacks for a
+# US layout or a terminal that only negotiates flags 7 — where `|` does arrive
+# as text. 'v' (herdr default) kept as an alternate. Stacked split stays prefix+- .
+split_vertical = ["prefix+alt+7", "prefix+|", "prefix+backslash", "prefix+shift+backslash", "prefix+v"]
 
 # Close pane — tmux: bind C-q  killp.  prefix+x now holds workspace_picker,
 # so closing a pane is C-q only (matching tmux exactly).
@@ -82,6 +97,45 @@ type    = "popup"
 command = "sh /Users/webhooked/.config/herdr/scripts/space-picker.sh"
 width   = "60%"
 height  = "50%"
+
+# ── Resize — tmux: bind -r H/J/K/L  resize-pane -L/-D/-U/-R ───────────────
+# herdr has NO direct resize action: the whole [keys] table exposes only
+# `resize_mode` (the modal resizer above), so prefix+H/J/K/L cannot be bound
+# the way tmux bound them. These shell binds go around that by driving the
+# socket API, which does expose a one-shot resize.
+#
+# `--amount` is a FRACTION of the split's own container, not a cell count
+# (herdr's default step is 0.05). tmux resized by 20 cols / 10 rows, which on
+# a full-screen split works out to ≈0.07 wide and ≈0.15 tall — hence the
+# asymmetry below.
+#
+# Difference from tmux worth knowing: tmux's `-r` made these repeat on one
+# prefix press. herdr custom commands do not repeat, so each nudge needs the
+# prefix again. For sustained resizing use prefix+shift+r (resize_mode), which
+# stays open and takes bare h/j/k/l — closer to `-r` than these binds are.
+[[keys.command]]
+key         = "prefix+shift+h"
+type        = "shell"
+command     = '"${HERDR_BIN_PATH:-herdr}" pane resize --direction left --amount 0.07 --current'
+description = "resize pane left"
+
+[[keys.command]]
+key         = "prefix+shift+j"
+type        = "shell"
+command     = '"${HERDR_BIN_PATH:-herdr}" pane resize --direction down --amount 0.15 --current'
+description = "resize pane down"
+
+[[keys.command]]
+key         = "prefix+shift+k"
+type        = "shell"
+command     = '"${HERDR_BIN_PATH:-herdr}" pane resize --direction up --amount 0.15 --current'
+description = "resize pane up"
+
+[[keys.command]]
+key         = "prefix+shift+l"
+type        = "shell"
+command     = '"${HERDR_BIN_PATH:-herdr}" pane resize --direction right --amount 0.07 --current'
+description = "resize pane right"
 
 # ── tmux binds with NO herdr equivalent (kept here for the record) ────────
 #   bind y   synchronize-panes      → herdr has no broadcast-input
