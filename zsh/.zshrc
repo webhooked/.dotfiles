@@ -79,6 +79,8 @@ alias yz="yazi"
 # AI Assistant aliases
 alias ai="claude"
 alias dai="claude --dangerously-skip-permissions"
+alias oc="opencode2"
+alias oc1="opencode"
 
 # Bear CLI alias
 alias bear='/Applications/Bear.app/Contents/MacOS/bearcli'
@@ -145,3 +147,7 @@ eval "$(atuin init zsh)"
 bindkey '^r' atuin-up-search-viins
 
 export PATH="$HOME/.local/bin:$PATH"
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

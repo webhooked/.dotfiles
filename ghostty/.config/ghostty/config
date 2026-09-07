@@ -2,7 +2,7 @@
 window-theme = system
 # theme = polar
 # theme = dark:kanso-ink, light:kanso-mist
-theme = dark:poimandresish, light:poimandresish-storm
+theme = dark:poimandresish,light:poimandresish-storm
 background-opacity = 0.98
 background-blur = 64
 
@@ -60,7 +60,7 @@ keybind = cmd+right=resize_split:right,20
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 
 # Shaders
-custom-shader = shaders/cursor_smear.glsl
+custom-shader = shaders/cursor_sweep.glsl
 
 # Other
 unfocused-split-opacity = 1

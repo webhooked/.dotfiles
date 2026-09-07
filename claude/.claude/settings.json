@@ -91,6 +91,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
+  "model": "fable[1m]",
   "enableAllProjectMcpServers": true,
   "hooks": {
     "PreToolUse": [
@@ -169,7 +170,8 @@
     "i-have-adhd@i-have-adhd": true,
     "security-guidance@claude-plugins-official": true,
     "claude-security@claude-plugins-official": true,
-    "mattpocock-skills@claude-plugins-official": true
+    "mattpocock-skills@claude-plugins-official": true,
+    "todoist@doist": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
@@ -201,9 +203,16 @@
         "source": "github",
         "repo": "anthropics/claude-plugins-official"
       }
+    },
+    "doist": {
+      "source": {
+        "source": "github",
+        "repo": "doist/todoist-mcp"
+      }
     }
   },
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto",
   "preferredNotifChannel": "ghostty",
