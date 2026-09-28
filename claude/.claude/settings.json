@@ -10,11 +10,11 @@
       "Bash(git push --force:*)",
       "Bash(git push -f:*)",
       "Bash(git reset --hard:*)",
-      "Bash(rm -rf /*:*)",
-      "Bash(rm -rf ~/*:*)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~/*)",
       "Bash(sudo rm -rf:*)",
       "Bash(mkfs:*)",
-      "Bash(dd if=* of=/dev/*:*)",
+      "Bash(dd if=* of=/dev/*)",
       "Bash(sh:*)",
       "Bash(bash:*)",
       "Bash(zsh:*)",
@@ -91,7 +91,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "fable[1m]",
+  "model": "claude-fable-5-1[1m]",
   "enableAllProjectMcpServers": true,
   "hooks": {
     "PreToolUse": [
@@ -171,7 +171,8 @@
     "security-guidance@claude-plugins-official": true,
     "claude-security@claude-plugins-official": true,
     "mattpocock-skills@claude-plugins-official": true,
-    "todoist@doist": true
+    "todoist@doist": true,
+    "stripe@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
