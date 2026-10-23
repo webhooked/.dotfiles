@@ -67,6 +67,3 @@ unfocused-split-opacity = 1
 quit-after-last-window-closed = true
 mouse-scroll-multiplier = 0.4
 confirm-close-surface = always
-
-# Updates
-auto-update-channel=tip

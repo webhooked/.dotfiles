@@ -2,3 +2,4 @@
 .claude/commands
 *-dev.lua
 logs
+rex/.config/rex/workspaces.json

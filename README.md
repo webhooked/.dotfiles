@@ -11,6 +11,7 @@ Personal configuration files for development environment setup.
 - **herdr** - Agent-aware terminal multiplexer (tmux replacement)
 - **zsh** - Shell configuration
 - **ghostty** - Terminal emulator themes and config
+- **rex** - Rex multiplexer: Ghostty + herdr/tmux keybinds, Ghostty themes, settings and herdr-workspace scripts (see `rex/.config/rex/README.md`)
 - **zed** - Code editor themes and settings
 - **lazygit** - Git TUI configuration
 - **yazi** - File manager configuration
@@ -56,6 +57,7 @@ Each directory represents a package that can be independently stowed:
 ├── herdr/            # Agent-aware multiplexer (tmux replacement)
 ├── lazygit/          # Git TUI
 ├── nvim/             # Neovim editor
+├── rex/              # Rex multiplexer (Lua config, Ghostty themes, herdr workspaces)
 ├── tmux/             # Terminal multiplexer
 ├── vscode/           # VS Code
 ├── yazi/             # File manager

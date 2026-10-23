@@ -1,0 +1,7 @@
+# Global markdownlint config used by nvim-lint and conform (see lua/plugins/markdownlint.lua).
+# A per-project .markdownlint.yaml is NOT merged with this file when --config is given,
+# so add project-specific rules here or drop the --config arg in that plugin spec.
+default: true
+
+# Line length: prose almost never wraps at 80 and this rule is not auto-fixable.
+MD013: false

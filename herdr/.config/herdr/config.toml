@@ -153,6 +153,16 @@ new_cwd = "follow"
 # tmux: set -g mouse on
 mouse_capture = true
 
+# Sidebar hidden by default (see github.com/herdrdev/herdr/discussions/533).
+# `sidebar_start_collapsed` launches with it collapsed (needs a restart, not
+# just a reload); `sidebar_collapsed_mode = "hidden"` makes the collapsed
+# state zero-width instead of the 4-column "compact" status rail.
+# Bring it back any time with toggle_sidebar (prefix+b).
+sidebar_start_collapsed = true
+sidebar_collapsed_mode  = "hidden"   # default: "compact"
+# Drop the tab row when a workspace has a single tab.
+hide_tab_bar_when_single_tab = true
+
 [session]
 # Re-open supported AI-agent panes after a full server restart.
 resume_agents_on_restore = true
