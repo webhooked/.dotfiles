@@ -177,7 +177,8 @@
     "superpowers@anthropic-plugin-directory": true,
     "code-review@anthropic-plugin-directory": true,
     "context7@anthropic-plugin-directory": true,
-    "upstash@upstash": true
+    "upstash@upstash": true,
+    "xcode@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
