@@ -1,0 +1,24 @@
+# Docker Sandboxes defaults for every project (`sbx env run`, which `sb` wraps).
+# A repo's own sbxenv.yaml is merged on top: its values win, lists (ports, mcp
+# servers) are concatenated. Docs: https://docs.docker.com/ai/sandboxes/configuration/environment-files/
+schemaVersion: "1"
+
+args:
+  agent:
+    default: claude          # `sb codex` passes --env-arg agent=codex
+
+agent: ${{ env.args.agent }}
+
+# Private clone inside the VM: the agent can't write your checkout or .git/hooks.
+# `sb --mount` (or a non-git dir) overrides with --clone=false.
+workspace:
+  path: ${{ env.projectDir }}
+  clone: true
+
+lifecycle:
+  postCreate:
+    # Host-side, once per new sandbox: install tools + dotfiles (sbx-init.sh),
+    # copy .env.local (dev credentials only) into the clone.
+    - name: sbsetup (tools, dotfiles, env)
+      command: zsh -c 'source ~/.config/zsh/sbx.zsh && sbsetup'
+      timeout: 20m

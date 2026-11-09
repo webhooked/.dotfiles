@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Never start the p10k wizard; ~/.p10k.zsh comes from dotfiles (zsh/.p10k.zsh)
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+
 #-------------------------------------------------------------
 # OH MY ZSH CONFIGURATION
 #-------------------------------------------------------------
@@ -186,6 +189,16 @@ mkcd() {
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
 fi
+
+# Atuin (shell history search)
+if command -v atuin &> /dev/null; then
+    export ATUIN_NOBIND="true"
+    eval "$(atuin init zsh)"
+    bindkey '^r' atuin-up-search-viins
+fi
+
+# Docker Sandboxes persist exports (e.g. tool PATHs) here; bash reads it, zsh doesn't by default
+[ -f /etc/sandbox-persistent.sh ] && source /etc/sandbox-persistent.sh
 
 # Google Cloud SDK (if installed)
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then

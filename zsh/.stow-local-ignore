@@ -1,0 +1,3 @@
+\.DS_Store
+# Claude Code hooks write logs/ into the working directory; never link it into $HOME
+^/logs

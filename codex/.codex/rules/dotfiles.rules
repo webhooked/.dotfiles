@@ -1,0 +1,64 @@
+# Codex execpolicy rules — stowed to ~/.codex/rules/dotfiles.rules
+# Ported from the Claude `permissions.deny` list.
+# Codex appends "always allow" approvals to default.rules (gitignored), not here.
+# Check a command: codex execpolicy check --rules ~/.codex/rules/dotfiles.rules git push
+#
+# Shell wrappers (sh/bash/zsh) are intentionally not forbidden here: Codex runs
+# commands via `zsh -lc`, so a prefix rule on them can catch the wrapper itself.
+# The pre_tool_use hook still blocks them.
+
+# --- Destructive filesystem -------------------------------------------------
+prefix_rule(
+    pattern = ["rm", ["-rf", "-fr", "-Rf", "-rF", "-fR"]],
+    decision = "forbidden",
+    justification = "Recursive force delete is blocked. Delete specific files instead.",
+    match = ["rm -rf build"],
+    not_match = ["rm file.txt"],
+)
+prefix_rule(pattern = [["sudo", "su"]], decision = "forbidden", justification = "No privilege escalation.")
+prefix_rule(pattern = [["mkfs", "dd"]], decision = "forbidden", justification = "Disk-level tools are blocked.")
+
+# --- Arbitrary code execution / network -------------------------------------
+prefix_rule(
+    pattern = [["exec", "eval", "source", "."]],
+    decision = "forbidden",
+    justification = "Indirect execution is blocked.",
+)
+prefix_rule(
+    pattern = [["curl", "wget", "nc", "netcat", "ncat"]],
+    decision = "forbidden",
+    justification = "Network tools are blocked. Ask the user to fetch it, or use an MCP/web tool.",
+)
+prefix_rule(
+    pattern = [["perl", "ruby", "node", "php", "go", "make"]],
+    decision = "forbidden",
+    justification = "Interpreters/build runners are blocked; ask the user to run it.",
+)
+
+# --- Databases --------------------------------------------------------------
+prefix_rule(
+    pattern = [[
+        "psql", "pg_dump", "pg_restore", "pg_dumpall", "createdb", "dropdb",
+        "createuser", "dropuser", "pgcli",
+        "mysql", "mysqldump", "mysqlimport", "mysqladmin", "mariadb", "mariadb-dump", "mycli",
+        "sqlite3", "litecli",
+        "mongo", "mongosh", "mongodump", "mongorestore",
+        "redis-cli", "sqlcmd", "bcp", "cqlsh", "influx", "cockroach", "clickhouse-client",
+    ]],
+    decision = "forbidden",
+    justification = "Database CLIs are blocked to protect real data.",
+)
+
+# --- Git (add/commit stay allowed, as in Claude) ----------------------------
+prefix_rule(
+    pattern = ["git", [
+        "push", "reset", "restore", "rebase", "merge", "checkout", "clean", "stash",
+        "cherry-pick", "revert", "remote", "submodule", "pull", "fetch", "clone", "init",
+    ]],
+    decision = "forbidden",
+    justification = "This git command changes or syncs repository state; ask the user to run it.",
+    match = ["git push origin main", "git reset --hard"],
+    not_match = ["git status", "git commit -m msg"],
+)
+prefix_rule(pattern = ["git", "branch", ["-d", "-D"]], decision = "forbidden", justification = "Branch deletion is blocked.")
+prefix_rule(pattern = ["git", "tag", "-d"], decision = "forbidden", justification = "Tag deletion is blocked.")

@@ -34,6 +34,9 @@ bind("x", "session.switch")           -- herdr workspace_picker
 bind("g", "client.palette.toggle")    -- herdr goto navigator: palette searches sessions, tabs, commands
 bind("a", "client.palette.toggle")
 bind("b", "client.sidebar.toggle")    -- herdr toggle_sidebar
+bind("shift+b", "client.tab_style.toggle")  -- Rex extra: vertical ⇄ horizontal tabs
+bind("f", "client.sidebar.filter.focus")    -- Rex extra: type to filter sidebar tabs
+bind("shift+c", "toggle_collapse_others")   -- Rex extra: fold other sessions / unfold all (actions.lua)
 
 -- ── Tabs (= herdr tabs / tmux windows) ───────────────────────────────────
 bind("c", "client.tab.new")           -- herdr new tab / tmux bind W
@@ -82,6 +85,20 @@ bind("shift+h", "pane.resize", { direction = "left",  amount = 15 })
 bind("shift+j", "pane.resize", { direction = "down",  amount = 15 })
 bind("shift+k", "pane.resize", { direction = "up",    amount = 15 })
 bind("shift+l", "pane.resize", { direction = "right", amount = 15 })
+
+-- ── Tabs mode: walk the sidebar with ctrl+j / ctrl+k ─────────────────────
+-- Rex has no action that moves a selection inside the sidebar, so this
+-- switches tabs live instead: prefix+t enters; ctrl+j/j next tab,
+-- ctrl+k/k previous tab; shift+j/shift+k next/previous session; enter or
+-- escape stays on the tab you landed on.  Exclusive: other keys are swallowed.
+bind("t", "client.mode.enter", { name = "tabs" })
+rex.mode("tabs", { exclusive = true })
+for _, k in ipairs({ "j", "ctrl+j", "down" }) do rex.bind("tabs/" .. k, "client.tab.next") end
+for _, k in ipairs({ "k", "ctrl+k", "up" })   do rex.bind("tabs/" .. k, "client.tab.previous") end
+rex.bind("tabs/shift+j", "session.next")
+rex.bind("tabs/shift+k", "session.previous")
+rex.bind("tabs/enter",  "client.mode.exit")
+rex.bind("tabs/esc",    "client.mode.exit")
 
 -- ── Resize mode (herdr resize_mode, closer to tmux's repeating -r binds) ──
 -- prefix+shift+r enters; h/j/k/l nudge; shift+h/j/k/l nudge more; = balances;

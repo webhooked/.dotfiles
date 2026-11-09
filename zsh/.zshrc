@@ -81,6 +81,7 @@ alias ai="claude"
 alias dai="claude --dangerously-skip-permissions"
 alias oc="opencode2"
 alias oc1="opencode"
+alias cx="codex"
 
 # Bear CLI alias
 alias bear='/Applications/Bear.app/Contents/MacOS/bearcli'
@@ -153,3 +154,9 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 [[ -t 0 ]] && export GPG_TTY=$(tty)
 export PATH="/opt/metasploit-framework/bin:$PATH"
+
+# Docker Sandboxes helpers (sb, sbf, sbrm, sbl)
+[[ -f ~/.config/zsh/sbx.zsh ]] && source ~/.config/zsh/sbx.zsh
+
+# Machine-local secrets (untracked), e.g. CONTEXT7_API_KEY for Codex MCP
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

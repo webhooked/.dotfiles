@@ -91,7 +91,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "claude-fable-5-1[1m]",
+  "model": "opus",
   "enableAllProjectMcpServers": true,
   "hooks": {
     "PreToolUse": [
@@ -172,19 +172,18 @@
     "claude-security@claude-plugins-official": true,
     "mattpocock-skills@claude-plugins-official": true,
     "todoist@doist": true,
-    "stripe@claude-plugins-official": true
+    "stripe@claude-plugins-official": true,
+    "frontend-design@anthropic-plugin-directory": true,
+    "superpowers@anthropic-plugin-directory": true,
+    "code-review@anthropic-plugin-directory": true,
+    "context7@anthropic-plugin-directory": true,
+    "upstash@upstash": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
       "source": {
         "source": "github",
         "repo": "kepano/obsidian-skills"
-      }
-    },
-    "fallow-skills": {
-      "source": {
-        "source": "github",
-        "repo": "fallow-rs/fallow-skills"
       }
     },
     "impeccable": {
@@ -210,9 +209,23 @@
         "source": "github",
         "repo": "doist/todoist-mcp"
       }
+    },
+    "upstash": {
+      "source": {
+        "source": "github",
+        "repo": "upstash/skills"
+      }
     }
   },
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "medium"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto",

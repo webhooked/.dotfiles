@@ -35,12 +35,15 @@ defaults write "$DOMAIN" Workspace.terminalCopyOnSelect -bool true
 # (Rex can't use a dark-tagged theme in light mode, so appearance is pinned dark.)
 defaults write "$DOMAIN" Workspace.appearance -string dark
 
+# Inactive pane dimming.  Rex has no fade amount, only what fades:
+# none | surface | content | both.  "both" was too dim; "content" fades the
+# text only, keeping the pane surface at full strength.
+defaults write "$DOMAIN" Workspace.inactivePaneFadeMode -string content
+
 # Not ported (no Rex preference found): background-opacity, background-blur,
 # faint-opacity, adjust-cursor-height, adjust-underline-*, custom-shader,
 # macos-titlebar-*, macos-icon, clipboard-read/write, window-save-state,
 # quit-after-last-window-closed, mouse-scroll-multiplier, confirm-close-surface.
-# unfocused-split-opacity = 1 would be Workspace.fadesInactivePanes = false /
-# Workspace.inactivePaneFadeMode; left alone since Rex's fade was set by hand.
 
 echo "--- result"
 defaults read "$DOMAIN" | grep -E "Workspace\.(terminal|appearance)" | sed 's/^ *//'

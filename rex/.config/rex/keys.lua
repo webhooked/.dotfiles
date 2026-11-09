@@ -40,6 +40,13 @@ rex.bind("cmd+down",  "pane.resize", { direction = "down" })
 rex.bind("cmd+up",    "pane.resize", { direction = "up" })
 rex.bind("cmd+right", "pane.resize", { direction = "right" })
 
+-- ── Sessions ─────────────────────────────────────────────────────────────
+-- cmd+shift+1..9 = Nth session (goto_session in actions.lua).  Physical
+-- [DigitN] keys: on the Swedish layout shift+digit types !"#¤%&/() instead.
+for i = 1, 9 do
+  rex.bind("cmd+shift+[Digit" .. i .. "]", "goto_session", { index = i })
+end
+
 -- ── Not portable ─────────────────────────────────────────────────────────
 -- ghostty: global:cmd+grave_accent = toggle_quick_terminal
 -- Rex has no quick/quake terminal and no system-wide (global) hotkeys in

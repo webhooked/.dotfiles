@@ -1,0 +1,73 @@
+# Codex CLI config — stowed to ~/.codex/config.toml
+# Ported from claude/.claude/settings.json and opencode/opencode.json.
+# Docs: https://developers.openai.com/codex/config-reference
+
+# Claude runs opus at high effort; mirror the effort, keep Codex's default model.
+model_reasoning_effort = "high"
+
+# Closest match to Claude's "auto" mode: write inside the workspace,
+# ask before anything that needs to escape the sandbox.
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+model = "gpt-6.1-sol"
+
+[tui]
+# Claude's preferredNotifChannel = "ghostty"; Ghostty understands OSC 9.
+notifications = true
+notification_method = "osc9"
+
+# ---------------------------------------------------------------------------
+# MCP servers (from ~/.claude.json + opencode)
+# ---------------------------------------------------------------------------
+
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+# Secret lives outside the repo: export CONTEXT7_API_KEY in ~/.zshrc.local
+bearer_token_env_var = "CONTEXT7_API_KEY"
+
+[mcp_servers.gitnexus]
+command = "npx"
+args = ["-y", "gitnexus@latest", "mcp"]
+
+[mcp_servers.mymind]
+# OAuth: run `codex mcp login mymind` once.
+url = "https://mcp.mymind.com/mcp/claude"
+
+[mcp_servers.blender]
+# From opencode. Disabled by default so sessions don't spawn it; flip when needed.
+command = "/Users/webhooked/.local/bin/blender-mcp"
+enabled = false
+
+# ---------------------------------------------------------------------------
+# Hooks — reuse the Claude hook scripts (same stdin JSON + exit-code-2 protocol).
+# Codex tool names: Bash, apply_patch, mcp__*. The Claude Edit/Write
+# damage-control hooks don't apply (Codex edits via apply_patch).
+# ---------------------------------------------------------------------------
+
+[[hooks.PreToolUse]]
+matcher = "^Bash$"
+
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "uv run ~/.claude/hooks/pre_tool_use.py"
+timeout = 10
+
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "uv run ~/.claude/hooks/damage-control/bash-tool-damage-control.py"
+timeout = 5
+
+# `-u` suffix on a prompt => ultrathink instructions
+[[hooks.UserPromptSubmit]]
+
+[[hooks.UserPromptSubmit.hooks]]
+type = "command"
+command = "uv run ~/.claude/hooks/user_prompts_submit.py"
+timeout = 10
+
+[marketplaces.upstash]
+source_type = "git"
+source = "https://github.com/upstash/skills.git"
+
+[plugins."upstash@upstash"]
+enabled = true

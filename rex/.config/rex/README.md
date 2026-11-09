@@ -48,6 +48,10 @@ cmd+ bindings from Ghostty (`keys.lua`) still work alongside.
 | `w`, `s`, `x` | session switcher | herdr space-picker popup, workspace_picker / tmux `w`, `s` |
 | `g`, `a` | command palette (searches sessions, tabs, commands) | herdr goto navigator |
 | `b` | toggle sidebar | herdr toggle_sidebar |
+| `shift+b` | toggle tab style (vertical ⇄ horizontal) | Rex extra |
+| `f` | focus the sidebar's tab filter | Rex extra |
+| `t` | enter tabs mode: `ctrl+j`/`j`/↓ next tab, `ctrl+k`/`k`/↑ previous tab, `shift+j`/`shift+k` next/previous session, Enter/Esc leave | Rex extra (no sidebar selection action, so tabs switch live) |
+| `shift+c` | toggle: collapse every other session in the sidebar / expand all (`toggle_collapse_others` action) | Rex extra |
 | `c` | new tab | herdr default / tmux `W` |
 | `n`, `m` | previous / next tab | herdr previous_tab, next_tab / tmux `n`, `m` |
 | `alt+n`, `alt+m` | move tab backward / forward | tmux `N`, `M` (herdr had no equivalent) |
@@ -148,6 +152,7 @@ To add a theme: drop the Ghostty file in `themes/`, re-run the import action
 | `keybind = cmd+shift+h/j/k/l=new_split:*` | `pane.split` with `direction` |
 | `keybind = cmd+h/j/k/l=goto_split:*` | `pane.focus` with `direction` |
 | `keybind = cmd+z=toggle_split_zoom` | `pane.zoom` |
+| — (herdr/tmux session N) | `cmd+shift+[DigitN]` → `goto_session` action (`actions.lua`), Nth session in switcher order |
 | `keybind = cmd+arrow=resize_split:*,20` | `pane.resize` with `direction` (default step; Rex's `amount` is not pixels) |
 | `theme = dark:…,light:…` | Import action + Settings → Appearance (see above) |
 | `window-theme = system` | Settings → Appearance mode, or the `client.appearance.switch_mode` action |
@@ -172,7 +177,7 @@ zsh ~/.config/rex/scripts/apply-settings.sh
 | `shell-integration-features = no-cursor` | `Workspace.terminalCursorStyleForced` | `true` |
 | `copy-on-select = clipboard` | `Workspace.terminalCopyOnSelect` | `true` |
 | `window-theme = system` | `Workspace.appearance` | `dark` (pinned, see Themes) |
-| `unfocused-split-opacity = 1` | `Workspace.fadesInactivePanes`, `Workspace.inactivePaneFadeMode` | left as set by hand in Rex |
+| `unfocused-split-opacity` | `Workspace.inactivePaneFadeMode` | `content` (`none`/`surface`/`content`/`both`; no fade amount) |
 | `faint-opacity = 1` | — | herdr-only workaround, not needed |
 
 Other keys that exist but have no Ghostty counterpart in this config:
