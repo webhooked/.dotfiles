@@ -15,7 +15,8 @@ The following operations are blocked by rules and hooks, but as additional guida
 - Never run destructive rm commands (rm -rf, rm -fr)
 - Never run package manager install commands without explicit user approval
 - Never run database CLI commands that could modify production data
-- Never run git commands that rewrite or sync repository state (push, reset, rebase, checkout, pull, ...) without user approval
+- Never push (git push, subtree/lfs push, send-email); ask the user to push
+- Never run git commands that discard uncommitted work or destroy history (reset --hard, clean -f, checkout -- <path>, restore <path>, stash drop/clear, branch -D/-f, reflog expire, filter-branch). Other git commands (fetch, pull, merge, rebase, checkout <branch>, stash, clone, creating/deleting/moving tags, ...) are fine
 
 ## Commit Guidelines
 

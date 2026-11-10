@@ -81,60 +81,62 @@ def is_env_file_access(tool_name, tool_input):
     
     return False
 
+# `git` plus any global options before the subcommand
+# (git -C <dir>, git -c k=v, git --no-pager, git --git-dir=..., ...).
+_GIT = r'\bgit(?:\s+(?:-[Cc]\s+\S+|--[\w-]+(?:=\S+)?|-[a-z]))*\s+'
+# Arguments of the same command: stops at shell separators so a flag in a
+# chained command (git checkout main && rm -f x) isn't attributed to git.
+_ARGS = r'[^;&|\n]*'
+
+# Everything else in git is allowed: status, diff, log, add, commit, fetch,
+# pull, merge, rebase, cherry-pick, revert, switch, checkout <branch>, stash,
+# branch, tag, remote, clone, init, worktree, ...
+# Blocked: anything that publishes to a remote, and anything that throws
+# away uncommitted work or history. Patterns match case-insensitively
+# (macOS runs `GIT push` too); (?-i:...) pins case where git flags differ
+# only by case (-d vs -D).
+_BLOCKED_GIT = [
+    # --- Publishing ---------------------------------------------------------
+    (r'push\b', 'git push'),
+    (r'(?:subtree|lfs)\s+push\b', 'pushing to a remote'),
+    (r'svn\s+dcommit\b', 'git svn dcommit pushes commits'),
+    (r'send-email\b', 'git send-email publishes patches'),
+    # Aliases could smuggle a blocked command past these patterns.
+    (r'config\b' + _ARGS + r'\balias\.', 'defining git aliases'),
+    (r'(?<=-c\s)alias\.', 'inline git aliases'),
+    # --- Discarding uncommitted work ----------------------------------------
+    (r'reset\b' + _ARGS + r'--(?:hard|merge)\b', 'git reset --hard/--merge discards changes (use --soft or stash)'),
+    (r'clean\b' + _ARGS + r'(?:\s-[a-z]*f|--force)', 'git clean -f deletes untracked files'),
+    (r'checkout\b' + _ARGS + r'(?:\s--(?:\s|$)|\s\.(?:\s|$)|\s-(?-i:[a-zA-Z]*f)\b|--force\b|\s-(?-i:B)\b)',
+     'git checkout -- <path> / . / -f / -B discards changes'),
+    # restore is only safe as an unstage: --staged/-S without --worktree/-W.
+    (r'restore\b(?!' + _ARGS + r'(?:--staged\b|\s-(?-i:[a-zA-Z]*S)\b))', 'git restore <path> discards working-tree changes (use --staged to unstage)'),
+    (r'restore\b' + _ARGS + r'(?:--worktree\b|\s-(?-i:[a-zA-Z]*W)\b)', 'git restore --worktree discards changes'),
+    (r'switch\b' + _ARGS + r'(?:--discard-changes|--force\b|\s-(?-i:f|C)\b)', 'git switch --discard-changes/-f/-C'),
+    (r'stash\s+(?:drop|clear)\b', 'git stash drop/clear deletes stashes'),
+    (r'rm\b' + _ARGS + r'(?:\s-[a-z]*f|--force)', 'git rm -f discards uncommitted changes'),
+    (r'worktree\s+remove\b' + _ARGS + r'(?:\s-f\b|--force)', 'git worktree remove --force discards changes'),
+    (r'submodule\s+deinit\b' + _ARGS + r'(?:\s-f\b|--force|--all)', 'git submodule deinit --force/--all'),
+    # --- Destroying history / refs ------------------------------------------
+    (r'branch\b' + _ARGS + r'(?:\s-(?-i:[a-zA-Z]*[DM])\b|\s-(?-i:f)\b|--force\b)', 'git branch -D/-M/-f can lose commits'),
+    (r'update-ref\b' + _ARGS + r'\s-d\b', 'git update-ref -d deletes refs'),
+    (r'reflog\s+(?:expire|delete)\b', 'git reflog expire/delete destroys recovery data'),
+    (r'gc\b' + _ARGS + r'--prune=(?:now|all)\b', 'git gc --prune=now can lose dangling commits'),
+    (r'prune\b', 'git prune deletes unreachable objects'),
+    (r'filter-(?:branch|repo)\b', 'rewrites entire history'),
+]
+
+
 def is_blocked_git_command(command):
     """
-    Check if the command is a blocked git operation.
-    Blocks destructive and state-changing git commands.
+    Return a reason string if the command publishes to a remote or destroys
+    uncommitted work/history, else None. All other git commands are allowed.
     """
-    normalized = ' '.join(command.lower().split())
-
-    # Allow: git add, git commit
-    # First check for allowed git commands before blocking
-    allowed_git_patterns = [
-        r'\bgit\s+add\b',
-        r'\bgit\s+commit\b',
-    ]
-
-    for pattern in allowed_git_patterns:
-        if re.search(pattern, normalized):
-            # Still block if combined with force or amend flags
-            if re.search(r'--force\b|-f\b', normalized):
-                return True
-            return False
-
-    git_patterns = [
-        # State-changing commands
-        r'\bgit\s+push\b',
-        r'\bgit\s+pull\b',
-        r'\bgit\s+fetch\b',
-        r'\bgit\s+merge\b',
-        r'\bgit\s+rebase\b',
-        r'\bgit\s+cherry-pick\b',
-        # Destructive commands
-        r'\bgit\s+reset\b',
-        r'\bgit\s+restore\b',
-        r'\bgit\s+checkout\b',
-        r'\bgit\s+clean\b',
-        r'\bgit\s+stash\b',
-        r'\bgit\s+revert\b',
-        # Branch/tag operations
-        r'\bgit\s+branch\s+-[dD]\b',
-        r'\bgit\s+tag\s+-d\b',
-        # Repository operations
-        r'\bgit\s+remote\b',
-        r'\bgit\s+submodule\b',
-        r'\bgit\s+clone\b',
-        r'\bgit\s+init\b',
-        # Force operations
-        r'\bgit\s+.*--force\b',
-        r'\bgit\s+.*-f\b',
-    ]
-
-    for pattern in git_patterns:
-        if re.search(pattern, normalized):
-            return True
-
-    return False
+    normalized = ' '.join(command.split())
+    for pattern, reason in _BLOCKED_GIT:
+        if re.search(_GIT + pattern, normalized, re.IGNORECASE):
+            return reason
+    return None
 
 def is_git_add_or_commit(command):
     """
@@ -395,9 +397,10 @@ def main():
                 print("BLOCKED: Dangerous rm command detected and prevented", file=sys.stderr)
                 sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
             
-            # Block dangerous git commands
-            if is_blocked_git_command(command):
-                print("BLOCKED: Dangerous git commands (commit, push, reset, restore, etc.) are not allowed", file=sys.stderr)
+            # Block git commands that push or destroy work/history
+            git_reason = is_blocked_git_command(command)
+            if git_reason:
+                print(f"BLOCKED: {git_reason}. Pushing and destructive git commands are not allowed; ask the user to run it.", file=sys.stderr)
                 sys.exit(2)  # Exit code 2 blocks tool call and shows error to Claude
             
             # Block package manager commands (except 'bun run typecheck')

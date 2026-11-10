@@ -40,6 +40,11 @@ defaults write "$DOMAIN" Workspace.appearance -string dark
 # text only, keeping the pane surface at full strength.
 defaults write "$DOMAIN" Workspace.inactivePaneFadeMode -string content
 
+# Key sequence hints (which-key popup after ctrl+space): off.
+# Settings → Keyboard → Show key sequence hints.  Modes (tabs/agents/resize)
+# appear to show their key popup regardless of this setting.
+defaults write "$DOMAIN" Workspace.showsKeySequenceHints -bool false
+
 # Not ported (no Rex preference found): background-opacity, background-blur,
 # faint-opacity, adjust-cursor-height, adjust-underline-*, custom-shader,
 # macos-titlebar-*, macos-icon, clipboard-read/write, window-save-state,

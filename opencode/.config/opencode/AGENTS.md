@@ -15,7 +15,8 @@ The following operations are blocked by permissions, but as additional guidance:
 - Never run destructive rm commands (rm -rf, rm -fr on root/home directories)
 - Never run package manager install commands without explicit user approval
 - Never run database CLI commands that could modify production data
-- Never run git commands that modify repository state without user approval
+- Never push (git push, subtree/lfs push, send-email); ask the user to push
+- Never run git commands that discard uncommitted work or destroy history (reset --hard, clean -f, checkout -- <path>, restore <path>, stash drop/clear, branch -D/-f, reflog expire, filter-branch). Other git commands (commit, fetch, pull, merge, rebase, checkout <branch>, stash, clone, creating/deleting/moving tags, ...) are fine
 
 ## Commit Guidelines
 

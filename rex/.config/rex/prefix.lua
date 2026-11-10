@@ -32,7 +32,7 @@ bind("w", "session.switch")           -- herdr fzf space-picker popup / tmux bin
 bind("s", "session.switch")
 bind("x", "session.switch")           -- herdr workspace_picker
 bind("g", "client.palette.toggle")    -- herdr goto navigator: palette searches sessions, tabs, commands
-bind("a", "client.palette.toggle")
+bind("a", "client.sidebar.activity.toggle")  -- Rex extra: sidebar shows only tabs running agents (toggle)
 bind("b", "client.sidebar.toggle")    -- herdr toggle_sidebar
 bind("shift+b", "client.tab_style.toggle")  -- Rex extra: vertical ⇄ horizontal tabs
 bind("f", "client.sidebar.filter.focus")    -- Rex extra: type to filter sidebar tabs
@@ -86,19 +86,9 @@ bind("shift+j", "pane.resize", { direction = "down",  amount = 15 })
 bind("shift+k", "pane.resize", { direction = "up",    amount = 15 })
 bind("shift+l", "pane.resize", { direction = "right", amount = 15 })
 
--- ── Tabs mode: walk the sidebar with ctrl+j / ctrl+k ─────────────────────
--- Rex has no action that moves a selection inside the sidebar, so this
--- switches tabs live instead: prefix+t enters; ctrl+j/j next tab,
--- ctrl+k/k previous tab; shift+j/shift+k next/previous session; enter or
--- escape stays on the tab you landed on.  Exclusive: other keys are swallowed.
-bind("t", "client.mode.enter", { name = "tabs" })
-rex.mode("tabs", { exclusive = true })
-for _, k in ipairs({ "j", "ctrl+j", "down" }) do rex.bind("tabs/" .. k, "client.tab.next") end
-for _, k in ipairs({ "k", "ctrl+k", "up" })   do rex.bind("tabs/" .. k, "client.tab.previous") end
-rex.bind("tabs/shift+j", "session.next")
-rex.bind("tabs/shift+k", "session.previous")
-rex.bind("tabs/enter",  "client.mode.exit")
-rex.bind("tabs/esc",    "client.mode.exit")
+-- The old prefix+t "tabs" mode (j/k through tabs) is gone: Rex modes always
+-- show a key-hint popup.  Plain bindings cover it: prefix+n / m for tabs,
+-- prefix+w / s or cmd+shift+1..9 for sessions.
 
 -- ── Resize mode (herdr resize_mode, closer to tmux's repeating -r binds) ──
 -- prefix+shift+r enters; h/j/k/l nudge; shift+h/j/k/l nudge more; = balances;

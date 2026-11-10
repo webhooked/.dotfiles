@@ -8,7 +8,7 @@
       "skillPath": "skills/security-audit/SKILL.md",
       "skillFolderHash": "ccbc33ed119b28c3ef7b44a7e2081ab191ad63af",
       "installedAt": "2026-11-06T07:17:48.921Z",
-      "updatedAt": "2026-11-06T07:17:48.921Z"
+      "updatedAt": "2026-11-10T08:43:52.461Z"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
@@ -187,17 +187,16 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "antigravity",
+    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
-    "droid",
-    "fx",
+    "deepagents",
     "gemini-cli",
     "github-copilot",
-    "kilo",
     "kimi-code-cli",
     "opencode",
-    "pi",
     "warp",
     "zed",
     "claude-code"

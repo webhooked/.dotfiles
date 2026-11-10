@@ -49,16 +49,31 @@ prefix_rule(
     justification = "Database CLIs are blocked to protect real data.",
 )
 
-# --- Git (add/commit stay allowed, as in Claude) ----------------------------
+# --- Git: pushing and destructive commands only -----------------------------
+# Everything else (fetch, pull, merge, rebase, checkout <branch>, stash, clone,
+# ...) is allowed. Prefix rules can't see flags in arbitrary positions, so the
+# full check lives in ~/.claude/hooks/pre_tool_use.py (is_blocked_git_command),
+# which Codex also runs; these rules are the fast, obvious cases.
 prefix_rule(
-    pattern = ["git", [
-        "push", "reset", "restore", "rebase", "merge", "checkout", "clean", "stash",
-        "cherry-pick", "revert", "remote", "submodule", "pull", "fetch", "clone", "init",
-    ]],
+    pattern = ["git", ["push", "send-email", "filter-branch", "filter-repo", "prune"]],
     decision = "forbidden",
-    justification = "This git command changes or syncs repository state; ask the user to run it.",
-    match = ["git push origin main", "git reset --hard"],
-    not_match = ["git status", "git commit -m msg"],
+    justification = "Pushing and history-destroying git commands are blocked; ask the user to run it.",
+    match = ["git push origin main", "git filter-branch --tree-filter x"],
+    not_match = ["git status", "git commit -m msg", "git pull", "git fetch"],
 )
-prefix_rule(pattern = ["git", "branch", ["-d", "-D"]], decision = "forbidden", justification = "Branch deletion is blocked.")
-prefix_rule(pattern = ["git", "tag", "-d"], decision = "forbidden", justification = "Tag deletion is blocked.")
+prefix_rule(pattern = ["git", ["subtree", "lfs"], "push"], decision = "forbidden", justification = "Pushing is blocked.")
+prefix_rule(pattern = ["git", "svn", "dcommit"], decision = "forbidden", justification = "Pushing is blocked.")
+prefix_rule(
+    pattern = ["git", "reset", ["--hard", "--merge"]],
+    decision = "forbidden",
+    justification = "Discards uncommitted changes; use --soft or stash.",
+    match = ["git reset --hard HEAD~1"],
+    not_match = ["git reset --soft HEAD~1", "git reset HEAD file"],
+)
+prefix_rule(pattern = ["git", "clean"], decision = "forbidden", justification = "git clean deletes untracked files.")
+prefix_rule(pattern = ["git", "checkout", ["--", ".", "-f", "--force", "-B"]], decision = "forbidden", justification = "Discards uncommitted changes.")
+prefix_rule(pattern = ["git", "restore", "."], decision = "forbidden", justification = "Discards uncommitted changes; use --staged to unstage.")
+prefix_rule(pattern = ["git", "switch", ["--discard-changes", "-f", "--force", "-C"]], decision = "forbidden", justification = "Discards uncommitted changes.")
+prefix_rule(pattern = ["git", "stash", ["drop", "clear"]], decision = "forbidden", justification = "Deletes stashes.")
+prefix_rule(pattern = ["git", "branch", ["-D", "-M", "-f", "--force"]], decision = "forbidden", justification = "Can lose unmerged commits; use -d.")
+prefix_rule(pattern = ["git", "reflog", ["expire", "delete"]], decision = "forbidden", justification = "Destroys recovery data.")
