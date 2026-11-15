@@ -14,8 +14,8 @@ rex/.config/rex/
 ├── actions.lua       # tmux popup binds as custom actions (lazygit)
 ├── themes.lua        # "Import Ghostty Themes" action
 ├── themes/           # Ghostty theme files, copied verbatim from ghostty/.config/ghostty/themes
-├── workspaces.lua    # "Set Up herdr Workspaces" action
-├── workspaces.json   # snapshot of herdr's workspaces/tabs/layouts (generated)
+├── workspaces.lua    # "Save Workspaces" / "Restore Workspaces" actions
+├── workspaces.json   # saved sessions/windows/layouts (generated, gitignored)
 └── scripts/
     ├── apply-settings.sh            # Ghostty terminal settings → Rex preferences
     ├── select-theme.sh              # pick a theme + appearance mode by name
@@ -30,7 +30,7 @@ rex/.config/rex/
 zsh ~/.config/rex/scripts/apply-settings.sh              # font, cursor, copy-on-select (Rex quit)
 # open Rex → Command Palette → "Import Ghostty Themes", then quit Rex
 zsh ~/.config/rex/scripts/select-theme.sh poimandresish-storm dark --appearance dark
-rex do setup_workspaces                                  # sessions from workspaces.json (-s <session> if several exist)
+rex do restore_workspaces                                # sessions from workspaces.json (-s <session> if several exist)
 ```
 
 ## herdr / tmux port (`prefix.lua`, `actions.lua`)
@@ -73,28 +73,45 @@ herdr's `[terminal] new_cwd = "follow"` is Rex's default; `[ui]
 mouse_capture`, sidebar and toast settings are Rex Settings-window options;
 herdr's `[theme.custom]` override is covered by the imported Ghostty themes.
 
-## herdr workspaces → Rex sessions (`workspaces.lua`)
+## Workspaces: save / restore Rex sessions (`workspaces.lua`)
 
-`scripts/export-herdr-workspaces.sh` snapshots herdr's live
-`~/.config/herdr/session.json` into `workspaces.json`: every workspace with
-its tabs, split tree (direction + ratio) and each pane's directory. The
-`setup_workspaces` server action recreates them as Rex sessions, one window
-per tab and a shell per pane started in its directory. Existing labels are
-skipped, so re-running only adds what is missing.
+`save_workspaces` snapshots the live Rex sessions into `workspaces.json`
+(gitignored, machine-specific): every session with its windows, split tree
+(Rex direction + ratio) and each pane's directory. `restore_workspaces`
+recreates them, one window per tab and a shell per pane started in its
+directory. Existing labels are skipped, so re-running only adds what is
+missing. Both show in the Command Palette as "Save Workspaces" / "Restore
+Workspaces". `setup_workspaces` still works as an alias of restore.
 
 ```sh
-zsh ~/.config/rex/scripts/export-herdr-workspaces.sh   # refresh the snapshot from herdr
-rex do setup_workspaces dry_run=true                   # what would be created
-rex do setup_workspaces                                # create missing sessions
-rex do setup_workspaces only=dotfiles                  # one workspace
+rex do save_workspaces                          # snapshot every session
+rex do save_workspaces exclude=humming-reef     # skip throwaway sessions (comma-separated)
+rex do save_workspaces only=dotfiles            # refresh one entry, keep the rest
+rex do save_workspaces dry_run=true             # print the JSON, don't write
+rex do restore_workspaces dry_run=true          # what would be created
+rex do restore_workspaces                       # create missing sessions
+rex do restore_workspaces only=dotfiles         # one workspace
 ```
+
+A pane's directory is what the shell last reported (OSC 7), otherwise the
+shell process's real cwd. Floating layers and running programs are not
+saved. Windows still carrying Rex's default `Window <id>` label are named
+after their directory.
 
 Inside a Rex terminal the session is implied. From elsewhere, once more
 than one session exists, `rex do` needs a session to run against:
-`rex do -s <any-session> setup_workspaces`.
+`rex do -s <any-session> restore_workspaces`.
 
-herdr's `Horizontal`/`Vertical` split directions are passed to Rex as-is; if
-a layout comes out transposed, swap them in `herdr-to-rex.jq`.
+### Seeding from herdr
+
+`scripts/export-herdr-workspaces.sh` writes the same file from herdr's
+`~/.config/herdr/session.json`. herdr's `Horizontal`/`Vertical` directions
+are passed through as-is; if a layout comes out transposed, swap them in
+`herdr-to-rex.jq`.
+
+```sh
+zsh ~/.config/rex/scripts/export-herdr-workspaces.sh   # overwrite workspaces.json from herdr
+```
 
 Commands:
 

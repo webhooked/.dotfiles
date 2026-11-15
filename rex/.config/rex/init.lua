@@ -16,4 +16,4 @@ require("keys")        -- Ghostty cmd+ keybinds → rex.bind
 require("prefix")      -- herdr/tmux ctrl+space prefix bindings + resize mode
 require("actions")     -- tmux popup binds as custom actions (lazygit)
 require("themes")      -- Ghostty theme files in ./themes → "Import Ghostty Themes" action
-require("workspaces")  -- herdr workspaces (workspaces.json) → "Set Up herdr Workspaces" action
+require("workspaces")  -- workspaces.json ⇄ Rex sessions → "Save Workspaces" / "Restore Workspaces" actions

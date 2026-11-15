@@ -56,6 +56,62 @@ rex.action{
   end,
 }
 
+-- Restart every idle shell, e.g. after `brew upgrade` changed zsh, plugins
+-- or PATH.  A pane counts as idle when its foreground process is the shell
+-- itself; panes running something else (nvim, claude, a server) are left
+-- alone and listed under `busy`.  Ctrl-U clears any half-typed line first.
+--
+--   rex do restart_shells                  -- every session
+--   rex do restart_shells only=dotfiles    -- one session
+--   rex do restart_shells dry_run=true     -- list what would restart
+local SHELL_NAMES = { zsh = true, bash = true, fish = true }
+rex.action{
+  name        = "restart_shells",
+  title       = "Restart Idle Shells",
+  description = "exec a fresh login shell in every pane that is sitting at a prompt.",
+  category    = "Session",
+  args        = { only = "string?", dry_run = "boolean?", command = "string?" },
+  run = function(ctx, args)
+    local cmd = args.command or 'exec "$SHELL" -l'
+    local r = rex.call("session.list", {})
+    local restarted, busy = {}, {}
+    for _, s in ipairs(r and r.sessions or {}) do
+      if not args.only or s.label == args.only then
+        -- session.view / block methods need this connection attached.
+        local v, attached = rex.call("session.view", { session_id = s.session_id }), false
+        if not v then
+          local a = rex.call("session.attach", { session_id = s.session_id })
+          v, attached = a and a.view, a ~= nil
+        end
+        for wi, w in ipairs(v and v.windows or {}) do
+          for _, l in ipairs(w.layers or {}) do
+            for _, b in ipairs(l.blocks or {}) do
+              if b.creator_name == "com.superlogical.terminal" then
+                local p = rex.call("block.method", { session_id = s.session_id, block_id = b.block_id, method = "process" })
+                local fg = p and p.foreground
+                local where = s.label .. ":" .. wi .. " " .. (w.label or "")
+                if fg and SHELL_NAMES[fg.name] then
+                  if not args.dry_run then
+                    rex.call("block.method", {
+                      session_id = s.session_id, block_id = b.block_id,
+                      method = "write", args = { data = "\21" .. cmd .. "\n" },
+                    })
+                  end
+                  restarted[#restarted + 1] = where
+                else
+                  busy[#busy + 1] = where .. " (" .. tostring(fg and (fg.argv0 or fg.name)) .. ")"
+                end
+              end
+            end
+          end
+        end
+        if attached then rex.call("session.detach", { session_id = s.session_id }) end
+      end
+    end
+    return { [args.dry_run and "would_restart" or "restarted"] = restarted, busy = busy }
+  end,
+}
+
 -- tmux: bind C-g display-popup -E -w 80% -h 80% -d '#{pane_current_path}' 'lazygit'
 -- Rex has no popups; open lazygit in a new window (tab) of the current
 -- session, in the current pane's directory, and close it when lazygit exits.
