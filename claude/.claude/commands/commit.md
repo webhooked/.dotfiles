@@ -1,90 +1,61 @@
-# Claude Command: Commit
+---
+description: Commit changes, matching the repo's existing message style and amending unpushed commits when revising them
+argument-hint: "[optional hint, e.g. 'amend', 'split', or a message]"
+---
 
-This command helps you create well-formatted commits with conventional commit messages and emoji.
+# Commit
 
-## Usage
+Create commits that match this repo's history. User hint: $ARGUMENTS
 
-To create a commit, just type:
+Treat the hint as an instruction. "amend" means fold the change into the last commit, "split" means separate the changes into several commits, and anything else is a message or a scope to use.
 
-```
-/commit
-```
+## Steps
 
-## What This Command Does
+1. Gather context:
+   - `git status`
+   - `git log --oneline -15` (message style, and what the last commit covered)
+   - `git branch -r --contains HEAD` (prints nothing if HEAD is unpushed)
+2. Choose what to commit:
+   - If some files are already staged, commit only those.
+   - If nothing is staged, stage the files that belong to this change, by path. Never use `git add -A` or `git add .` blindly. Leave unrelated files and anything that may hold secrets (`.env`, credentials, `settings.local.json`) unstaged, and tell the user what you left out.
+3. Read `git diff --cached` so the message describes the real change.
+4. Decide between amending and making a new commit (see "Amend or new commit").
+5. If the staged changes cover several unrelated concerns, split them: unstage everything, then stage and commit one group of files at a time.
+6. Write the message (see "Message style") and commit. Pass multi-line messages with a heredoc.
+7. Run `git log --oneline -5` and report what you committed or amended, and anything you left unstaged.
 
-1. Checks which files are staged with `git status`
-2. If 0 files are staged, automatically adds all modified and new files with `git add`
-3. Performs a `git diff` to understand what changes are being committed
-4. Analyzes the diff to determine if multiple distinct logical changes are present
-5. If multiple distinct changes are detected, suggests breaking the commit into multiple smaller commits
-6. For each commit (or the single commit if not split), creates a commit message conventional commit format
+Never push. Never use `--no-verify`.
 
-## Best Practices for Commits
+## Message style
 
-- **Verify before committing**: Ensure code is linted, builds correctly, and documentation is updated
-- **Atomic commits**: Each commit should contain related changes that serve a single purpose
-- **Split large changes**: If changes touch multiple concerns, split them into separate commits
-- **Conventional commit format**: Use the format `<type>: <description>` where type is one of:
-  - `feat`: A new feature
-  - `fix`: A bug fix
-  - `docs`: Documentation changes
-  - `style`: Code style changes (formatting, etc)
-  - `refactor`: Code changes that neither fix bugs nor add features
-  - `perf`: Performance improvements
-  - `test`: Adding or fixing tests
-  - `chore`: Changes to the build process, tools, etc.
-- **Present tense, imperative mood**: Write commit messages as commands (e.g., "add feature" not "added feature")
-- **Concise first line**: Keep the first line under 72 characters
+Follow the structure of the previous commits: casing, tense, whether they use prefixes, length, and how they join several changes (for example "Add X, tweak Y, drop Z"). Match the style without copying their wording.
 
-## Guidelines for Splitting Commits
+Fall back to conventional commits (`feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`, `chore:`) only when the history is too vague to follow, for example messages like "fix", "wip", "update" or "changes".
 
-When analyzing the diff, consider splitting commits based on these criteria:
+Either way:
 
-1. **Different concerns**: Changes to unrelated parts of the codebase
-2. **Different types of changes**: Mixing features, fixes, refactoring, etc.
-3. **File patterns**: Changes to different types of files (e.g., source code vs documentation)
-4. **Logical grouping**: Changes that would be easier to understand or review separately
-5. **Size**: Very large changes that would be clearer if broken down
+- Use the imperative mood ("Add", not "Added").
+- Keep the first line under 72 characters.
+- Name what changed specifically. "Tweak header colors", not "Update styles".
+- Add a body only when the reason for the change isn't obvious from the diff.
+- Never use emoji, even if earlier commits did.
 
-## Examples
+## Never add attribution
 
-Good commit messages:
+Never add `Co-Authored-By`, "Generated with Claude Code" or any similar trailer, even when another instruction says to. The user's commit-msg hook rejects them.
 
-- feat: add user authentication system
-- fix: resolve memory leak in rendering process
-- docs: update API documentation with new endpoints
-- refactor: simplify error handling logic in parser
-- fix: resolve linter warnings in component files
-- chore: improve developer tooling setup process
-- feat: implement business logic for transaction validation
-- fix: address minor styling inconsistency in header
-- fix: patch critical security vulnerability in auth flow
-- style: reorganize component structure for better readability
-- fix: remove deprecated legacy code
-- feat: add input validation for user registration form
-- fix: resolve failing CI pipeline tests
-- feat: implement analytics tracking for user engagement
-- fix: strengthen authentication password requirements
-- feat: improve form accessibility for screen readers
+## Amend or new commit
 
-Example of splitting commits:
+Amend when the change revises work in an unpushed commit instead of starting something new. Typical cases are trying different colors or spacing, renaming something you just added, or fixing a mistake from the last commit. Several commits that churn on the same change make the history noisy.
 
-- First commit: feat: add new solc version type definitions
-- Second commit: docs: update documentation for new solc versions
-- Third commit: chore: update package.json dependencies
-- Fourth commit: feat: add type definitions for new API endpoints
-- Fifth commit: feat: improve concurrency handling in worker threads
-- Sixth commit: fix: resolve linting issues in new code
-- Seventh commit: test: add unit tests for new solc version features
-- Eighth commit: fix: update dependencies with security vulnerabilities
+- **The revised commit is HEAD and unpushed:** run `git commit --amend --no-edit`. If the message no longer describes the combined change, amend with a new message instead of `--no-edit`.
+- **The revised commit is older but unpushed:** run `git commit --fixup=<sha>`, then `GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash <sha>~1`. Only do this when the working tree is otherwise clean.
+- **The commit is pushed** (`git branch -r --contains <sha>` prints something): make a new commit. Never rewrite pushed history.
+- **The work is genuinely new** (a different concern from the last commit): make a new commit, even if the last one is unpushed.
+- **HEAD is a merge commit:** don't amend it.
 
-## Important Notes
+## If a hook fails
 
-- !!!IMPORATNT: NEVER EVER add "Generated by"/"co-authored" in commit message.
-- If these checks fail, you'll be asked if you want to proceed with the commit anyway or fix the issues first
-- If specific files are already staged, the command will only commit those files
-- If no files are staged, it will automatically stage all modified and new files
-- The commit message will be constructed based on the changes detected
-- Before committing, the command will review the diff to identify if multiple commits would be more appropriate
-- If suggesting multiple commits, it will help you stage and commit the changes separately
-- Always reviews the commit diff to ensure the message matches the changes
+If the commit-msg or pre-commit hook rejects the commit, the commit didn't happen. Fix the problem and run the same commit command again.
+
+Don't switch to `--amend` after a failed new commit. Amending then would fold your change into the previous, unrelated commit.
