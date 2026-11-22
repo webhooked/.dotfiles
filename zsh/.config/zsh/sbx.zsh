@@ -5,7 +5,7 @@
 #   sbrm [agent] [-f]                      remove this repo's sandbox
 #   sbsh [agent] [-- cmd...]               shell (or one command) inside the sandbox
 #   sbport [-d] <port|host:port> [agent]   forward a sandbox port to localhost (-d removes)
-#   sbenv [file] [agent]                   copy .env.local into the sandbox (dev keys only)
+#   sbenv [file...] [agent]                copy .env / .env.local into the sandbox (dev keys only)
 #   sbstop [agent]                         stop the sandbox, keeping its state
 #   sbinit [agent]                         rerun setup (tools, dotfiles, env) on a sandbox
 #   sbl                                    list sandboxes
@@ -90,7 +90,7 @@ sb() {
 
 # Hosts sbx-init.sh and the dotfiles download from. Added automatically on every
 # setup (sb / sbinit) when missing; rules are global, so it's a one-time add.
-# The app's own hosts (Supabase, APIs) come from .env.local, per sandbox (sbenv).
+# The app's own hosts (Supabase, APIs) come from the env files, per sandbox (sbenv).
 SB_ALLOW_HOSTS=(
   nodejs.org go.dev dl.google.com                         # node, go
   github.com api.github.com codeload.github.com           # release tools, plugins
@@ -130,14 +130,15 @@ _sb_init() {
   fi
 }
 
-# Full setup of a sandbox: .env.local + its network rules first (quick, and the
-# dev server needs them), then tools + dotfiles (sbx-init.sh). Called by
+# Full setup of a sandbox: .env/.env.local + their network rules first (quick, and
+# the dev server needs them), then tools + dotfiles (sbx-init.sh). Called by
 # ~/.sbxenv.yaml's postCreate hook with $SBX_SANDBOX_NAME set, from the project dir.
 sbsetup() {
   emulate -L zsh
   local name=${1:-$SBX_SANDBOX_NAME}
   [[ -n $name ]] || { print -u2 "sbsetup: no sandbox name"; return 1 }
-  [[ -e $(_sb_root)/.env.local ]] && _sbenv_apply $name .env.local
+  local f
+  for f in $(_sb_env_files); do _sbenv_apply $name $f; done
   _sb_init $name
   return 0
 }
@@ -244,20 +245,32 @@ sbport() {
 }
 
 # --- env vars -----------------------------------------------------------------
-# sbenv copies the host env file (default .env.local; a 1Password-mounted file
-# works) whole into the sandbox's clone, so `bun dev` sees what it sees on the
-# host. Values are readable inside the sandbox: keep it to dev/test credentials
-# (test-mode Stripe, a dev Supabase project), never prod.
+# sbenv copies the host env files (whichever of SB_ENV_FILES exist; 1Password-
+# mounted files work) whole into the sandbox's clone, so `bun dev` sees what it
+# sees on the host. Values are readable inside the sandbox: keep them to dev/test
+# credentials (test-mode Stripe, a dev Supabase project), never prod.
+SB_ENV_FILES=(.env .env.local)
 
-# Resync an env file into this repo's sandbox: sbenv [file] [agent]
+_sb_env_files() {
+  local root=$(_sb_root) f
+  for f in $SB_ENV_FILES; do [[ -e $root/$f ]] && print -r -- $f; done
+}
+
+# Resync env files into this repo's sandbox: sbenv [file...] [agent]
 sbenv() {
   emulate -L zsh
-  local file=.env.local agent=claude a
-  for a; do case $a in .env*|*.env) file=$a ;; *) agent=$a ;; esac; done
-  [[ -e $(_sb_root)/$file ]] || { print -u2 "no $file in $(_sb_root)"; return 1 }
+  local agent=claude a f
+  local -a files
+  for a; do case $a in .env*|*.env) files+=($a) ;; *) agent=$a ;; esac; done
+  (( $#files )) || files=($(_sb_env_files))
+  (( $#files )) || { print -u2 "no ${(j: or :)SB_ENV_FILES} in $(_sb_root)"; return 1 }
   local name
   name=$(_sb_require $agent) || return
-  _sbenv_apply $name $file && print "restart the dev server to pick it up"
+  for f in $files; do
+    [[ -e $(_sb_root)/$f ]] || { print -u2 "no $f in $(_sb_root)"; return 1 }
+    _sbenv_apply $name $f || return
+  done
+  print "restart the dev server to pick it up"
 }
 
 _sbenv_apply() { # <sandbox> <file>

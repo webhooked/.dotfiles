@@ -101,10 +101,11 @@ Docker Desktop and OrbStack don't need to be running.
 
 - `sb` runs `sbx env run`, which merges `~/.sbxenv.yaml` (from `sbx/`) with the
   repo's own `sbxenv.yaml`, if it has one. The defaults set the agent, clone mode,
-  and a `postCreate` hook that runs `sbsetup` for tools, dotfiles and env.
+  and a `postCreate` hook that runs `sbsetup` for env, tools and dotfiles.
   sbx shows the plan and asks once before running host commands.
-- Per repo, optional: `sbxenv.yaml` (ports, env, kits). It holds no secrets,
-  so it's safe to commit.
+- The dev server runs in the sandbox: `sbsh`, then `bun dev --host 0.0.0.0`.
+  Per repo, optional: `sbxenv.yaml` with `ports:` to reach it from the Mac. It
+  holds no secrets, so it's safe to commit.
 
 ### Daily use (any repo, new or existing: no per-project config needed)
 
@@ -114,11 +115,11 @@ Docker Desktop and OrbStack don't need to be running.
 | `sbf` | Fetch the agent's branches into this repo and list them |
 | `git switch -c feat/x sandbox-<name>/feat/x` | Take a branch after reviewing it, then push from the host |
 | `sbrm` | Remove the sandbox; refuses if a sandbox branch isn't saved locally (`-f` to discard) |
-| `sbsh` | Shell inside the sandbox (`sbsh -- npm test` runs one command) |
+| `sbsh` | Shell inside the sandbox (`sbsh -- bun test` runs one command) |
 | `sbport 3000` | Forward a port ad hoc (`sbport 8080:3000`, `sbport -d 3000` to remove). For a permanent one, add `ports:` to the repo's `sbxenv.yaml` |
-| `sbenv` | Copy `.env.local` into the sandbox again (works with 1Password-mounted files). `sb` does this on create |
+| `sbenv` | Copy `.env` and/or `.env.local` into the sandbox again (works with 1Password-mounted files) and allow the hosts of their URLs. `sb` does this on create |
 | `sbstop` | Stop the sandbox, keeping installs and the agent's clone |
-| `sbinit` | Rerun setup on an existing sandbox: `sbx-init.sh` (node, go, bun, nvim, atuin, zoxide, lazygit, yazi; clones this repo and stows `zsh nvim atuin tmux lazygit yazi git`), then `.env.local`. New sandboxes get this from the `postCreate` hook |
+| `sbinit` | Rerun setup on an existing sandbox: env files, then `sbx-init.sh` (node, go, bun, nvim, atuin, zoxide, lazygit, yazi; clones this repo and stows `zsh nvim atuin tmux lazygit yazi git`). New sandboxes get this from the `postCreate` hook |
 | `sbl` | List sandboxes |
 | `sb --mount` | Direct mount instead of clone mode, for live edits in your editor |
 
@@ -131,29 +132,25 @@ Docker Desktop and OrbStack don't need to be running.
   every change goes through your review before it reaches a remote. To let agents
   open PRs, store a fine-grained, repo-scoped token with `sbx secret set github`
   rather than your broad `gh auth token`.
-- **`.env` files are readable.** The whole repo directory is mounted read-only,
-  gitignored files included. Keep real secrets out of the repo (`~/.zshrc.local`,
-  a password manager) or use `sbx secret`, which injects them at the proxy.
-- **Env vars: dev credentials only.** `sbenv` copies `.env.local` whole, so the
-  dev server works the same as on the host, and the agent can read every value.
-  Keep that file to keys you'd rotate without stress: Stripe test mode, a dev
-  Supabase project, never prod. The network policy limits where a leaked key
-  can go. `sbenv` also allows the hosts of the URLs in that file (Supabase and
-  your APIs), for that sandbox only. Agent API keys (`sbx secret set`) still go through the proxy and
-  never enter the VM.
+- **Env files: dev credentials only.** `sbenv` copies `.env`/`.env.local` whole,
+  so the dev server works the same as on the host, and the agent can read every
+  value. The repo folder is also mounted read-only, gitignored files included.
+  Keep those files to keys you'd rotate without stress: Stripe test mode, a dev
+  Supabase project, never prod. Agent logins (`sbx secret set`, `/login`) go
+  through the proxy and never enter the VM.
 - **Network: Balanced.** Unknown hosts are blocked. Allow one with
-  `sbx policy allow network <host>`, and inspect with `sbx policy ls`. Rules
-  are global. `sb` adds the download hosts in `SB_ALLOW_HOSTS` (`sbx.zsh`)
-  when they're missing.
+  `sbx policy allow network <host>`, and inspect with `sbx policy log`. Setup
+  adds the download hosts in `SB_ALLOW_HOSTS` (`sbx.zsh`) globally, and the
+  hosts of the URLs in your env files for that sandbox only.
 - **Host `~/.claude` config doesn't apply inside.** Hooks and settings stay on
   the host; the VM is the boundary instead. Project `.claude/` and `CLAUDE.md`
   still load.
 - **Review before you run.** Fetched code is untrusted until you've read the
   diff. That includes `package.json` scripts, `.envrc`, and Makefiles.
 
-Projects that need extra tools, ports or resources can commit a `sbxenv.yaml`
-and start with `sbx env run`. `sbx env` is experimental, so add one only when a
-project needs it.
+A project that needs ports, extra tools or resources can commit its own
+`sbxenv.yaml`; `sb` merges it in. `sbx env` is experimental, so add one only
+when a project needs it.
 
 ## Customization
 

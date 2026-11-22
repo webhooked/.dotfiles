@@ -17,8 +17,8 @@ workspace:
 
 lifecycle:
   postCreate:
-    # Host-side, once per new sandbox: install tools + dotfiles (sbx-init.sh),
-    # copy .env.local (dev credentials only) into the clone.
-    - name: sbsetup (tools, dotfiles, env)
+    # Host-side, once per new sandbox: copy .env/.env.local (dev credentials only)
+    # and allow its hosts, then install tools + dotfiles (sbx-init.sh).
+    - name: sbsetup (env, tools, dotfiles)
       command: zsh -c 'source ~/.config/zsh/sbx.zsh && sbsetup'
       timeout: 20m
