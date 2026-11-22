@@ -110,7 +110,7 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH=$PATH:$HOME/go/bin
 
 # Docker
-export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
+# export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
 
 # Bun
 export BUN_INSTALL="$HOME/.bun"

@@ -2,8 +2,8 @@
 # Ported from claude/.claude/settings.json and opencode/opencode.json.
 # Docs: https://developers.openai.com/codex/config-reference
 
-# Claude runs opus at high effort; mirror the effort, keep Codex's default model.
-model_reasoning_effort = "high"
+# Default model is daybreak (set below) at medium effort.
+model_reasoning_effort = "medium"
 
 # Closest match to Claude's "auto" mode: write inside the workspace,
 # ask before anything that needs to escape the sandbox.
@@ -18,7 +18,7 @@ notification_method = "osc9"
 screen_reader_detection_done = true
 
 [tui.model_availability_nux]
-"gpt-6.1-sol" = 3
+"gpt-6.1-sol" = 4
 
 # ---------------------------------------------------------------------------
 # MCP servers (from ~/.claude.json + opencode)
@@ -86,9 +86,15 @@ trust_level = "trusted"
 [projects."/Users/webhooked/repos/orestocks/miningdataapi"]
 trust_level = "trusted"
 
+[projects."/Users/webhooked/repos/sikt"]
+trust_level = "trusted"
+
 [marketplaces.upstash]
 source_type = "git"
 source = "https://github.com/upstash/skills.git"
 
 [plugins."upstash@upstash"]
 enabled = true
+
+[notice]
+hide_rate_limit_model_nudge = true

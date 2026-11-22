@@ -259,7 +259,7 @@
       "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
       "### User-specific",
       "**Primary use of Claude Code**: software development",
-      "**Trusted repo**: /Users/webhooked/repos/takt (no remotes configured)",
+      "**Trusted repo**: /Users/webhooked/repos/quartz (no remotes configured)",
       "**Org-specific CLIs**: None configured"
     ]
   }
