@@ -135,6 +135,27 @@ app's own storage rather than reading a folder. So on each machine, once:
 Ghostty's `theme = dark:poimandresish,light:poimandresish-storm` becomes:
 dark palette `poimandresish`, light palette `poimandresish-storm`.
 
+**Night Owl, following the system appearance.** `night-owl` for dark,
+`night-owl-light` for light. `night-owl-light` is a port of the Night Owl
+Light VS Code theme's terminal colors (comments in the file name the VS Code
+key behind each value); bright black uses the theme's comment color, because
+VS Code's equals the foreground and hides zsh-autosuggestions. With Remote
+Control on:
+
+```sh
+rex -C <label> do client.theme.import path=$HOME/.config/rex/themes/night-owl-light
+rex -C <label> do client.setting.themes.light.palette value=<night-owl-light id>
+rex -C <label> do client.setting.themes.dark.palette value=<night-owl id>
+rex -C <label> do client.setting.interface.appearance.scheme value=auto
+```
+
+Or with Rex quit:
+
+```sh
+zsh ~/.config/rex/scripts/select-theme.sh night-owl dark
+zsh ~/.config/rex/scripts/select-theme.sh night-owl-light light --appearance system
+```
+
 **Dark theme as the light-mode theme.** Rex tags every imported theme
 `light` or `dark` from its background brightness. The light picker only lists
 `light` themes, Rex resets the light slot on launch if it holds a `dark`

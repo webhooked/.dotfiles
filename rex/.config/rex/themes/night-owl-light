@@ -1,40 +1,55 @@
 # NIGHT OWL LIGHT
-cursor-color = 403f53
-background = fbfbfb
-foreground = 403f53
+# Port of "Night Owl Light" from Sarah Drasner's VS Code theme
+# (sdras/night-owl-vscode-theme, themes/Night Owl-Light-color-theme.json).
+# Every value is the VS Code terminal's own color unless noted.
 
-# black
+# terminal.background / terminal.foreground
+background = #f6f6f6
+foreground = #403f53
+
+# editorCursor.foreground (the theme sets no terminalCursor.* keys).
+# Text under the block cursor uses the foreground (4.1:1 on the cursor,
+# versus 2.3:1 with the background).
+cursor-color = #90a7b2
+cursor-text = #403f53
+
+# The theme sets no terminal.selectionBackground, so VS Code's terminal falls
+# back to editor.selectionBackground.
+selection-background = #e0e0e0
+selection-foreground = #403f53
+
+# black: terminal.ansiBlack = #403f53
 palette = 0=#403f53
+# bright black: VS Code also uses #403f53 here, the same as the foreground,
+# which makes zsh-autosuggestions (fg=8) and other dimmed text look typed.
+# Deviation: the theme's comment color instead.
 palette = 8=#989fb1
 
-# red
+# red: terminal.ansiRed / ansiBrightRed
 palette = 1=#de3d3b
 palette = 9=#de3d3b
 
-# green
+# green: terminal.ansiGreen / ansiBrightGreen
 palette = 2=#08916a
 palette = 10=#08916a
 
-# yellow
+# yellow: terminal.ansiYellow / ansiBrightYellow
 palette = 3=#e0af02
 palette = 11=#daaa01
 
-# blue
+# blue: terminal.ansiBlue / ansiBrightBlue
 palette = 4=#288ed7
 palette = 12=#288ed7
 
-# purple/magenta
+# magenta: terminal.ansiMagenta / ansiBrightMagenta
 palette = 5=#d6438a
 palette = 13=#d6438a
 
-# cyan
+# cyan: terminal.ansiCyan / ansiBrightCyan
 palette = 6=#2aa298
 palette = 14=#2aa298
 
-# white
-palette = 7=#f0f0f0
-palette = 15=#f0f0f0
-
-# selection colors
-selection-background = e0e0e0
-selection-foreground = 403f53
+# white: terminal.ansiWhite / ansiBrightWhite. Grey rather than white,
+# so "white" text stays readable on the light background.
+palette = 7=#93a1a1
+palette = 15=#93a1a1
