@@ -33,6 +33,49 @@ rex.action{
   end,
 }
 
+-- Sort sessions A→Z by label (case-insensitive), in the order session.list,
+-- the sidebar, the switcher and goto_session all share.  Rex has no sort
+-- setting, so this moves each session to the end in sorted order; new
+-- sessions still land last, so re-run after creating one.
+--
+--   rex do sort_sessions                  -- A→Z
+--   rex do sort_sessions reverse=true     -- Z→A
+--   rex do sort_sessions dry_run=true     -- print the order, don't move
+rex.action{
+  name        = "sort_sessions",
+  title       = "Sort Sessions by Name",
+  description = "Reorder every session alphabetically by its label.",
+  category    = "Session",
+  args        = { reverse = "boolean?", dry_run = "boolean?" },
+  run = function(ctx, args)
+    local r, err = rex.call("session.list", {})
+    if not r then error("session.list: " .. tostring(err), 0) end
+    local sessions = r.sessions or {}
+    table.sort(sessions, function(a, b)
+      local la, lb = a.label:lower(), b.label:lower()
+      if la == lb then return a.label < b.label end
+      if args.reverse then return la > lb end
+      return la < lb
+    end)
+    local order = {}
+    for _, s in ipairs(sessions) do order[#order + 1] = s.label end
+    if args.dry_run then return { would_order = order } end
+
+    for _, s in ipairs(sessions) do
+      -- session.move needs this connection attached to the session it moves.
+      local ok = rex.call("session.move", { session_id = s.session_id })
+      if not ok then
+        local a, aerr = rex.call("session.attach", { session_id = s.session_id })
+        if not a then error("session.attach " .. s.label .. ": " .. tostring(aerr), 0) end
+        local moved, merr = rex.call("session.move", { session_id = s.session_id })
+        rex.call("session.detach", { session_id = s.session_id })
+        if not moved then error("session.move " .. s.label .. ": " .. tostring(merr), 0) end
+      end
+    end
+    return { order = order }
+  end,
+}
+
 -- Toggle sidebar session folding: collapse every session but the current
 -- one, then expand them all on the next press.  Rex has no toggle and no way
 -- to read fold state, so the state lives here; it resets on config reload and

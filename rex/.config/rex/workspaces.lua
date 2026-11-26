@@ -233,6 +233,13 @@ rex.action{
       workspaces = existing
     end
 
+    -- A→Z by name, so restore recreates sessions in sorted order.
+    table.sort(workspaces, function(a, b)
+      local na, nb = (a.name or ""):lower(), (b.name or ""):lower()
+      if na == nb then return (a.name or "") < (b.name or "") end
+      return na < nb
+    end)
+
     local text = pretty({ workspaces = workspaces }) .. "\n"
     if args.dry_run then
       return { would_save = saved, skipped = skipped, floating_layers_ignored = floating, json = text }

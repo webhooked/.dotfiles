@@ -52,6 +52,7 @@ cmd+ bindings from Ghostty (`keys.lua`) still work alongside.
 | `f` | focus the sidebar's tab filter | Rex extra |
 | `t` | enter tabs mode: `ctrl+j`/`j`/↓ next tab, `ctrl+k`/`k`/↑ previous tab, `shift+j`/`shift+k` next/previous session, Enter/Esc leave | Rex extra (no sidebar selection action, so tabs switch live) |
 | `shift+c` | toggle: collapse every other session in the sidebar / expand all (`toggle_collapse_others` action) | Rex extra |
+| `o` | sort sessions A→Z by label (`sort_sessions` action) | Rex extra |
 | `c` | new tab | herdr default / tmux `W` |
 | `n`, `m` | previous / next tab | herdr previous_tab, next_tab / tmux `n`, `m` |
 | `alt+n`, `alt+m` | move tab backward / forward | tmux `N`, `M` (herdr had no equivalent) |
@@ -91,6 +92,18 @@ rex do save_workspaces dry_run=true             # print the JSON, don't write
 rex do restore_workspaces dry_run=true          # what would be created
 rex do restore_workspaces                       # create missing sessions
 rex do restore_workspaces only=dotfiles         # one workspace
+```
+
+Saved workspaces are written A→Z by name, so a restore recreates sessions
+in that order. To sort the live sessions (sidebar, switcher and
+`cmd+shift+1–9` order), use `sort_sessions` ("Sort Sessions by Name" in the
+palette, or prefix `o`). Rex has no sort setting and adds new sessions last,
+so re-run it after creating one.
+
+```sh
+rex do sort_sessions                            # A→Z, case-insensitive
+rex do sort_sessions reverse=true               # Z→A
+rex do sort_sessions dry_run=true               # print the order, don't move
 ```
 
 A pane's directory is what the shell last reported (OSC 7), otherwise the

@@ -37,6 +37,7 @@ bind("b", "client.sidebar.toggle")    -- herdr toggle_sidebar
 bind("shift+b", "client.tab_style.toggle")  -- Rex extra: vertical ⇄ horizontal tabs
 bind("f", "client.sidebar.filter.focus")    -- Rex extra: type to filter sidebar tabs
 bind("shift+c", "toggle_collapse_others")   -- Rex extra: fold other sessions / unfold all (actions.lua)
+bind("o", "sort_sessions")                  -- Rex extra: order sessions A→Z (actions.lua)
 
 -- ── Tabs (= herdr tabs / tmux windows) ───────────────────────────────────
 bind("c", "client.tab.new")           -- herdr new tab / tmux bind W
