@@ -17,7 +17,7 @@ rex/.config/rex/
 ├── workspaces.lua    # "Save Workspaces" / "Restore Workspaces" actions
 ├── workspaces.json   # saved sessions/windows/layouts (generated, gitignored)
 └── scripts/
-    ├── apply-settings.sh            # Ghostty terminal settings → Rex preferences
+    ├── apply-settings.sh            # Rex Settings-window preferences (--check compares with Rex)
     ├── select-theme.sh              # pick a theme + appearance mode by name
     ├── export-herdr-workspaces.sh   # herdr session.json → workspaces.json
     └── herdr-to-rex.jq              # the conversion used by the script above
@@ -26,8 +26,7 @@ rex/.config/rex/
 ## Fresh machine
 
 ```sh
-./stow                                                   # links ~/.config/rex
-zsh ~/.config/rex/scripts/apply-settings.sh              # font, cursor, copy-on-select (Rex quit)
+./stow                                                   # links ~/.config/rex, applies apply-settings.sh if Rex isn't running
 # open Rex → Command Palette → "Import Ghostty Themes", then quit Rex
 zsh ~/.config/rex/scripts/select-theme.sh poimandresish dark
 zsh ~/.config/rex/scripts/select-theme.sh poimandresish-light light --appearance system
@@ -231,13 +230,39 @@ To add a theme: drop the Ghostty file in `themes/`, re-run the import action
 
 ### App preferences (no Lua equivalent): `scripts/apply-settings.sh`
 
-Rex keeps terminal settings as macOS preferences under `com.superlogical.rex`
-(the keys were read out of the app binary; Rex Beta 0.1.0). The script writes
-them with `defaults write`. Quit Rex, run it, relaunch:
+Everything in Rex's Settings window is a macOS preference under
+`com.superlogical.rex` (`~/Library/Preferences/com.superlogical.rex.plist`),
+not a file in this folder, so changing a setting in the app saves it on this
+Mac only. `apply-settings.sh` is the dotfiles copy: one list of settings
+(terminal, appearance, panes, tabs/sidebar, keyboard) that it writes with
+`defaults write`. Quit Rex, run it, relaunch:
 
 ```sh
 zsh ~/.config/rex/scripts/apply-settings.sh
 ```
+
+After changing something in Settings, compare Rex with the file (read-only,
+works while Rex runs; exits 1 when they differ):
+
+```sh
+zsh ~/.config/rex/scripts/apply-settings.sh --check
+```
+
+It lists each setting whose value differs (`differs`) and each
+`Workspace.*` preference the file doesn't cover yet (`new`). `--save` copies
+them into the script for you: it rewrites the differing values (comments
+kept) and adds new settings under "Added by --save"; review with `git diff`.
+
+```sh
+zsh ~/.config/rex/scripts/apply-settings.sh --save
+```
+
+Why not stow the plist itself: macOS writes preferences by replacing the
+file, so the first settings change turns a symlink back into a regular file
+and the repo copy never sees it (tested). The plist also holds window frames,
+session state and update timestamps. App state (last focused session, sidebar collapsed, activity
+seen) and the per-machine theme ids are skipped (`STATE_KEYS`); themes are
+set by `select-theme.sh`.
 
 | Ghostty | Rex preference key | Value |
 | --- | --- | --- |
@@ -248,8 +273,8 @@ zsh ~/.config/rex/scripts/apply-settings.sh
 | `cursor-style = block` | `Workspace.terminalCursorStyle` | `block` / `underline` / `hollowBlock` |
 | `shell-integration-features = no-cursor` | `Workspace.terminalCursorStyleForced` | `true` |
 | `copy-on-select = clipboard` | `Workspace.terminalCopyOnSelect` | `true` |
-| `window-theme = system` | `Workspace.appearance` | `dark` (pinned, see Themes) |
-| `unfocused-split-opacity` | `Workspace.inactivePaneFadeMode` | `content` (`none`/`surface`/`content`/`both`; no fade amount) |
+| `window-theme = system` | `Workspace.appearance` | `system` (`light`/`dark` pin it) |
+| `unfocused-split-opacity` | `Workspace.inactivePaneFadeMode` | `styling` (`none`/`surface`/`content`/`both`/`styling`; no fade amount) |
 | `faint-opacity = 1` | — | herdr-only workaround, not needed |
 
 Other keys that exist but have no Ghostty counterpart in this config:

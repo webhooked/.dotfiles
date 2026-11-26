@@ -5,5 +5,19 @@ do
     echo "stow $folder"
     stow -D --target=$HOME --verbose $folder
     stow --adopt --target=$HOME --verbose $folder
+
+    # Rex's Settings-window preferences live in macOS defaults, not in a
+    # stowable file; apply-settings.sh writes them.  Only with the app quit:
+    # a running Rex keeps its own copy and can write it back over ours.
+    if [[ $folder == rex ]]; then
+        if pgrep -xq Rex; then
+            echo "rex settings: Rex is running, so not applied. Differences:"
+            zsh $HOME/.config/rex/scripts/apply-settings.sh --check || true
+            echo "rex settings: quit Rex and run: zsh ~/.config/rex/scripts/apply-settings.sh"
+        else
+            echo "rex settings: applying"
+            zsh $HOME/.config/rex/scripts/apply-settings.sh
+        fi
+    fi
 done
 popd
