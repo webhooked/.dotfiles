@@ -29,7 +29,8 @@ rex/.config/rex/
 ./stow                                                   # links ~/.config/rex
 zsh ~/.config/rex/scripts/apply-settings.sh              # font, cursor, copy-on-select (Rex quit)
 # open Rex → Command Palette → "Import Ghostty Themes", then quit Rex
-zsh ~/.config/rex/scripts/select-theme.sh poimandresish-storm dark --appearance dark
+zsh ~/.config/rex/scripts/select-theme.sh poimandresish dark
+zsh ~/.config/rex/scripts/select-theme.sh poimandresish-light light --appearance system
 rex do restore_workspaces                                # sessions from workspaces.json (-s <session> if several exist)
 ```
 
@@ -145,8 +146,29 @@ app's own storage rather than reading a folder. So on each machine, once:
 2. Settings → Appearance → choose the dark and light palettes, or run
    **Change Theme…** from the palette.
 
-Ghostty's `theme = dark:poimandresish,light:poimandresish-storm` becomes:
-dark palette `poimandresish`, light palette `poimandresish-storm`.
+**Poimandresish, following the system appearance (current setup).**
+`poimandresish` for dark, `poimandresish-light` for light, matching
+Neovim (`nvim/.../plugins/poimandresish.lua`: night when dark, light when
+light; Neovim is transparent, so Rex's background shows behind it).
+`poimandresish-light` is the terminal palette of the poimandresish.nvim light
+variant (`extra/ghostty/poimandresish-light` in that repo). With Remote
+Control on:
+
+```sh
+rex -C <label> do client.theme.import path=$HOME/.config/rex/themes/poimandresish-light
+rex -C <label> do client.setting.themes.light.palette value=<poimandresish-light id>
+rex -C <label> do client.setting.themes.dark.palette value=<poimandresish id>
+rex -C <label> do client.setting.interface.appearance.scheme value=auto
+```
+
+Or with Rex quit:
+
+```sh
+zsh ~/.config/rex/scripts/select-theme.sh poimandresish dark
+zsh ~/.config/rex/scripts/select-theme.sh poimandresish-light light --appearance system
+```
+
+The ids are in `Workspace.customThemes` (see `select-theme.sh`).
 
 **Night Owl, following the system appearance.** `night-owl` for dark,
 `night-owl-light` for light. `night-owl-light` is a port of the Night Owl
@@ -173,17 +195,16 @@ zsh ~/.config/rex/scripts/select-theme.sh night-owl-light light --appearance sys
 `light` or `dark` from its background brightness. The light picker only lists
 `light` themes, Rex resets the light slot on launch if it holds a `dark`
 theme, and re-tagging a dark theme as `light` makes the UI chrome use
-light-mode (dark) text on a dark panel. So `poimandresish-storm` can only be
-used with the chrome in dark mode, which means pinning Rex's appearance to
-dark instead of following the system. Quit Rex, then:
+light-mode (dark) text on a dark panel. So a dark theme such as
+`poimandresish-storm` can only be used in light mode by pinning Rex's
+appearance to dark instead of following the system. Quit Rex, then:
 
 ```sh
 zsh ~/.config/rex/scripts/select-theme.sh poimandresish-storm dark --appearance dark
 ```
 
 That writes `Workspace.darkThemeID` and `Workspace.appearance` in Rex's
-preferences. Switch to `poimandresish` any time with the "Change Theme…"
-palette action; `--appearance system` restores system-following.
+preferences; `--appearance system` restores system-following.
 
 Re-run the script after re-importing a theme, since importing creates a
 fresh entry with a new id.

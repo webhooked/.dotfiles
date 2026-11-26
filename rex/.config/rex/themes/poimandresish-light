@@ -1,0 +1,51 @@
+# Poimandresish Light
+# Terminal colors of the poimandresish.nvim light palette
+# (lua/poimandresish/palette.lua, variants.light). Use it as the terminal
+# theme behind `colorscheme poimandresish` with 'background' light, or behind
+# `poimandresish-light`, so a transparent Neovim matches the terminal.
+
+background = #F4F6FA
+foreground = #272C3B
+
+# Text-colored block cursor; the text under it takes the background.
+cursor-color = #272C3B
+cursor-text = #F4F6FA
+
+# Neovim's Visual (selection slot): text is 9.8:1 on it.
+selection-background = #CFDAE8
+selection-foreground = #272C3B
+
+# black: the text color, as light terminal themes use it
+palette = 0=#272C3B
+# bright black: the comment color (blueGray2), so dimmed output such as
+# zsh-autosuggestions still reads as dimmed
+palette = 8=#646A85
+
+# red: pink3
+palette = 1=#B5366D
+palette = 9=#B5366D
+
+# green: teal1
+palette = 2=#00755F
+palette = 10=#00755F
+
+# yellow: deep gold
+palette = 3=#7D5F00
+palette = 11=#7D5F00
+
+# blue: blue1 / blue2
+palette = 4=#06699A
+palette = 12=#3765A8
+
+# magenta: pink2
+palette = 5=#A34483
+palette = 13=#A34483
+
+# cyan: blue1 / blue2, as in the dark theme
+palette = 6=#06699A
+palette = 14=#3765A8
+
+# white: a readable grey (blueGray3) instead of white, so "white" text
+# stays visible on the light background
+palette = 7=#8F9AAB
+palette = 15=#8F9AAB
