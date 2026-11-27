@@ -19,6 +19,7 @@ Personal configuration files for development environment setup.
 - **git** - Shared git config + a `commit-msg` hook that blocks AI attribution trailers
 - **agents** - Tool-agnostic agent skills (`~/.agents/skills`), linked into Claude Code
 - **codex** - Codex CLI config, global AGENTS.md and execpolicy rules (`~/.codex`); reuses the Claude hook scripts. Needs `CONTEXT7_API_KEY` in `~/.zshrc.local`
+- **opencode** - OpenCode global AGENTS.md and themes (`~/.config/opencode`), permissions (`~/opencode.json`), commands and hooks (`~/.opencode`)
 
 ## Installation
 
@@ -59,6 +60,7 @@ Each directory represents a package that can be independently stowed:
 ├── herdr/            # Agent-aware multiplexer (tmux replacement)
 ├── lazygit/          # Git TUI
 ├── nvim/             # Neovim editor
+├── opencode/         # OpenCode AGENTS.md, themes, commands, hooks
 ├── rex/              # Rex multiplexer (Lua config, Ghostty themes, herdr workspaces)
 ├── tmux/             # Terminal multiplexer
 ├── vscode/           # VS Code
