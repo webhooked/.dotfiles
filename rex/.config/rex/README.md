@@ -169,6 +169,17 @@ zsh ~/.config/rex/scripts/select-theme.sh poimandresish-light light --appearance
 
 The ids are in `Workspace.customThemes` (see `select-theme.sh`).
 
+The agent CLIs use the same two palettes (colors from poimandresish.nvim):
+
+| Tool | Theme files | Light/dark |
+| --- | --- | --- |
+| Claude Code | `claude/.claude/themes/poimandresish{,-light}.json` (`custom:<name>`) | `claude()` in `.zshrc` passes `--settings` from the macOS appearance |
+| Codex | `codex/.codex/themes/poimandresish{,-light}.tmTheme` (syntax only; the rest is ANSI, so already Rex's) | `codex()` in `.zshrc` passes `-c tui.theme=…` |
+| opencode | `opencode/.config/opencode/themes/poimandresish.json` (both modes, transparent background) | `~/.config/opencode/cli.json`: `{"theme": {"name": "poimandresish", "mode": "system"}}` |
+
+Claude Code and Codex take one theme, not a light/dark pair, so the choice is
+made at launch: a running session keeps its theme when the appearance flips.
+
 **Night Owl, following the system appearance.** `night-owl` for dark,
 `night-owl-light` for light. `night-owl-light` is a port of the Night Owl
 Light VS Code theme's terminal colors (comments in the file name the VS Code

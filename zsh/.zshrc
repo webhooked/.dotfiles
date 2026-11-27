@@ -83,6 +83,17 @@ alias oc="opencode2"
 alias oc1="opencode"
 alias cx="codex"
 
+# Agent CLI themes match Rex: poimandresish in dark mode, poimandresish-light
+# in light mode. Claude Code and Codex take a single theme (no light/dark
+# pair), so pick it from the macOS appearance at launch. opencode follows the
+# terminal itself (cli.json mode "system").
+_agent_theme() {
+  [[ $(defaults read -g AppleInterfaceStyle 2>/dev/null) == Dark ]] \
+    && print poimandresish || print poimandresish-light
+}
+claude() { command claude --settings "{\"theme\":\"custom:$(_agent_theme)\"}" "$@" }
+codex() { command codex -c "tui.theme=\"$(_agent_theme)\"" "$@" }
+
 # Bear CLI alias
 alias bear='/Applications/Bear.app/Contents/MacOS/bearcli'
 alias bearcli='/Applications/Bear.app/Contents/MacOS/bearcli'
